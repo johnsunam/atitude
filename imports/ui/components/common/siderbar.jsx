@@ -1,4 +1,5 @@
-import React,{Component} from 'react'
+import React,{Component} from 'react';
+import {Link} from 'react-router';
 
 export default SiderBar=()=>{
   return(<div className="col-md-2 no_pad">
@@ -8,8 +9,8 @@ export default SiderBar=()=>{
             <ul className="">
               <li><a href="javascript:void(0)">Form</a>
                 <ul>
-                  <li><a href="add_form.html">Add Form</a></li>
-                  <li><a href="manage_form.html">Manage Form</a></li>
+                  <li><Link to="/">Add Form</Link></li>
+                  <li><Link to="/manageForm">Manage Form</Link></li>
                 </ul>
               </li>
               <li><a href="javascript:void(0)">Client</a>
