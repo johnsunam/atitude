@@ -12,7 +12,7 @@ export default class MainLayout extends Component {
       <div className="no_pad clearfix">
       <div className="clearfix overflow">
       <SiderBar/>
-      {this.props.children}
+      {this.props.content}
       </div>
       </div>
 

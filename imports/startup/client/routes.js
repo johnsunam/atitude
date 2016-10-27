@@ -1,16 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import {Router, Route, browserHistory,IndexRoute} from 'react-router';
+import {FlowRouter} from 'meteor/kadira:flow-router'
+import {ReactLayout} from 'meteor/kadira:react-layout'
+//import {Router, Route, browserHistory,IndexRoute} from 'react-router';
 import MainLayout from '../../ui/layouts/mainLayout.jsx';
 import AddForm from '../../ui/components/form/addForm.jsx'
 import ManageForm from '../../ui/components/form/manageForm.jsx'
-Meteor.startup(function(){
-  ReactDOM.render(router,document.getElementById("root"));
-})
 
-router=(<Router history={browserHistory}>
-        <Route component={MainLayout} path="/">
-          <IndexRoute component={AddForm}></IndexRoute>
-          <Route component={ManageForm} path="/manageForm"></Route>
-        </Route>
-</Router>)
+
+
+
+FlowRouter.route('/',{
+  name:'addPage',
+  action:function(){
+    ReactLayout.render(MainLayout,{
+      content:<AddForm/>
+    })
+  }
+});
+
+FlowRouter.route('/manageform',{
+  name:'addPage',
+  action:function(){
+    ReactLayout.render(MainLayout,{
+      content:<ManageForm/>
+    })
+  }
+});
