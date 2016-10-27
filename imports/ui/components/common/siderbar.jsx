@@ -31,8 +31,8 @@ export default SiderBar=()=>{
             <ul className="">
               <li><a href="javascript:void(0)">Task</a>
                <ul>
-                  <li><a href="add_task.html">Add Task</a></li>
-                  <li><a href="manage_task.html">Manage Task</a></li>
+                  <li><a href="/add-task">Add Task</a></li>
+                  <li><a href="/manage-task">Manage Task</a></li>
                 </ul>
               </li>
               <li><a href="javascript:void(0)">Work Flow</a>

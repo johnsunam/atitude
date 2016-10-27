@@ -41,9 +41,9 @@ export default class AddUser extends Component {
                 <div className="input-container gender">
                   <div>Gender</div>
                   <span>
-                  <input type="radio">
+                  <input type="radio"/>
                   Male</span><span>
-                  <input type="radio">
+                  <input type="radio"/>
                   Female</span></div>
                 <div className="input-container">
                   <input type="num" required="required"/>

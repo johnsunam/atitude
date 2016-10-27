@@ -16,27 +16,18 @@ export default class ManageTask extends Component {
             <th>Edit</th>
             <th>Delete</th>
           </tr>
-          <tr>
-            <td>E-MAIL</td>
-            <td>This task is intended to send mail among various stakeholders</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-          </tr>
-          <tr className="lighbg">
-            <td>SMS</td>
-            <td>This task is intended to send sms among various stakeholders</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-          </tr>
-          <tr>
-            <td>TIMER</td>
-            <td>This task is intended to check timer</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-          </tr>
+          {this.props.tasks.map((task)=>{
+          return(<tr>
+              <td>{task.name}</td>
+              <td>{task.description}</td>
+              <td>{task.status}</td>
+              <td><div className="button-container">
+              <a href="#">Define</a><a href="#" id={task._id} onClick={(e)=>{
+                Meteor.call('deleteTask',e.target.id)
+              }}>Delete</a></div></td>
+              <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
+            </tr>)
+          })}
         </table>
       </div>
     </div>)

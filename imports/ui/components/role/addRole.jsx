@@ -23,7 +23,7 @@ export default class AddRole extends Component {
                 </div>
                 <div className="input-container gender">
                   <div>Page Access &nbsp;
-                    <input type="checkbox">
+                    <input type="checkbox"/>
                   </div>
                 </div>
               </div>

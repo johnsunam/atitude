@@ -1,4 +1,5 @@
-import React ,{Component} from 'react'
+import React ,{Component} from 'react';
+import Builder from './formbuilder.jsx';
 
 export default class AddForm extends Component {
   constructor(props) {
@@ -14,26 +15,8 @@ export default class AddForm extends Component {
     <div className="creat_form">
       <div className="col-md-5 input_box">
         <div className="row">
-          <div className="col-md-6">
-            <ul>
-              <li><span>Autocomplete</span></li>
-              <li><span>Checkbox</span></li>
-              <li><span>Date Field</span></li>
-              <li><span>Header</span></li>
-              <li><span>Radio Group</span></li>
-              <li><span>Text Field</span></li>
-            </ul>
-          </div>
-          <div className="col-md-6">
-            <ul>
-              <li><span>Button</span></li>
-              <li><span>Checkbox Group</span></li>
-              <li><span>File Upload</span></li>
-              <li><span>Header</span></li>
-              <li><span>Radio Group</span></li>
-              <li><span>Text Field</span></li>
-            </ul>
-          </div>
+        <Builder/>
+
         </div>
         <div className="btns"><a href="#">clear</a><a href="#" className="active">next</a></div>
       </div>

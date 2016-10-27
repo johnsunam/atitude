@@ -14,7 +14,7 @@ export default class AddWorkFlow extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <input type="text" required="required">
+                  <input type="text" required="required"/>
                   <label for="">Name</label>
                   <div className="bar"></div>
                 </div>
@@ -23,7 +23,7 @@ export default class AddWorkFlow extends Component {
                 </div>
                 <div className="input-container gender">
                   <div>Active? &nbsp;
-                    <input type="checkbox">
+                    <input type="checkbox"/>
                   </div>
                 </div>
               </div>

@@ -5,6 +5,6 @@ export default class ManageClient extends Component{
     super(props)
   }
   render(){
-    return()
+    return(<div></div>)
   }
 }

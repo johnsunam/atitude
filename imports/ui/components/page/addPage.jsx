@@ -21,7 +21,7 @@ export default class AddPage extends Component {
                 <div className="input-container">
                  <select> <option> Client </option> </select>
                 </div>
-                                
+
                 <div className="input-container">
                  <select> <option> Form Name </option> </select>
                 </div>
@@ -41,7 +41,7 @@ export default class AddPage extends Component {
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                 <select><option> Status </option><option> <option> Draft </option><option> Publish </option> </select>
+                 <select><option> Status </option><option> Draft </option><option> Publish </option> </select>
                 </div>
               </div>
             </div>
