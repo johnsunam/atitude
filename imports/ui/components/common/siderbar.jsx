@@ -10,19 +10,19 @@ export default SiderBar=()=>{
               <li><a href="javascript:void(0)">Form</a>
                 <ul>
                   <li><a href="/">Add Form</a></li>
-                  <li><a href="/manageForm">Manage Form</a></li>
+                  <li><a href="/manage-form">Manage Form</a></li>
                 </ul>
               </li>
               <li><a href="javascript:void(0)">Client</a>
                 <ul>
-                  <li><a href="add_client.html">Add Client</a></li>
-                  <li><a href="manage_client.html">Manage Client</a></li>
+                  <li><a href="/add-client">Add Client</a></li>
+                  <li><a href="/manage-client">Manage Client</a></li>
                 </ul>
               </li>
               <li><a href="javascript:void(0)">Page</a>
                 <ul>
-                  <li><a href="add_page.html">Add Page</a></li>
-                  <li><a href="manage_page.html">Manage Page</a></li>
+                  <li><a href="/add-page">Add Page</a></li>
+                  <li><a href="/manage-page">Manage Page</a></li>
                 </ul>
               </li>
             </ul>
@@ -37,8 +37,8 @@ export default SiderBar=()=>{
               </li>
               <li><a href="javascript:void(0)">Work Flow</a>
                 <ul>
-                  <li><a href="add_workflow.html">Add Work Flow</a></li>
-                  <li><a href="manage_workflow.html">Manage Work Flow</a></li>
+                  <li><a href="/add-workflow">Add Work Flow</a></li>
+                  <li><a href="/manage-workflow">Manage Work Flow</a></li>
                 </ul>
               </li>
             </ul>
@@ -47,14 +47,14 @@ export default SiderBar=()=>{
             <ul className="">
               <li><a href="javascript:void(0)">User</a>
                 <ul>
-                  <li><a href="add_user.html">Add User</a></li>
-                  <li><a href="manage_user.html">Manage User</a></li>
+                  <li><a href="add-user">Add User</a></li>
+                  <li><a href="manage-user">Manage User</a></li>
                 </ul>
               </li>
               <li><a href="javascript:void(0)">Roles</a>
                 <ul>
-                  <li><a href="add_role.html">Add Role</a></li>
-                  <li><a href="manage_role.html">Manage Role</a></li>
+                  <li><a href="add-role">Add Role</a></li>
+                  <li><a href="manage-role">Manage Role</a></li>
                 </ul>
               </li>
             </ul>

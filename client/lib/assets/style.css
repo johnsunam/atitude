@@ -1,0 +1,841 @@
+body{
+   background-color: rgba(102, 102, 102, 0.25) !important;
+   margin: 0  !important;
+}
+.main{
+	width:100%;
+	height:auto;
+	float:left;
+}
+.btn-primary{
+	float:right;
+}
+.wrapperDiv{
+	width:100%;
+	float:left;
+}
+#frmb-0-view-data{
+	display:none;
+}
+#mainForm{
+    width: 100%;
+    height: auto;
+    float: left;
+    background-color: white;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding: 26px;
+	
+}
+#edit-form{
+	font-size:14px;
+	background-color:white;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+	color:black;
+}
+#edit-form:hover{
+	font-size:14px;
+	background-color:#c9302c;
+	border-color: #ac2925;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+	color:white;
+}
+#formSettings{
+	font-size:14px;
+	background-color: #337ab7;
+    border-color: #2e6da4;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+}
+
+#formSettings:hover{
+	font-size:14px;
+	background-color:#005bab;
+	border-color: #204d74;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+}
+#saveClientData{
+	font-size:14px;
+	background-color: #337ab7;
+    border-color: #2e6da4;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+}
+#saveClientData:hover{
+	font-size:14px;
+	background-color:#005bab;
+	border-color: #204d74;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+}
+#saveFromData{
+    font-size:14px;
+	background-color:#337ab7;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+}
+#updateClientData{
+	font-size:14px;
+	background-color:#337ab7;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+}
+#updateClientData:hover{
+	font-size:14px;
+	background-color:#005bab;
+	border-color: #204d74;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+}
+#saveFromData:hover{
+	font-size:14px;
+	background-color:#005bab;
+	border-color: #204d74;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+}
+#backToPreview{
+	font-size:14px;
+	background-color:white;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+	color:black;
+}
+#backToPreview:hover{
+	font-size:14px;
+	background-color:#c9302c;
+	border-color: #ac2925;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+	color:white;
+}
+.optionColor{
+	color:black !important;
+	text-decoration:none !important;
+}
+.button{
+    float:right;
+}
+.pageHeader{
+	width:100%;
+	height:50px;
+	float:left;
+	background-color: rgba(0, 0, 0, 0.75);
+	color: white;
+	font-size: 35px;
+}
+.headerSpace{
+	width:100%;
+	height:44px;
+	float:left;
+}
+.headerGap{
+    width:40%;
+	height:10px;
+	float:left;
+}
+.headerTab{
+    width: 100%;
+    height: 52px;
+    float: right;
+    background-color: rgba(102, 102, 102, 0.81);
+    color: white;
+    border: 0px !important;
+}
+.headerTabMenu{
+	width:33.33%;
+	height:auto;
+	float:left;
+}
+.headerTabMain{
+	width:60%;
+	height:auto;
+	float:left;
+}
+.bodyMain{
+	width:100%;
+	height:auto;
+	float:left;
+}
+.bodyInnerDiv{
+	width:85%;
+	height:auto;
+	float:left;
+}
+.bodySideAreaMenu{
+	width:15%;
+	height:auto;
+	float:left;
+}
+.sideAreaMenu1{
+	width: 20%;
+    height: 483px;
+    float: left;
+    background-color: rgba(102, 102, 102, 0.25);
+}
+.sideAreaMenu{
+	width:100%;
+	height:100%;
+	float:left;
+	background-color:#e6e6e6;
+}
+.menuItem{
+	width:100%;
+	height:60px;
+	float:left;
+	padding-top: 6px;
+}
+.menuItemIcon{
+	width: 100%;
+    height: 80%;
+    float: left;
+    text-align: center;
+}
+.menuItemText{
+	width: 100%;
+    height: 20%;
+    float: left;
+    text-align: center;
+    font-size: 14px;
+}
+.menuIconWidth{
+	width:50%;
+}
+.body-side-gap{
+	width:50%;
+	height:10px;
+	float:left;
+}
+.body-header{
+	width:50%;
+	height:auto;
+	float:left;
+	text-align:center;
+}
+.body-header-side-gap{
+	width:10%;
+	height:10px;
+	float:left;
+}
+.body-header-body{
+	width:80%;
+	height:auto;
+	float:left;
+	text-align:center;
+}
+.footer-main{
+	width:100%;
+	height:50px;
+	float:left;
+	background-color: #404040;
+    position: fixed;
+    bottom: 0;
+}
+.footerGap{
+	width:100%;
+	height:50px;
+	float:left;
+}
+.wideMenuHeader{
+	width: 94%;
+    height: auto;
+    float: left;
+    padding: 0px 6%;
+}
+.wideMenuHeaderText{
+	width:100%;
+	height:auto;
+	float:left;
+	font-size:16px;
+	margin-top: 12px;
+}
+.wideMenuBody{
+	width:100%;
+	height:auto;
+	float:left;
+}
+.wideMenuBodySideGap{
+	width:5%;
+	height:1px;
+	float:left;
+}
+.wideMenuItem{
+	width:100%;
+	height:auto;
+	float:left;
+}
+.wideMenu{
+	width:100%;
+	height:auto;
+	float:left;
+	padding:0;
+	border-bottom: 1px solid rgba(181, 181, 181, 0.72);
+	margin:0;
+}
+#viewClientPopup, .bMulti {
+    background-color: #afafaf;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 25px 5px #999;
+    color: #111;
+    display: none;
+    width:80%;
+	height:auto;
+    left: 8% !important;
+	display:none;
+}
+#editClientPopup, .bMulti {
+    background-color: #afafaf;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 25px 5px #999;
+    color: #111;
+    display: none;
+    width:80%;
+	height:auto;
+    left: 8% !important;
+	display:none;
+}
+.button.b-close, .button.bClose {
+    border-radius: 7px 7px 7px 7px;
+    box-shadow: none;
+    font: bold 131% sans-serif;
+    padding: 0 6px 2px;
+    position: absolute;
+    right: -7px;
+    top: -7px;
+	background-color: grey;
+    color: white;
+	cursor:pointer;
+}
+.wideMenu li:hover{
+       background-color: #acdff1;
+}
+.wideMenuSubmenu li:hover{
+	 background-color: #60c8ec;
+}
+.fa{
+	padding: 9px;
+}
+.faSsize{
+	font-size:25px;
+	color:grey;
+}
+.actionButton{
+	text-decoration:none;
+	cursor:pointer;
+}
+.wideMenuSubmenu{
+	width:100%;
+	display:none;
+	padding:0;
+}
+.wideMenu li{
+	cursor:pointer;
+	list-style:none;
+	padding: 8px;
+}
+.formSettingsBody{
+    width: 80%;
+    height: auto;
+    float: left;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 0px 38%;
+    padding-top: 68px;
+    background-color: white;
+    padding-bottom: 68px;
+}
+.formSettingsSideGap{
+	width:30%;
+	height:1px;
+	float:left;
+}
+.formSettingsField{
+	width:100%;
+	height:auto;
+	float:left;
+}
+.formSettingsFieldName{
+	width:100%;
+	height:auto;
+	float:left;
+	text-align:left;
+}
+.formSettingsFieldPlace{
+	width:100%;
+	height:auto;
+	float:left;
+}
+.inputType{
+	width:100%;
+	border: 1px solid #dfd7ca;
+    border-radius: 4px;
+}
+.headerTitle{
+	padding-left: 35px;
+}
+.formSettingsSpace{
+	width:100%;
+	height:15px;
+	float:left;
+}
+.formSettingsFieldTitle{
+	width:100%;
+	height:auto;
+	float:left;
+	text-align:center;
+	font-size:20px;
+	padding-top: 40px;
+}
+.overlayDiv{
+	width:100%;
+	height:100%;
+	float:left;
+	opacity: 0.5;
+}
+.formSettingsMainDiv{
+	width: 60%;
+    height:auto;
+    float: left;
+	background-color: #989898;
+	padding: 20px;
+}
+/*********************FORM BUILDER CSS*****************************/
+#fb-rendered-form {
+	width: 100%;
+	float: left;
+    background-color: #a2a2a2;
+	clear:both;
+	height: auto;
+	display:none;
+}
+.formEditorDiv{
+	width: 100%;
+    height: 100%;
+    float: left;
+}
+.space{
+	width:100%;
+	height:20px;
+	float:left;
+}
+#formList{
+	/*display:none;*/
+}
+#pageList{
+	/*display:none;*/
+}
+#createNewClient{
+	width: 100%;
+    height: auto;
+    float: left;
+}
+#viewClient{
+	display:none;
+	width: 100%;
+    height: auto;
+    float: left;
+}
+.clientData{
+	width:100%;
+	height:auto;
+	float:left;
+	padding: 10px;
+}
+.clientLabel{
+	width:30%;
+	height:auto;
+	float:left;
+}
+.clientDataVal{
+	width:70%;
+	height:auto;
+	float:left;
+}
+.createClientInnerDiv{
+	width: 100%;
+    height: auto;
+    float: left;
+}
+.createClientMainDiv{
+	width: 56%;
+    height: auto;
+    float: left;
+    background-color: white;
+    padding: 0px 4%;
+    margin-top: 32px;
+    margin-left: 13px;
+}
+.createClientMainGap{
+	width:22%;
+	height:10px;
+	float:left;
+}
+.clientTitle{
+	width:100%;
+	height:auto;
+	float:left;
+	font-size:25px;
+    color:#666;
+	padding-top: 20px;
+	margin-bottom: 16px;
+}
+.addclientButtons{
+    width: 96%;
+    height: auto;
+    float: left;
+    margin: 0px -17%;
+}
+.editclientButtons{
+	width:100%;
+	height:auto;
+	float:left;
+	margin-bottom: 9px;
+}
+.clientTitlestyle{
+	padding-left: 10px;
+}
+.clientForm{
+    width: 48%;
+    height: auto;
+    float: left;
+    padding: 0px 2%;
+}
+.clientFormFull{
+	width: 100%;
+    height: auto;
+    float: left;
+    padding: 0px 2%;
+}
+.clientForm1{
+    width: 48%;
+    height: auto;
+    float: left;
+    padding: 0px 2%;
+	margin-left: 4%;
+}
+/*.clientForm2{
+    width: 48%;
+    height: auto;
+    float: left;
+    padding: 0px 2%;
+	margin-left: 4%;
+}*/
+#clientListView{
+    /*display:none;*/
+	width: 100%;
+    height: auto;
+    float: left;
+	background-color: white;
+}
+.clientClientContainer{
+	width:100%;
+	height:auto;
+	float:left;
+}
+#formSettingsPage{
+    width: 100%;
+    height: auto;
+    float: left;
+    background-color: #989898;
+	display:none;
+}
+#frmb-0-stage-wrap{
+    background-color: #6b6a6a;
+	height: 812px;
+    overflow-y: scroll;
+}
+		.frmb-control li:nth-child(n+1){
+		border-radius:5px 5px 5px 5px !important;
+		margin: 8px;
+		width:214px;
+		}
+		.icon-button-input{
+		width:50%;
+		float:left;
+		}
+		.icon-autocomplete{
+		width:50%;
+		float:left;
+		}
+		.icon-checkbox{
+		width:50%;
+		float:left;
+		}
+		.icon-checkbox-group{
+		width:50%;
+		float:left;
+		}
+		.icon-calendar{
+		width:50%;
+		float:left;
+		}
+		.icon-file-input{
+		width:50%;
+		float:left;
+		}
+		.icon-header{
+		width:50%;
+		float:left;
+		}
+		.icon-hidden-input{
+		width:50%;
+		float:left;
+		}
+		.icon-paragraph{
+		width:50%;
+		float:left;
+		}
+		.icon-number{
+		width:50%;
+		float:left;
+		}
+		.icon-radio-group{
+		width:50%;
+		float:left;
+		}
+		.icon-select{
+		width:50%;
+		float:left;
+		}
+		.icon-text-input{
+		width:50%;
+		float:left;
+		}
+		.icon-text-area{
+		width:50%;
+		float:left;
+		}
+		#frmb-0{
+		min-height: 440px !important;
+		}
+		#frmb-0-cb-wrap{
+			min-height: 439px !important;
+		}
+		.formBuilderDiv{
+		    width: 40%;
+			height: 100%;
+			float: left !important;
+		}
+		.formRenderDiv{
+			    width: 60%;
+				height: auto;
+				float: left;
+				background-color: #A2A2A2;
+				padding: 20px;
+		}
+		.formRenderButtons{
+			width:100%;
+			height:auto;
+			float:left;
+			margin: 12px 34%;
+		}
+		.formSettingsButtons{
+			width:100%;
+			height:auto;
+			float:left;
+			margin: 12px 18%;
+		}
+/********************************************************/
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+/* Float the list items side by side */
+ul.tab li {
+	 float: left;
+     width: 33%;
+	 border-right: 2px solid white;
+	 }
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+.activeTab{
+	background-color:#5e8a5e;
+	color:white !important;
+}
+.completeTab{
+	background-color:#666;
+	color:white !important;
+}
+#addFieldTab{
+	color:black;
+}
+#formAppearanceTab{
+	color:black;
+}
+#formSettingTab{
+	color:black;
+}
+.formImageSize{
+	    width: 111px;
+}
+.formDetails{
+	display:none;
+}
+.formPopup{
+    width: 261px;
+    height: 50px;
+    position: fixed;
+    top: 25vh;
+    left: 43vw;
+	display:none;
+	color:green;
+}
+.table-hover>tbody>tr:hover, .table-striped>tbody>tr:nth-of-type(odd), .table>tbody>tr.active>td, .table>tbody>tr.active>th, .table>tbody>tr>td.active, .table>tbody>tr>th.active, .table>tfoot>tr.active>td, .table>tfoot>tr.active>th, .table>tfoot>tr>td.active, .table>tfoot>tr>th.active, .table>thead>tr.active>td, .table>thead>tr.active>th, .table>thead>tr>td.active, .table>thead>tr>th.active{
+	background-color: #ffffff !important;
+    color: #666 !important;
+}
+.table-hover>tbody>tr:hover, .table-striped>tbody>tr:nth-of-type(even), .table>tbody>tr.active>td, .table>tbody>tr.active>th, .table>tbody>tr>td.active, .table>tbody>tr>th.active, .table>tfoot>tr.active>td, .table>tfoot>tr.active>th, .table>tfoot>tr>td.active, .table>tfoot>tr>th.active, .table>thead>tr.active>td, .table>thead>tr.active>th, .table>thead>tr>td.active, .table>thead>tr>th.active{
+	background-color:#f1f1f1 !important;
+    color: #666 !important;
+}
+.clientListTableDiv{
+	width: 98%;
+    height: auto;
+    float: left;
+    padding: 3% 2%;
+    margin-left: 13px;
+
+}
+table.dataTable.no-footer{
+	    border: 1px solid #b7b7b7;
+}
+thead {
+    background-color: #d2d2d2 !important;
+    color: #666 !important;
+}
+th{
+	border:none !important;
+	text-align:center !important;
+}
+td{
+	text-align:center !important;
+	border: none !important;
+}
+.companyLogo{
+	width: 100px;
+    height: 100px;
+}
+.viewClientPopupInnerDiv{
+	width:100%;
+	height:auto;
+	float:left;
+}
+.viewClientMainDiv{
+	width:70%;
+	height:auto;
+	float:left;
+}
+.viewClientMainGapDiv{
+	width:15%;
+	height:10px;
+	float:left;
+}
+.form-group{
+	text-align:left !important;
+}
+
+#cancelClientDataUpdate{
+	font-size:14px;
+	background-color:white;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+	color:black;
+}
+#cancelClientDataUpdate:hover{
+	font-size:14px;
+	background-color:#c9302c;
+	border-color: #ac2925;
+	width: 61.08px;
+    height: 34px;
+    padding: 0;
+	color:white;
+}
+/***********************GRID VIEW CSS****************************/
+.wrapper {
+        display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 100px 100px 100px;
+        background-color: #fff;
+        color: #444;
+    }
+
+    .box {
+	width: 28%;
+    color: #666;
+    font-size: 150%;
+    float: left;
+    margin: 2%;
+    height: auto;
+    border: 2px solid #cecece;
+	background-image:url('img/form.jpg');
+	background-repeat:no;
+	background-size:100% 100%;
+
+    }
+	.formTitleSideGap{
+		padding-left: 10px;
+	}
+	.boxHeaderDiv{
+		width:100%;
+		height:auto;
+		float:left;
+	}
+	.boxHeaderInnerDiv{
+    width: 60%;
+    height: 45px;
+    float: left;
+    text-align: left;
+    background-color: grey;
+    color: white;
+    padding-top: 7px;
+    font-size: 20px;
+	}
+	.faSsizeNew{
+    font-size: 13px;
+    color: white;
+	}
+.formActionDiv{width:40%;height:45px;float:left;background-color: grey;color: white;padding-top: 7px;font-size: 10px;}
+.boxBobyDiv{width:100%;height:171px;float:left;text-align:center;}
+#resetClientButton{font-size:14px;background-color:white;width: 61.08px;height: 34px;padding: 0;color:black;}
+#resetClientButton:hover{font-size:14px;background-color:#c9302c;border-color: #ac2925;width: 61.08px;height: 34px;padding: 0;color:white;}
+#updateFromData{font-size:14px;background-color:#337ab7;width: 61.08px;height: 34px;padding: 0;}
+#updateFromData:hover{font-size:14px;background-color:#005bab;border-color: #204d74;width: 61.08px;height: 34px;padding: 0;}
+.createPage{width:100%;height:auto;float:left;background-color: white;padding-bottom: 18px;}
+.createPageHeader{width: 100%;height: auto;float: left;padding: 15px 4%;font-size: 25px;}
+.createPageTitleDiv{width: 100%;height: auto;float: left;padding: 0px 4%;}
+.createPageSlugDiv{width:100%;height:auto;float:left;padding: 0px 4% 11px;}
+.createPageEditorDiv{width: 100%;height: auto;float: left;padding: 0px 4%;}
+.createPagePermalinkTitle{width:10%;height:auto;float:left;}
+.createPagePermalinkURL{width:90%;height:auto;float:left;}
+.permalinkColour{color:blue;}
+.permalinkColour:hover{color:#0073aa;}
+.createPageMetaInfo{width:100%;height:auto;float:left;padding: 16px 4% 0px;}
+.metaInfoTitle{width:100%;height:auto;float:left;font-size:20px;font-weight:bold;}
+.metaInfoBody{width:100%;height:auto;float:left;}

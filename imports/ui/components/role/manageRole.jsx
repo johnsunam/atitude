@@ -13,37 +13,20 @@ export default class ManageRole extends Component {
             <th>Role Name</th>
             <th>Status</th>
             <th>Access</th>
-            <th>Edit</th>
-            
           </tr>
-          <tr>
-            <td>Manage</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-            
-          </tr>
-          <tr className="lighbg">
-            <td>Manage</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-           
-          </tr>
-          <tr>
-            <td>Manage</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-             
-          </tr>
-          <tr className="lighbg">
-            <td>Manage</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-            
-          </tr>
+		  {this.props.roles.map((role)=>{
+			return(<tr>
+              <td>{role.name}</td>
+              <td>{role.description}</td>
+              <td>{role.status}</td>
+              <td><div className="button-container">
+              <a href="#">Edit</a><a href="#" id={role._id} onClick={(e)=>{
+                Meteor.call('deleteRole',e.target.id)
+              }}>Delete</a></div></td>
+
+            </tr>)
+          })}
+
         </table>
       </div>
     </div>)

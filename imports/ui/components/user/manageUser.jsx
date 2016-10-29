@@ -5,7 +5,7 @@ export default class ManageUser extends Component {
    super(props)
   }
   render(){
-    return(    <div className="col-md-10 registration_form pad_t50">
+    return( <div className="col-md-10 registration_form pad_t50">
       <div className="col-md-10 col-md-offset-1">
         <h1 className="title">Manage User</h1>
         <div className="category">
@@ -16,45 +16,25 @@ export default class ManageUser extends Component {
         </div>
         <table width="100%" border="0" cellspacing="0" cellpadding="0" className="table_cont">
           <tr>
-            <th>Staff Id</th>
             <th>Name</th>
             <th>Mobile</th>
+			<th>Email</th>
             <th>Status</th>
             <th>Access</th>
-            <th>Edit</th>
           </tr>
-          <tr>
-            <td>5</td>
-            <td>Joy</td>
-            <td>9885584470</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-          </tr>
-          <tr className="lighbg">
-            <td>5</td>
-            <td>Joy</td>
-            <td>9885584470</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Joy</td>
-            <td>9885584470</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-          </tr>
-          <tr className="lighbg">
-            <td>5</td>
-            <td>Joy</td>
-            <td>9885584470</td>
-            <td>Active</td>
-            <td><div className="button-container"><a href="define_work_flow.html">Define</a><a href="#">Delete</a></div></td>
-            <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
-          </tr>
+		  {this.props.users.map((user)=>{
+			  return(<tr>
+              <td>{user.name}</td>
+              <td>{user.mobile}</td>
+              <td>{user.email}</td>
+			  <td>{user.status}</td>
+              <td><div className="button-container">
+              <a href="#">Edit</a><a href="#" id={user._id} onClick={(e)=>{
+                Meteor.call('deleteUser',e.target.id)
+              }}>Delete</a></div></td>
+
+            </tr>)
+          })}
         </table>
       </div>
     </div>)
