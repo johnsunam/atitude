@@ -10,7 +10,16 @@ export default class AddWorkFlow extends Component {
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let record={name:name,description:description,status:status}
     console.log(record);
-    Meteor.call('addWorkFlow',record);
+
+    //storing WorkFlow data to WorkFlowDb
+    Meteor.call('addWorkFlow',record,function(err,res){
+      if(!err){
+        alert('stored sucess');
+
+      }
+    });
+    this.refs.name.value=""
+    this.refs.description.value=""
   }
   render(){
     return(<div className="col-md-10 registration_form pad_t50">

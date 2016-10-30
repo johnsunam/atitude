@@ -9,8 +9,16 @@ export default class AddRole extends Component {
 	description=this.refs.description.value;
 	let status=$('#checkbox:checked').val() ? "active":"inactive";
 	let record={name:name,description:description,status:status}
-	console.log(record);
-	Meteor.call('addRole',record);
+
+  //storing role data to roleDb
+	Meteor.call('addRole',record,function(err,res){
+    if(!err){
+      alert('stored sucess');
+
+    }
+  });
+  this.refs.name.value=''
+  this.refs.description.value=""
  }
 
  render(){

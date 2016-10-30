@@ -15,10 +15,24 @@ export default class AddPage extends Component {
     status= this.refs.status.value;
     let record={name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}
     console.log(record);
-    Meteor.call('addPage',record);
+
+    //storing page data to pageDb
+    Meteor.call('addPage',record,function(err,res){
+      if(!err){
+        alert('stored sucess')
+
+      }
+    });
+    this.refs.name.value='',
+    this.refs.clientName.value=''
+    this.refs.formName.value=""
+    this.refs.previewURL.value=""
+    this.refs.publishURL.value=""
+    this.refs.metakeys.value=""
+    this.refs.status.value=""
   }
   render(){
-    console.log(this.props.data.forms);
+    console.log(this.props.data.clients);
     return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
@@ -34,14 +48,18 @@ export default class AddPage extends Component {
                 </div>
                 <div className="input-container">
                  <select ref="clientName" placeholder="client">
+                 <option> choose client</option>
                  {this.props.data.clients.map((client)=>{
+                
                 return(<option>{client.contactName}</option>)
                  })}
                  </select>
                 </div>
 
                 <div className="input-container" placeholder="form">
-                 <select ref="formName"> {this.props.data.forms.map((form)=>{
+                 <select ref="formName">
+                 <option> choose form</option>
+                  {this.props.data.forms.map((form)=>{
                 return(<option>{form._id}</option>)
                  })}
                  </select>

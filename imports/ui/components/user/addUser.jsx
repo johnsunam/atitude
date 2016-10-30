@@ -16,7 +16,21 @@ export default class AddUser extends Component {
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let record={name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName}
     console.log(record);
-    Meteor.call('addUser',record);
+    //storing user data to UserDb
+    Meteor.call('addUser',record,function(){
+      if(!err){
+        alert('stored sucess');
+
+      }
+    });
+    this.refs.name.value=""
+    this.refs.dob.value=""
+    this.refs.address.value=""
+    this.refs.mobile.value=""
+    this.refs.email.value=""
+    this.refs.secQuestion.value=""
+    this.refs.secAnswer.value=""
+    this.refs.roleName.value=""
   }
   render(){
     return(<div className="col-md-10 registration_form pad_t50">

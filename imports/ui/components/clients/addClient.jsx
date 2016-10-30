@@ -3,7 +3,9 @@ import React ,{Component} from 'react'
 export default class AddClient extends Component {
   constructor(props) {
    super(props)
+   this.state={countries:[{name:"Nepal"},{name:"India"},{name:'Bhutan'}]}
   }
+  // saving client to ClientDb
   addClient(){
     let companyName=this.refs.companyName.value,
     address=this.refs.address.value,
@@ -15,11 +17,30 @@ export default class AddClient extends Component {
 	pincode=this.refs.pincode.value,
 	contactName=this.refs.contactName.value,
 	contactNo=this.refs.contactNo.value;
+
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let record={companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
-    console.log(record);
-   Meteor.call('addClient',record);
-  }
+
+    //storing client data to clientDb
+
+   Meteor.call('addClient',record,function(err,res){
+     if(!err){
+       alert('stored sucessfull');
+
+     }
+   });
+   this.refs.companyName.value="";
+   this.refs.address.value="";
+   this.refs.email.value="";
+   this.refs.phone.value="";
+   this.refs.website.value="";
+   this.refs.city.value="",
+   this.refs.state.value="",
+   this.refs.pincode.value="",
+   this.refs.contactName.value=""
+   this.refs.contactNo.value=""
+
+         }
   render(){
     return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-8 col-md-offset-2">
@@ -67,7 +88,10 @@ export default class AddClient extends Component {
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <select>
+                  <select id="countries">
+                  {this.state.countries.map((country)=>{
+                    <option>{country.name}</option>
+                  })}
                     <option>Country</option>
                   </select>
                 </div>
