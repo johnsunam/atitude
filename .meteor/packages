@@ -26,7 +26,7 @@ kadira:react-layout
 check
 http
 gadicohen:jquery2
-jquery
+
 mizzao:build-fetcher
 mizzao:jquery-ui
 simple:reactive-method
