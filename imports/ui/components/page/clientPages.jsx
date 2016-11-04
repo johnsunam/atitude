@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-
+import crudClass from '../common/crudClass.js'
+import AddPage from '../../container/addPage.js'
 export default class ClientPages extends Component {
   constructor(props) {
     super(props)
@@ -17,9 +18,13 @@ export default class ClientPages extends Component {
       <td>{page.publishURL}</td>
       <td>{page.status}</td>
       <td><div className="button-container">
-      <a href="#">Edit</a>
-      <a href="#" id={page._id} onClick={(e)=>{
-      Meteor.call('deletePage',e.target.id)
+      <a href="#"  data-toggle="modal" data-target={`#${page._id}`}>Edit</a>
+      <div className="modal fade" id={`${page._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <AddPage edit="true"/>
+    </div>
+          <a href="#" id={page._id} onClick={(e)=>{
+        let obj=new crudClass()
+        obj.delete('deletePage',e.target.id)
       }}>Delete</a></div></td>
 
     </tr>)

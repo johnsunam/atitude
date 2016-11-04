@@ -1,34 +1,65 @@
-import React ,{Component} from 'react'
+//new client is added and existing client record is edited
 
+import React ,{Component} from 'react'
+import crudClass from '../common/crudClass.js'
+import Messages from '../common/submitMessage.jsx'
 export default class AddClient extends Component {
   constructor(props) {
    super(props)
-   this.state={countries:[{name:"Nepal"},{name:"India"},{name:'Bhutan'}]}
+   this.state={countries:[{name:"Nepal"},{name:"India"},{name:'Bhutan'}],
+    saveResult:false,
+    edit:this.props.edit,
+    client:this.props.client
+    }
+  }
+  componentDidMount(){
+    $('#messages').hide();
+    this.refs.companyName.value=this.state.edit?this.props.client.companyName:''
+    this.refs.address.value=this.state.edit?this.props.client.address:''
+    this.refs.phone.value=this.state.edit?this.props.client.phone:''
+    this.refs.website.value=this.state.edit?this.props.client.website:''
+    this.refs.city.value=this.state.edit?this.props.client.city:''
+    this.refs.state.value=this.state.edit?this.props.client.state:''
+    this.refs.pincode.value=this.state.edit?this.props.client.pincode:''
+    this.refs.contactName.value=this.state.edit?this.props.client.contactName:''
+    this.refs.contactNo.value=this.state.edit?this.props.client.contactNo:''
+
+  }
+  componentDidUpdate(){
+    this.refs.companyName.value=this.state.edit?this.props.client.companyName:''
+    this.refs.address.value=this.state.edit?this.props.client.address:''
+    this.refs.phone.value=this.state.edit?this.props.client.phone:''
+    this.refs.website.value=this.state.edit?this.props.client.website:''
+    this.refs.city.value=this.state.edit?this.props.client.city:''
+    this.refs.state.value=this.state.edit?this.props.client.state:''
+    this.refs.pincode.value=this.state.edit?this.props.client.pincode:''
+    this.refs.contactName.value=this.state.edit?this.props.client.contactName:''
+    this.refs.contactNo.value=this.state.edit?this.props.client.contactNo:''
+  }
+  editClient(){
+
   }
   // saving client to ClientDb
   addClient(){
+    let obj= new crudClass();
     let companyName=this.refs.companyName.value,
-    address=this.refs.address.value,
-	email=this.refs.email.value,
-	phone=this.refs.phone.value,
-	website=this.refs.website.value,
-	city=this.refs.city.value,
-	state=this.refs.state.value,
-	pincode=this.refs.pincode.value,
-	contactName=this.refs.contactName.value,
-	contactNo=this.refs.contactNo.value;
+        address=this.refs.address.value,
+      	email=this.refs.email.value,
+      	phone=this.refs.phone.value,
+      	website=this.refs.website.value,
+      	city=this.refs.city.value,
+      	state=this.refs.state.value,
+      	pincode=this.refs.pincode.value,
+      	contactName=this.refs.contactName.value,
+      	contactNo=this.refs.contactNo.value;
 
     let status=$('#checkbox:checked').val() ? "active":"inactive";
-    let record={companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
+    let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}}:
+    {companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
+    let res=this.state.edit?obj.create('editClient',record):obj.create('addClient',record);
 
-    //storing client data to clientDb
-
-   Meteor.call('addClient',record,function(err,res){
-     if(!err){
-       alert('stored sucessfull');
-
-     }
-   });
+    this.setState({saveResult:res})
+      $('#messages').show()
    this.refs.companyName.value="";
    this.refs.address.value="";
    this.refs.email.value="";
@@ -39,10 +70,14 @@ export default class AddClient extends Component {
    this.refs.pincode.value="",
    this.refs.contactName.value=""
    this.refs.contactNo.value=""
-
-         }
+  }
   render(){
+    console.log(this.props.client);
+    let submitButton=this.state.edit?<button onClick={this.addClient.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
+    onClick={this.addClient.bind(this)}><span>submit</span></button>;
+    let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
     return(<div className="col-md-10 registration_form pad_t50">
+    {message}
       <div className="col-md-8 col-md-offset-2">
         <div className="card"></div>
         <div className="card">
@@ -89,10 +124,10 @@ export default class AddClient extends Component {
                 </div>
                 <div className="input-container">
                   <select id="countries">
+                  <option>Country</option>
                   {this.state.countries.map((country)=>{
-                    <option>{country.name}</option>
+                    return(<option>{country.name}</option>)
                   })}
-                    <option>Country</option>
                   </select>
                 </div>
                 <div className="input-container">
@@ -114,8 +149,8 @@ export default class AddClient extends Component {
               </div>
             </div>
             <div className="button-container">
-             <button
-              onClick={this.addClient.bind(this)}><span>submit</span></button>
+             {submitButton}
+             {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
           </div>
         </div>

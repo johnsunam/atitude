@@ -1,5 +1,8 @@
 import React ,{Component} from 'react'
 import ClientPages from '../page/clientPages.jsx'
+import Messages from '../common/submitMessage.jsx'
+
+
 export default class ManagePage extends Component {
   constructor(props) {
    super(props)
@@ -9,7 +12,6 @@ export default class ManagePage extends Component {
   }
 
   render(){
-    console.log(this.statechoosedClient);
     return( <div className="col-md-10 registration_form pad_t50">
       <div className="col-md-10 col-md-offset-1">
         <h1 className="title">Manage Page</h1>

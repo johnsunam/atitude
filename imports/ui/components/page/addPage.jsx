@@ -1,8 +1,16 @@
 import React ,{Component} from 'react'
-
+import crudClass from '../common/crudClass.js'
+import Messages from '../common/submitMessage.jsx'
 export default class AddPage extends Component {
   constructor(props) {
    super(props)
+   this.state={
+     saveResult:false,
+     edit:props.edit
+   }
+  }
+  componentDidMount(){
+    $('#messages').hide()
   }
   //add page to PageDb
   addPage(){
@@ -14,15 +22,10 @@ export default class AddPage extends Component {
 	metakeys=this.refs.metakeys.value,
     status= this.refs.status.value;
     let record={name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}
-    console.log(record);
-
-    //storing page data to pageDb
-    Meteor.call('addPage',record,function(err,res){
-      if(!err){
-        alert('stored sucess')
-
-      }
-    });
+    let obj= new crudClass();
+    let mesg=obj.create('addPage',record);
+    this.setState({saveResult:mesg})
+      $('#messages').show()
     this.refs.name.value='',
     this.refs.clientName.value=''
     this.refs.formName.value=""
@@ -31,9 +34,14 @@ export default class AddPage extends Component {
     this.refs.metakeys.value=""
     this.refs.status.value=""
   }
+  editPage(){
+
+  }
   render(){
-    console.log(this.props.data.clients);
-    return(<div className="col-md-10 registration_form pad_t50">
+    let submitButton=this.state.edit?<button onClick={this.editPage.bind(this)}><span>Edit</span></button>:<button
+    onClick={this.addPage.bind(this)}><span>submit</span></button>;
+      return(<div className="col-md-10 registration_form pad_t50">
+      <Messages saveResult={this.state.saveResult}/>
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
         <div className="card">
@@ -50,7 +58,7 @@ export default class AddPage extends Component {
                  <select ref="clientName" placeholder="client">
                  <option> choose client</option>
                  {this.props.data.clients.map((client)=>{
-                
+
                 return(<option>{client.contactName}</option>)
                  })}
                  </select>
@@ -60,7 +68,7 @@ export default class AddPage extends Component {
                  <select ref="formName">
                  <option> choose form</option>
                   {this.props.data.forms.map((form)=>{
-                return(<option>{form._id}</option>)
+                return(<option>{form.name}</option>)
                  })}
                  </select>
                 </div>
@@ -86,10 +94,12 @@ export default class AddPage extends Component {
               </div>
             </div>
             <div className="button-container">
-              <button
-              onClick={this.addPage.bind(this)}><span>submit</span></button>
+            {submitButton}
             </div>
           </div>
+        </div>
+        <div className="message">
+
         </div>
       </div>
     </div>)
