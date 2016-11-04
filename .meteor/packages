@@ -25,7 +25,6 @@ kadira:flow-router
 kadira:react-layout
 check
 http
-gadicohen:jquery2
 
 mizzao:build-fetcher
 mizzao:jquery-ui
