@@ -4,9 +4,12 @@ import Messages from '../common/submitMessage.jsx'
 export default class AddRole extends Component {
   constructor(props) {
 	super(props)
-	saveResult:false,
-    edit:this.props.edit,
-    clientRole:this.props.clientRole
+  this.state={
+    saveResult:false,
+      edit:this.props.edit,
+      clientRole:this.props.clientRole
+
+  }
   }
 
    componentDidMount(){
@@ -47,7 +50,8 @@ export default class AddRole extends Component {
     let submitButton=this.state.edit?<button onClick={this.addClientRole.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
     onClick={this.addClientRole.bind(this)}><span>submit</span></button>;
     let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
-    return(<div className="box-body">
+    return(<div>
+      <div className="box-body">
               <div className="form-group">
                 <label for="name"> Name</label>
                 <input type="text" className="form-control" id="name" placeholder="Name" ref="name"/>
@@ -60,6 +64,7 @@ export default class AddRole extends Component {
             <div className="box-footer">
               {submitButton}
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
-            </div>)
+            </div>
+          </div>)
   }
 }

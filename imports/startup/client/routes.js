@@ -18,13 +18,70 @@ import ManageWorkFlow from '../../ui/container/manageWorkFlow.js'
 import defineWorkFlow from '../../ui/components/workflow/defineWorkFlow.jsx'
 import AddUser from '../../ui/components/user/addUser.jsx'
 import ManageUser from '../../ui/container/manageUser.js'
-import ClientAdminLayout from '../../ui/layouts/client_admin_layout.jsx';
-import ClientAdminPages from '../../ui/container/client_admin_pages.js'
-import AddClientUser from '../../ui/components/clientUser/addClientUser.jsx';
+import ClientAdminLayout from '../../ui/container/client_admin_layout.js'
 import AccountLayout from '../../ui/layouts/accountLayout.jsx'
-import Login from '../../ui/components/accounts/login/login.jsx'
+import AdminLogin from '../../ui/components/accounts/login/adminlogin.jsx'
+import ClientLogin from '../../ui/components/accounts/login/clientlogin.jsx'
+import ClientAdminPages from '../../ui/container/client_admin_pages.js'
+import AddDepartment from '../../ui/components/department/addDepartment.jsx'
+import ManageDepartment from '../../ui/container/manageDepartment'
+//import AddClientUser from '../../ui/container/addClientUser.js';
+//import ManageClientUser from '../../ui/container/manageClientUser.js'
+import AddClientRole from '../../ui/components/clientRole/addClientRole.jsx'
+//import ManageClientRole from '../../ui/container/manageClientRole.js'
+
+FlowRouter.route('/add-department',{
+  name:'defineWorkFlow',
+  action:function(){
+    ReactLayout.render(ClientAdminLayout,{
+      content:<AddDepartment/>
+    })
+  }
+});
+FlowRouter.route('/manage-department',{
+  name:'defineWorkFlow',
+  action:function(){
+    ReactLayout.render(ClientAdminLayout,{
+      content:<ManageDepartment/>
+    })
+  }
+});
+
+/*FlowRouter.route('/client-manage-role',{
+  name:'defineWorkFlow',
+  action:function(){
+    ReactLayout.render(ClientAdminLayout,{
+      content:<ManageClientRole/>
+    })
+  }
+});*/
+FlowRouter.route('/client-add-role',{
+  name:'defineWorkFlow',
+  action:function(){
+    ReactLayout.render(ClientAdminLayout,{
+      content:<AddClientRole/>
+    })
+  }
+});
+FlowRouter.route('/client-add-user',{
+  name:'defineWorkFlow',
+  action:function(){
+    ReactLayout.render(ClientAdminLayout,{
+      content:<AddClientUser/>
+    })
+  }
+});
+/*FlowRouter.route('/client-manage-user',{
+  name:'defineWorkFlow',
+  action:function(){
+    ReactLayout.render(ClientAdminLayout,{
+      content:<ManageClientUser/>
+    })
+  }
+});*/
 //route for add form
-FlowRouter.route('/',{
+
+FlowRouter.route('/admin',{
   name:'addForm',
   action:function(){
     ReactLayout.render(MainLayout,{
@@ -172,7 +229,7 @@ FlowRouter.route('/define-workflow',{
   }
 });
 
-FlowRouter.route('/add-client-user',{
+FlowRouter.route('/client',{
   name:'defineWorkFlow',
   action:function(){
     ReactLayout.render(ClientAdminLayout,{
@@ -180,11 +237,19 @@ FlowRouter.route('/add-client-user',{
     })
   }
 });
-FlowRouter.route('/login',{
+FlowRouter.route('/client-login',{
   name:'defineWorkFlow',
   action:function(){
     ReactLayout.render(AccountLayout,{
-      content:<Login/>
+      content:<ClientLogin/>
+    })
+  }
+});
+FlowRouter.route('/admin-login',{
+  name:'defineWorkFlow',
+  action:function(){
+    ReactLayout.render(AccountLayout,{
+      content:<AdminLogin/>
     })
   }
 });

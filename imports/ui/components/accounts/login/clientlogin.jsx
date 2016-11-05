@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {FlowRouter} from 'meteor/kadira:flow-router';
-export default class Login extends Component {
+export default class ClientLogin extends Component {
   constructor(props) {
     super(props)
   }
@@ -9,7 +9,7 @@ export default class Login extends Component {
       <div className="login_col">
         <div className="card"></div>
         <div className="card">
-          <h1 className="title">Login</h1>
+          <h1 className="title">Client Login</h1>
 
             <div className="input-container">
               <input type="text" id="Username" required="required" ref="username"/>
@@ -29,7 +29,7 @@ export default class Login extends Component {
                     console.log(err);
                   }
                   else{
-                    FlowRouter.go('/');
+                    FlowRouter.go('/client');
                   }
                 })
               }}><span>LOGIN</span></button>

@@ -1,5 +1,5 @@
 import React ,{Component} from 'react'
-import AddDepartment from '../clients/addDepartment.jsx'
+import AddDepartment from '../department/addDepartment.jsx'
 import crudClass from '../common/crudClass.js'
 export default class ManageDepartment extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class ManageDepartment extends Component {
             <th>Access</th>
 			<th>Action </th>
           </tr>
-		  {this.props.departments.map((department)=>{
+		  {this.props.data.map((department)=>{
 			return(<tr>
               <td>{department.name}</td>
               <td>{department.description}</td>
@@ -24,7 +24,9 @@ export default class ManageDepartment extends Component {
                <td><div className="button-container">
               <a href="#"  data-toggle="modal" data-target={`#${department._id}`}>Edit</a>
               <div className="modal fade" id={`${department._id}`} tabindex="-1" department="dialog" aria-labelledby="myModalLabel">
-              <AddUser edit="true" department={department}/>
+              <div className="col-md-9 card">
+              <AddDepartment edit="true" department={department}/></div>
+
             </div>
               <a href="#" id={department._id} onClick={(e)=>{
                 let obj=new crudClass()

@@ -8,7 +8,7 @@ export default class Login extends Component {
     return(<div>
       <div className="hed_top">
   <div className="mid_container">
-    <div className="logoin">CLIENT 1</div>
+    <div className="logoin">Login</div>
   </div>
 </div>
 {this.props.content}
