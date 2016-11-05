@@ -25,10 +25,10 @@ import ClientLogin from '../../ui/components/accounts/login/clientlogin.jsx'
 import ClientAdminPages from '../../ui/container/client_admin_pages.js'
 import AddDepartment from '../../ui/components/department/addDepartment.jsx'
 import ManageDepartment from '../../ui/container/manageDepartment'
-//import AddClientUser from '../../ui/container/addClientUser.js';
-//import ManageClientUser from '../../ui/container/manageClientUser.js'
+import AddClientUser from '../../ui/container/addClientUser.js';
+import ManageClientUser from '../../ui/container/manageClientUser.js'
 import AddClientRole from '../../ui/components/clientRole/addClientRole.jsx'
-//import ManageClientRole from '../../ui/container/manageClientRole.js'
+import ManageClientRole from '../../ui/container/manageClientRole.js'
 
 FlowRouter.route('/add-department',{
   name:'defineWorkFlow',
@@ -47,14 +47,14 @@ FlowRouter.route('/manage-department',{
   }
 });
 
-/*FlowRouter.route('/client-manage-role',{
+FlowRouter.route('/client-manage-role',{
   name:'defineWorkFlow',
   action:function(){
     ReactLayout.render(ClientAdminLayout,{
       content:<ManageClientRole/>
     })
   }
-});*/
+});
 FlowRouter.route('/client-add-role',{
   name:'defineWorkFlow',
   action:function(){
@@ -71,14 +71,14 @@ FlowRouter.route('/client-add-user',{
     })
   }
 });
-/*FlowRouter.route('/client-manage-user',{
+FlowRouter.route('/client-manage-user',{
   name:'defineWorkFlow',
   action:function(){
     ReactLayout.render(ClientAdminLayout,{
       content:<ManageClientUser/>
     })
   }
-});*/
+});
 //route for add form
 
 FlowRouter.route('/admin',{

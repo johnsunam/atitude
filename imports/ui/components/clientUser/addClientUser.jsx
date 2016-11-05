@@ -12,6 +12,7 @@ export default class AddClientUser extends Component {
   }
 
    componentDidMount(){
+
     $('#messages').hide();
     this.refs.name.value=this.state.edit?this.props.clientUser.name:'';
     this.refs.dob.value=this.state.edit?this.props.clientUser.dob:'';
@@ -64,12 +65,12 @@ export default class AddClientUser extends Component {
 		this.refs.email.value="";
 		this.refs.secQuestion.value="";
 		this.refs.secAnswer.value="";
-		this.refs.roleName.value="";
+		this.refs.roleName.value="Choose your roll name";
 		this.refs.userType.value="";
   }
 
   render(){
-	console.log(this.props.clientUser);
+	console.log(this.props);
     let submitButton=this.state.edit?<button onClick={this.addClientUser.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
     onClick={this.addClientUser.bind(this)}><span>Submit</span></button>;
     let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
@@ -118,6 +119,9 @@ export default class AddClientUser extends Component {
                 <label for="roleName">Role</label>
                 <select type="text" className="form-control" ref="roleName">
                   <option>Role to be filled in</option>
+                  {this.props.roles.map((role)=>{
+                    return(<option>{role.name}</option>)
+                  })}
                 </select>
               </div>
             </div>

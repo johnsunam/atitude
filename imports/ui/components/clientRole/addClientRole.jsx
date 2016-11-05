@@ -16,15 +16,15 @@ export default class AddRole extends Component {
     $('#messages').hide();
     this.refs.name.value=this.state.edit?this.props.clientRole.name:'';
     this.refs.description.value=this.state.edit?this.props.clientRole.description:'';
-    this.refs.status.value=this.state.edit?this.props.clientRole.status:'';
+    //this.refs.status.value=this.state.edit?this.props.clientRole.status:'';
    }
   componentDidUpdate(){
     this.refs.name.value=this.state.edit?this.props.clientRole.name:'';
     this.refs.description.value=this.state.edit?this.props.clientRole.description:'';
-    this.refs.status.value=this.state.edit?this.props.clientRole.status:'';
+    //this.refs.status.value=this.state.edit?this.props.clientRole.status:'';
   }
   editClientRole(){
-
+    
   }
   // saving WorkFlow to WorkFlowDb
   addClientRole(){

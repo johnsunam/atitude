@@ -1,5 +1,5 @@
 import React ,{Component} from 'react'
-import AddClientRole from '../clients/addClientRole.jsx'
+import AddClientRole from './addClientRole.jsx'
 import crudClass from '../common/crudClass.js'
 export default class ManageClientRole extends Component {
   constructor(props) {
@@ -13,18 +13,18 @@ export default class ManageClientRole extends Component {
           <tr>
             <th>ClientRole Name</th>
             <th>Status</th>
-            <th>Access</th>
+
 			<th>Action </th>
           </tr>
-		  {this.props.clientRoles.map((clientRole)=>{
+		  {this.props.data.map((clientRole)=>{
 			return(<tr>
               <td>{clientRole.name}</td>
               <td>{clientRole.description}</td>
-              <td>{clientRole.status}</td>
+              
                <td><div className="button-container">
               <a href="#"  data-toggle="modal" data-target={`#${clientRole._id}`}>Edit</a>
               <div className="modal fade" id={`${clientRole._id}`} tabindex="-1" clientRole="dialog" aria-labelledby="myModalLabel">
-              <AddUser edit="true" clientRole={clientRole}/>
+              <AddClientRole edit="true" clientRole={clientRole}/>
             </div>
               <a href="#" id={clientRole._id} onClick={(e)=>{
                 let obj=new crudClass()
