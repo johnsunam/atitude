@@ -1,3 +1,4 @@
+//lists,delete and edit the client details
 import React ,{Component} from 'react'
 import AddClient from '../clients/addClient.jsx'
 import crudClass from '../common/crudClass.js'

@@ -6,6 +6,9 @@ Meteor.methods({
   },
   'deleteRole':function(id){
     RoleDb.remove({_id:id});
+  },
+'editRole':function(record){
+    return RoleDb.update({_id:record.id},{$set:record.data})
   }
 
 })

@@ -12,3 +12,4 @@ import '../../api/role/methods.js';
 import '../../api/role/publication.js'
 import '../../api/user/methods.js'
 import '../../api/user/publication.js'
+import './mail.js'

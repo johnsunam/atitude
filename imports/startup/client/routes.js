@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import {FlowRouter} from 'meteor/kadira:flow-router'
 import {ReactLayout} from 'meteor/kadira:react-layout'
-import MainLayout from '../../ui/layouts/mainLayout.jsx';
+import MainLayout from '../../ui/container/mainLayout.js';
 import AddForm from '../../ui/components/form/addForm.jsx'
 import ManageForm from '../../ui/components/form/manageForm.jsx'
 import AddClient from '../../ui/components/clients/addClient.jsx'
@@ -18,9 +18,11 @@ import ManageWorkFlow from '../../ui/container/manageWorkFlow.js'
 import defineWorkFlow from '../../ui/components/workflow/defineWorkFlow.jsx'
 import AddUser from '../../ui/components/user/addUser.jsx'
 import ManageUser from '../../ui/container/manageUser.js'
-
-
-
+import ClientAdminLayout from '../../ui/layouts/client_admin_layout.jsx';
+import ClientAdminPages from '../../ui/container/client_admin_pages.js'
+import AddClientUser from '../../ui/components/clientUser/addClientUser.jsx';
+import AccountLayout from '../../ui/layouts/accountLayout.jsx'
+import Login from '../../ui/components/accounts/login/login.jsx'
 //route for add form
 FlowRouter.route('/',{
   name:'addForm',
@@ -166,6 +168,23 @@ FlowRouter.route('/define-workflow',{
   action:function(){
     ReactLayout.render(MainLayout,{
       content:<DefineWorkFlow/>
+    })
+  }
+});
+
+FlowRouter.route('/add-client-user',{
+  name:'defineWorkFlow',
+  action:function(){
+    ReactLayout.render(ClientAdminLayout,{
+      content:<ClientAdminPages/>
+    })
+  }
+});
+FlowRouter.route('/login',{
+  name:'defineWorkFlow',
+  action:function(){
+    ReactLayout.render(AccountLayout,{
+      content:<Login/>
     })
   }
 });

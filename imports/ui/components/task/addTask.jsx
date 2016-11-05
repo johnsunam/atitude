@@ -1,26 +1,53 @@
-import React ,{Component} from 'react'
+//add tasks to TaskDb
 
+import React ,{Component} from 'react'
+import crudClass from '../common/crudClass.js'
+import Messages from '../common/submitMessage.jsx'
 export default class AddTask extends Component {
   constructor(props) {
    super(props)
-  }
-  addTask(){
-    let name=this.refs.name.value,
-    description=this.refs.description.value;
-    let status=$('#checkbox:checked').val() ? "active":"inactive";
-    let record={name:name,description:description,status:status}
-    console.log(record);
-    //storing task data to TaskDb
-    Meteor.call('addTask',record,function(err,res){
-      if(!err){
-        alert('stored sucess');
+   this.state={saveResult:false,
+   edit:this.props.edit,
+   task:this.props.task}
 
-      }
-    });
-    this.refs.name.value=""
-    this.refs.description.value=""
   }
+
+
+  componentDidMount(){
+    $('#messages').hide();
+    this.refs.name.value=this.state.edit?this.props.task.name:'';
+    this.refs.description.value=this.state.edit?this.props.task.description:'';
+    //this.refs.status.value=this.state.edit?this.props.task.status:'';
+   }
+  componentDidUpdate(){
+    this.refs.name.value=this.state.edit?this.props.task.name:'';
+    this.refs.description.value=this.state.edit?this.props.task.description:'';
+  //  this.refs.status.value=this.state.edit?this.props.task.status:'';
+  }
+  editTask(){
+
+  }
+  // saving WorkFlow to WorkFlowDb
+  addTask(){
+    let obj= new crudClass();
+    let name=this.refs.name.value,
+        description=this.refs.description.value;
+
+    let status=$('#checkbox:checked').val() ? "active":"inactive";
+    let record=this.props.edit?{id:this.props.task._id,data:{name:name,description:description}}:
+    {name:name,description:description}
+    let res=this.state.edit?obj.create('editTask',record):obj.create('addTask',record);
+
+    this.setState({saveResult:res})
+      $('#messages').show()
+   this.refs.name.value="";
+   this.refs.description.value="";
+  }
+
   render(){
+    let submitButton=this.state.edit?<button onClick={this.addTask.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
+    onClick={this.addTask.bind(this)}><span>submit</span></button>;
+    let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
     return(  <div className="col-md-10 registration_form pad_t50">
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
@@ -45,8 +72,8 @@ export default class AddTask extends Component {
               </div>
             </div>
             <div className="button-container">
-              <button
-              onClick={this.addTask.bind(this)}><span>submit</span></button>
+              {submitButton}
+             {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
           </div>
         </div>

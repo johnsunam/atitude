@@ -1,3 +1,6 @@
+//adding new pages to the pagedb
+
+
 import React ,{Component} from 'react'
 import crudClass from '../common/crudClass.js'
 import Messages from '../common/submitMessage.jsx'
@@ -11,6 +14,22 @@ export default class AddPage extends Component {
   }
   componentDidMount(){
     $('#messages').hide()
+    this.refs.name.value=this.state.edit?this.props.page.name:''
+    this.refs.clientName.value=this.state.edit?this.props.page.clientName:''
+    this.refs.formName.value=this.state.edit?this.props.page.formName:''
+	  this.refs.previewURL.value=this.state.edit?this.props.page.previewURL:''
+	  this.refs.publishURL.value=this.state.edit?this.props.page.publishURL:''
+	  this.refs.metakeys.value=this.state.edit?this.props.page.metakeys:''
+    this.refs.status.value=this.state.edit?this.props.page.status:''
+  }
+  componentDidUpdate(){
+    this.refs.name.value=this.state.edit?this.props.page.name:''
+    this.refs.clientName.value=this.state.edit?this.props.page.clientName:''
+    this.refs.formName.value=this.state.edit?this.props.page.formName:''
+	  this.refs.previewURL.value=this.state.edit?this.props.page.previewURL:''
+	  this.refs.publishURL.value=this.state.edit?this.props.page.publishURL:''
+	  this.refs.metakeys.value=this.state.edit?this.props.page.metakeys:''
+    this.refs.status.value=this.state.edit?this.props.page.status:''
   }
   //add page to PageDb
   addPage(){
@@ -21,10 +40,11 @@ export default class AddPage extends Component {
 	publishURL=this.refs.publishURL.value,
 	metakeys=this.refs.metakeys.value,
     status= this.refs.status.value;
-    let record={name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}
+    let record=this.props.edit?{id:this.props.page._id,data:{name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}}:
+    {name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}
     let obj= new crudClass();
-    let mesg=obj.create('addPage',record);
-    this.setState({saveResult:mesg})
+    let res=this.state.edit?obj.edit('editPage',record):obj.create('addPage',record);
+      this.setState({saveResult:res})
       $('#messages').show()
     this.refs.name.value='',
     this.refs.clientName.value=''
@@ -38,10 +58,9 @@ export default class AddPage extends Component {
 
   }
   render(){
-    let submitButton=this.state.edit?<button onClick={this.editPage.bind(this)}><span>Edit</span></button>:<button
-    onClick={this.addPage.bind(this)}><span>submit</span></button>;
+    let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
       return(<div className="col-md-10 registration_form pad_t50">
-      <Messages saveResult={this.state.saveResult}/>
+      {message}
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
         <div className="card">
@@ -59,7 +78,7 @@ export default class AddPage extends Component {
                  <option> choose client</option>
                  {this.props.data.clients.map((client)=>{
 
-                return(<option>{client.contactName}</option>)
+                return(<option>{client.companyName}</option>)
                  })}
                  </select>
                 </div>
@@ -94,7 +113,8 @@ export default class AddPage extends Component {
               </div>
             </div>
             <div className="button-container">
-            {submitButton}
+            <button onClick={this.addPage.bind(this)}  data-dismiss="modal"><span>{this.state.edit?"Edit":"Add"}</span></button>
+             {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
           </div>
         </div>

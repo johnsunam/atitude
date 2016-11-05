@@ -1,3 +1,4 @@
+//creates new form && previews for newly created form
 import React ,{Component} from 'react';
 import crudClass from '../common/crudClass.js'
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -14,8 +15,8 @@ export default class AddForm extends Component {
   }
 
   componentDidMount(){
-  //  $('#fb-editor').formBuilder();
   $('h4').hide();
+  $('#save-alert').hide();
   let self=this;
     var buildWrap = $(document.getElementById('fb-editors')),
     renderWrap = $(document.getElementById('fb-rendered-form')),
@@ -36,7 +37,7 @@ export default class AddForm extends Component {
          dataType: 'json',
          formData: formBuilder.formData
        });
-
+         $('#save-alert').show()
         window.sessionStorage.setItem('formData', JSON.stringify(formBuilder.formData));
          let data=JSON.stringify(formBuilder.formData);
         let result=obj.create('addForm',{name:formName,description:description,form:data});
@@ -91,28 +92,16 @@ export default class AddForm extends Component {
       <div className="col-md-12">
       <div  id="mainForm">
       </div>
+      <div className="" id="save-alert">
+      <span style={{"fontSize":20,"color":"green"}}>form sucessfully saved</span>
       </div>
       </div>
       <div className="tab-pane fade" id="save-tab">
       save
       </div>
-      <div>
-
+    </div>
       </div>
-      </div>
-
-
     </div>
       )
   }
-}
-
-let alertMessage = (props)=>{
-  if(props){
-    let messages="message stored sucessfully"
-  }
-  else{
-    let messages="message stored unsucessfull"
-  }
-  return(<div style={{color:"red"}}>{messages}</div>)
 }

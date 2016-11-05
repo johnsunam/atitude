@@ -1,3 +1,5 @@
+//edits,lists and deletes pages
+
 import React ,{Component} from 'react'
 import ClientPages from '../page/clientPages.jsx'
 import Messages from '../common/submitMessage.jsx'
@@ -7,7 +9,7 @@ export default class ManagePage extends Component {
   constructor(props) {
    super(props)
    this.state={
-     choosedClient:props.data.clients[0].contactName
+     choosedClient:props.data.clients[0].companyName
    }
   }
 
@@ -21,7 +23,7 @@ export default class ManagePage extends Component {
             this.setState({choosedClient:e.target.value})
           }}>
           {this.props.data.clients.map((client)=>{
-            return(<option>{client.contactName}</option>)
+            return(<option>{client.companyName}</option>)
           })}
 
           </select>

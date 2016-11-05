@@ -1,3 +1,5 @@
+//edits,deletes and lists the forms
+
 import React,{Component} from 'react'
 
 export default class ManageForm extends Component {

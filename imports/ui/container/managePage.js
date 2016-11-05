@@ -9,6 +9,7 @@ const composer = ( props, onData ) => {
         var pages=PageDb.find().fetch();
         var clients=ClientDb.find().fetch();
         let data={pages:pages,clients:clients}
+        console.log(data);
         onData( null, {data } )
       }
 

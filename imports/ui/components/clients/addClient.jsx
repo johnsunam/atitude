@@ -56,7 +56,7 @@ export default class AddClient extends Component {
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}}:
     {companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
-    let res=this.state.edit?obj.create('editClient',record):obj.create('addClient',record);
+    let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
 
     this.setState({saveResult:res})
       $('#messages').show()

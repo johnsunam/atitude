@@ -1,5 +1,8 @@
-import React ,{Component} from 'react'
+//lists,delete and edit tasks
 
+import React ,{Component} from 'react'
+import AddTask from './addTask.jsx'
+import crudClass from '../common/crudClass.js'
 export default class ManageTask extends Component {
   constructor(props) {
    super(props)
@@ -13,8 +16,8 @@ export default class ManageTask extends Component {
             <th>Task Name</th>
             <th>Description</th>
             <th>Status</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Action</th>
+
           </tr>
           {this.props.tasks.map((task)=>{
           return(<tr>
@@ -22,10 +25,14 @@ export default class ManageTask extends Component {
               <td>{task.description}</td>
               <td>{task.status}</td>
               <td><div className="button-container">
-              <a href="#">Define</a><a href="#" id={task._id} onClick={(e)=>{
-                Meteor.call('deleteTask',e.target.id)
+              <a href="#"  data-toggle="modal" data-target={`#${task._id}`}>Edit</a>
+              <div className="modal fade" id={`${task._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <AddTask edit="true" task={task}/>
+            </div>
+              <a href="#" id={task._id} onClick={(e)=>{
+                let obj=new crudClass()
+                obj.delete('deleteTask',e.target.id)
               }}>Delete</a></div></td>
-              <td><a href="#"><i className="fa fa-edit font20"></i></a></td>
             </tr>)
           })}
         </table>

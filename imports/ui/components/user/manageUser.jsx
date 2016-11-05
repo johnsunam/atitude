@@ -1,5 +1,8 @@
-import React ,{Component} from 'react'
+//edits,delete and lists users
 
+import React ,{Component} from 'react'
+import AddUser from './addUser.jsx'
+import crudClass from '../common/crudClass.js'
 export default class ManageUser extends Component {
   constructor(props) {
    super(props)
@@ -29,8 +32,13 @@ export default class ManageUser extends Component {
               <td>{user.email}</td>
 			  <td>{user.status}</td>
               <td><div className="button-container">
-              <a href="#">Edit</a><a href="#" id={user._id} onClick={(e)=>{
-                Meteor.call('deleteUser',e.target.id)
+              <a href="#"  data-toggle="modal" data-target={`#${user._id}`}>Edit</a>
+              <div className="modal fade" id={`${user._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <AddUser edit="true" user={user}/>
+            </div>
+              <a href="#" id={user._id} onClick={(e)=>{
+                let obj=new crudClass()
+                obj.delete('deleteUser',e.target.id)
               }}>Delete</a></div></td>
 
             </tr>)

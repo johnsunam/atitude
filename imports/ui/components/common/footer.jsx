@@ -1,3 +1,4 @@
+//footer of the layout
 import React,{Component} from 'react'
 
 export default Footer=()=>{

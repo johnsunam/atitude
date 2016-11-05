@@ -29,19 +29,19 @@ export default class DefineWorkFlow extends Component {
         </div>
         <div className="col-md-9">
         <div className="workflow_cont">
-        
+
    <h1 className="title">define work flow</h1><br />
 <br />
 
-        
+
         <img src="images/flowchat.png" /><br />
 <br /><br />
 <br />
 
 
         </div>
-        
-        
+
+
         </div>
       </div>
     </div>)

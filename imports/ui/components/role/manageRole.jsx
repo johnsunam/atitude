@@ -1,5 +1,8 @@
-import React ,{Component} from 'react'
+//edit,delete and lists roles
 
+import React ,{Component} from 'react'
+import AddRole from './addRole.jsx'
+import crudClass from '../common/crudClass.js'
 export default class ManageRole extends Component {
   constructor(props) {
    super(props)
@@ -13,15 +16,21 @@ export default class ManageRole extends Component {
             <th>Role Name</th>
             <th>Status</th>
             <th>Access</th>
+			<th>Action </th>
           </tr>
 		  {this.props.roles.map((role)=>{
 			return(<tr>
               <td>{role.name}</td>
               <td>{role.description}</td>
               <td>{role.status}</td>
-              <td><div className="button-container">
-              <a href="#">Edit</a><a href="#" id={role._id} onClick={(e)=>{
-                Meteor.call('deleteRole',e.target.id)
+               <td><div className="button-container">
+              <a href="#"  data-toggle="modal" data-target={`#${role._id}`}>Edit</a>
+              <div className="modal fade" id={`${role._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <AddRole edit="true" role={role}/>
+            </div>
+              <a href="#" id={role._id} onClick={(e)=>{
+                let obj=new crudClass()
+                obj.delete('deleteRole',e.target.id)
               }}>Delete</a></div></td>
 
             </tr>)

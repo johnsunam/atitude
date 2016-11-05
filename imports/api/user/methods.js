@@ -6,6 +6,9 @@ Meteor.methods({
   },
   'deleteUser':function(id){
     UserDb.remove({_id:id});
+  },
+  'editUser':function(record){
+    return UserDb.update({_id:record.id},{$set:record.data})
   }
 
 })

@@ -7,6 +7,9 @@ Meteor.methods({
   },
   'deletePage':function(id){
     PageDb.remove({_id:id});
+  },
+  'editPage':function(record){
+    console.log(record);
+    PageDb.update({_id:record.id},{$set:record.data})
   }
-
 })

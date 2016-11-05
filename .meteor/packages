@@ -29,3 +29,7 @@ http
 mizzao:build-fetcher
 mizzao:jquery-ui
 simple:reactive-method
+accounts-password
+accounts-base
+alanning:roles
+email

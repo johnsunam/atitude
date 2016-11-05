@@ -1,8 +1,14 @@
-import React ,{Component} from 'react'
+//edits,delete and lists workflow
 
+import React ,{Component} from 'react'
+import AddWorkFlow from './addWorkFlow.jsx'
+import crudClass from '../common/crudClass.js'
 export default class ManageWorkFlow extends Component {
   constructor(props) {
    super(props)
+   this.state={
+     selectedWorkFlow:null
+   }
   }
   render(){
     return( <div className="col-md-10 registration_form pad_t50">
@@ -20,8 +26,14 @@ export default class ManageWorkFlow extends Component {
               <td>{workflow.description}</td>
               <td>{workflow.status}</td>
               <td><div className="button-container">
-              <a href="#">Edit</a><a href="/define-workflow">Define</a><a href="#" id={workflow._id} onClick={(e)=>{
-                Meteor.call('deleteWorkFlow',e.target.id)
+               <a href="#"  data-toggle="modal" data-target={`#${workflow._id}`}>Edit</a>
+				  <div className="modal fade" id={`${workflow._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<AddWorkFlow edit="true" workflow={workflow}/>
+				</div>
+
+			  <a href="/define-workflow">Define</a> <a href="#" id={workflow._id} onClick={(e)=>{
+                let obj=new crudClass()
+                obj.delete('deleteWorkFlow',e.target.id)
               }}>Delete</a></div></td>
 
             </tr>)

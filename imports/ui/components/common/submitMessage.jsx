@@ -1,3 +1,5 @@
+//message shown in sucess or unsucess of data storing
+
 import React,{Component} from 'react'
 
 export default SubmitMessage=(props)=>{

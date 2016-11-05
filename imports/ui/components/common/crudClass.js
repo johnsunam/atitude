@@ -1,8 +1,10 @@
-class crudeClass {
+//class for crud operation of form ,client,user,roles,pages
+class crudClass {
   constructor(){
 
   }
    create(methodName,data){
+    
       Meteor.call(methodName,data,function(err){
        if(err){
         return err;
@@ -23,4 +25,4 @@ class crudeClass {
 }
 
 
-export default crudeClass;
+export default crudClass;
