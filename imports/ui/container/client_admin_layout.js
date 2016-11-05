@@ -9,6 +9,9 @@ const composer = ( props, onData ) => {
       let user=Meteor.user();
         onData( null, {user} )
       }
+      else{
+        FlowRouter.go('/client-login')
+      }
   }
       else{
         FlowRouter.go('/client-login')

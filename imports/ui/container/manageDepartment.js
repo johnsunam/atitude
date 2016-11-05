@@ -1,6 +1,6 @@
 import { composeWithTracker } from 'react-komposer';
 import {DepartmentDb} from '../../api/department/collection/department.collection.js'
-import ManageDepartment from '../../ui/components/department/manageClientDepartment.jsx'
+import ManageDepartment from '../../ui/components/client-admin/department/manageClientDepartment.jsx'
 const composer = ( props, onData ) => {
     var Subcription=Meteor.subscribe('getDepartment');
     if(Subcription.ready()){

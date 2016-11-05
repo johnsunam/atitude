@@ -2,7 +2,7 @@
 import { composeWithTracker } from 'react-komposer';
 import {ClientDb} from '../../api/clients/collection/client.collection.js'
 import {FormDb} from '../../api/form/collection/form.collection.js'
-import AddPage from '../components/page/addPage.jsx'
+import AddPage from '../components/admin/page/addPage.jsx'
 const composer = ( props, onData ) => {
     var clinetSubcription=Meteor.subscribe('getClient');
     var formSubcription=Meteor.subscribe('getForm');

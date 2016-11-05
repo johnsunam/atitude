@@ -1,6 +1,6 @@
 import { composeWithTracker } from 'react-komposer';
 import {TaskDb} from '../../api/task/collection/task.collection.js'
-import ManageTask from '../components/task/manageTask.jsx'
+import ManageTask from '../components/admin/task/manageTask.jsx'
 const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getTask');
     if(subcription.ready()){

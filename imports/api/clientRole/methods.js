@@ -7,5 +7,8 @@ Meteor.methods({
   },
   'deleteClientRole':function(id){
     ClientRoleDb.remove({_id:id})
+  },
+  'editClientRole':function(record){
+    ClientRoleDb.update({_id:record.id},{$set:record.data})
   }
 })

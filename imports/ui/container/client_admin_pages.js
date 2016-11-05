@@ -1,7 +1,7 @@
 import { composeWithTracker } from 'react-komposer';
 import {PageDb} from '../../api/page/collection/page.collection.js'
 import {ClientDb} from '../../api/clients/collection/client.collection.js'
-import ClientAdminPages from '../components/clientPage/clientPage.jsx'
+import ClientAdminPages from '../components/client-admin/clientPage/clientPage.jsx'
 const composer = ( props, onData ) => {
   let email=Meteor.user()
 

@@ -4,7 +4,7 @@ import {Email } from "meteor/email"
 Meteor.methods({
   'addClient':function(record){
     ClientDb.insert(record);
-    var userId=Accounts.createUser({email:record.email,password:"aptitude123",role:"super-admin"});
+    var userId=Accounts.createUser({email:record.email,password:"aptitude123"});
     Roles.addUsersToRoles( userId,'super-admin' );
     Email.send({to:record.email,from:"johnsunam@hotmail.com",subject:"password",text:"aptitude123"});
     console.log(userId);
