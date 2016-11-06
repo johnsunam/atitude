@@ -1,0 +1,19 @@
+import { composeWithTracker } from 'react-komposer';
+import {FlowRouter} from 'meteor/kadira:flow-router';
+import ClientAdminLayout from '../layouts/clientAdminLayout.jsx';
+const composer = ( props, onData ) => {
+
+
+    if(Meteor.userId())
+    {
+      let user=Meteor.user();
+        onData( null, {user} )
+      }
+      else{
+        FlowRouter.go('/client/login')
+      }
+      
+  };
+
+
+export default composeWithTracker(composer)(ClientAdminLayout);

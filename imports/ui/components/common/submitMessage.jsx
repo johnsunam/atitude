@@ -4,11 +4,11 @@ import React,{Component} from 'react'
 
 export default SubmitMessage=(props)=>{
     if(props.saveResult){
-      var messages="message stored sucessfully"
+      var messages="Data saved sucessfully"
       var styles={color:"green","font-size": 18,"font-weight": "bold"}
     }
     else{
-      var messages="message stored unsucessfull"
+      var messages="Action failed. Please try after sometime"
       var styles={color:"red","font-size": 18,"font-weight": "bold"}
     }
 

@@ -1,6 +1,6 @@
 import { composeWithTracker } from 'react-komposer';
 import {PageDb} from '../../api/page/collection/page.collection.js'
-import ClientUserSidebar from '../components/common/client_user_sidebar.jsx'
+import ClientUserSidebar from '../components/common/clientUserSidebar.jsx'
 const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getPage');
 

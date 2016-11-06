@@ -34,7 +34,7 @@ export default class AdminLogin extends Component {
                 })
               }}><span>LOGIN</span></button>
             </div>
-            <div className="sign"><a href="register.html">Sign Up</a></div>
+          
           </div>
         </div>
        </div>

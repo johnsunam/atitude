@@ -2,18 +2,14 @@ import { composeWithTracker } from 'react-komposer';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import MainLayout from '../layouts/mainLayout.jsx';
 const composer = ( props, onData ) => {
-  if(Meteor.userId()){
-    if(Roles.userIsInRole(Meteor.userId(),'aptitude-admin' )){
+
+    if(Meteor.userId()){
       let user=Meteor.user();
         onData( null, {user} )
     }
     else{
-      FlowRouter.go('/admin-login')
+      FlowRouter.go('/aptitude/login')
     }
-  }
-      else{
-        FlowRouter.go('/admin-login')
-      }
   };
 
 

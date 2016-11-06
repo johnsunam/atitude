@@ -1,17 +1,12 @@
 import React,{Component} from 'react';
 import {FlowRouter} from 'meteor/kadira:flow-router';
-export default class ClientLogin extends Component {
+export default class ClientUserLogin extends Component {
   constructor(props) {
     super(props)
-    this.state={err:""
-    }
   }
   render(){
-    let message=this.state.err?<span className="col-md-offset-5">{this.state.err}</span>:"";
     return(<div className="mid_content">
-            {message}
       <div className="login_col">
-
         <div className="card"></div>
         <div className="card">
           <h1 className="title">Login</h1>
@@ -29,13 +24,12 @@ export default class ClientLogin extends Component {
               <button onClick={()=>{
                 let user=this.refs.username.value
                 let password=this.refs.password.value
-                let self=this;
                 Meteor.loginWithPassword(user,password,function(err){
                   if(err){
-                    self.setState({err:err.reason})
+                    console.log(err);
                   }
                   else{
-                    FlowRouter.go('/client');
+                    FlowRouter.go('/app/dashboard');
                   }
                 })
               }}><span>LOGIN</span></button>

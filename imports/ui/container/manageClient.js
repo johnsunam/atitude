@@ -1,6 +1,6 @@
 import { composeWithTracker } from 'react-komposer';
 import {ClientDb} from '../../api/clients/collection/client.collection.js'
-import ManageClient from '../components/admin/clients/manageClient.jsx'
+import ManageClient from '../components/aptitude/client/manageClient.jsx'
 const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getClient');
     if(subcription.ready()){

@@ -1,6 +1,6 @@
 import { composeWithTracker } from 'react-komposer';
 import {WorkflowDb} from '../../api/workflow/collection/workflow.collection.js'
-import ManageWorkFlow from '../components/admin/workflow/manageWorkFlow.jsx'
+import ManageWorkFlow from '../components/aptitude/workflow/manageWorkFlow.jsx'
 const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getWorkFlow');
     if(subcription.ready()){

@@ -1,7 +1,7 @@
 import { composeWithTracker } from 'react-komposer';
 import {PageDb} from '../../api/page/collection/page.collection.js'
 import {ClientDb} from '../../api/clients/collection/client.collection.js'
-import ManagePage from '../components/admin/page/managePage.jsx'
+import ManagePage from '../components/aptitude/page/managePage.jsx'
 const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getPage');
 

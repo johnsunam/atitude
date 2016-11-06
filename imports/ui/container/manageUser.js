@@ -1,6 +1,6 @@
 import { composeWithTracker } from 'react-komposer';
 import {UserDb} from '../../api/user/collection/user.collection.js'
-import ManageUser from '../components/admin/user/manageUser.jsx'
+import ManageUser from '../components/aptitude/user/manageUser.jsx'
 const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getUser');
     if(subcription.ready()){

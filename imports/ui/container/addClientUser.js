@@ -1,6 +1,6 @@
 import { composeWithTracker } from 'react-komposer';
 import {ClientRoleDb} from '../../api/clientRole/collection/clientRole.collection.js'
-import AddClientUser from '../../ui/components/client-admin/clientUser/addClientUser.jsx'
+import AddClientUser from '../../ui/components/client/clientUser/addClientUser.jsx'
 const composer = ( props, onData ) => {
     var Subcription=Meteor.subscribe('getClientRole');
     if(Subcription.ready()){
