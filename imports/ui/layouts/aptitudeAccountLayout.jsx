@@ -1,17 +1,15 @@
-import React ,{Component} from 'react'
+import { composeWithTracker } from 'react-komposer';
+import {FlowRouter} from 'meteor/kadira:flow-router';
+import AptitudeAccountsLayout from '../layouts/aptitudeAccountLayout.jsx';
+const composer = ( props, onData ) => {
 
-export default class AptitudeLogin extends Component {
-  constructor(props) {
-    super(props)
-  }
-  render(){
-    return(<div>
-      <div className="hed_top">
-  <div className="mid_container">
-    <div className="logoin">Aptitude Login</div>
-  </div>
-</div>
-{this.props.content}
-    </div>)
-  }
-}
+    if(Meteor.userId()){
+      FlowRouter.go('/aptitude/add-form')
+        }
+      else{
+        onData( null, {null} )
+      }
+  };
+
+
+export default composeWithTracker(composer)(AptitudeAccountsLayout);
