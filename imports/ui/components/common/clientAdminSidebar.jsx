@@ -6,10 +6,6 @@ export default ClientAdminSidebar=()=>{
       <ul className="sidebar-menu">
         <li className="header">MAIN NAVIGATION</li>
         <li className="treeview active"> <a href="#"><i className="fa fa-dashboard"></i> <span>Dashboard</span> <span className="pull-right-container"> <i className="fa fa-angle-left pull-right"></i> </span> </a>
-          <ul className="treeview-menu">
-            <li className="active"><a href="index.html"><i className="fa fa-circle-o"></i> Menu One </a></li>
-            <li><a href="index2.html"><i className="fa fa-circle-o"></i> Menu Two </a></li>
-          </ul>
         </li>
         <li className="treeview active"> <a href="#"> <i className="fa fa-pie-chart"></i> <span>User</span> <span className="pull-right-container"> <i className="fa fa-angle-left pull-right"></i> </span> </a>
         <ul className="treeview-menu">

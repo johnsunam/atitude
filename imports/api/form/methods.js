@@ -5,5 +5,5 @@ Meteor.methods({
   'addForm':function(form){
     FormDb.insert(form)
   }
-  
+
 })

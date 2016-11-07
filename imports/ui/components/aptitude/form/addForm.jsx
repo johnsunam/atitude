@@ -10,7 +10,9 @@ export default class AddForm extends Component {
    super(props)
    this.state={
      selectedTab:'#create-form',
-     formTitle:""
+     formTitle:"",
+     result:"",
+     messages:null
    }
   }
 
@@ -68,9 +70,8 @@ export default class AddForm extends Component {
          $('#save-alert').show()
         window.sessionStorage.setItem('formData', JSON.stringify(formBuilder.formData));
          let data=JSON.stringify(formBuilder.formData);
-        let result=obj.create('addForm',{name:formName,description:description,form:data});
 
-
+        self.setState({result:{name:formName,description:description,form:data}})
        $('#create-form').removeClass('in active');
        $('#create-form-tab').removeClass('in active');
        $('#previews').addClass('in active');
@@ -98,7 +99,6 @@ export default class AddForm extends Component {
       <ul className="steps_menu nav nav-tabs">
         <li className="in active" id="create-form"><a href="#create-form" id="#create-form" data-toggle="tab" onClick={this.openTab.bind(this)} >Create Form</a></li>
         <li className="" id="previews"><a href="#previews" id="#previews" data-toggle="tab" onClick={this.openTab.bind(this)}>Preview</a></li>
-        <li className="" id="save"> <a href="#save" data-toggle="tab"  id="#save" onClick={this.openTab.bind(this)}>Save</a></li>
       </ul>
       <div className="tab-content">
       <div id="create-form-tab" className="tab-pane fade in active">
@@ -118,15 +118,20 @@ export default class AddForm extends Component {
       <div className="tab-pane fade" id="previews-tab">
       <h2 className="col-md-offset-5">{this.state.formTitle}</h2>
       <div className="col-md-12">
+      <a href="#" className="btn btn-primary formsubmit" onClick={()=>{
+        let obj= new crudClass()
+        obj.create('addForm',this.state.result)
+        this.setState({message:true})
+        $('.formsubmit').hide()
+      }}>save form</a>
       <div  id="mainForm">
       </div>
       <div className="" id="save-alert">
-      <span style={{"fontSize":20,"color":"green"}}>form sucessfully saved</span>
+      <span style={{"fontSize":20,"color":"green"}}>{this.state.message?"form sucessfully saved":""}</span>
       </div>
+
       </div>
-      <div className="tab-pane fade" id="save-tab">
-      save
-      </div>
+
     </div>
       </div>
     </div>
