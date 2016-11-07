@@ -32,7 +32,7 @@ export default class ManageWorkFlow extends Component {
 					<AddWorkFlow edit="true" workflow={workflow}/>
 				</div>
 
-			  <a href="/define-workflow">Define</a> <a href="#" id={workflow._id} onClick={(e)=>{
+			  <a href="/aptitude/define-workflow">Define</a> <a href="#" id={workflow._id} onClick={(e)=>{
                 let obj=new crudClass()
                 obj.delete('deleteWorkFlow',e.target.id)
               }}>Delete</a></div></td>
