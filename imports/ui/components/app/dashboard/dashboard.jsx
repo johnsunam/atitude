@@ -24,7 +24,7 @@ export default class ClientUserDashboard extends Component {
       $("#showform").append('<button type="submit">submit<button/>');
     }
     var json = "";
-    let ids=id+" "+"button";
+
     $("#showform button").click(function(e){
       e.preventDefault()
       let arr=$("#showform").serializeArray()
@@ -41,7 +41,7 @@ export default class ClientUserDashboard extends Component {
     console.log(json);
    let data=JSON.parse(json);
    console.log(data);
-   Meteor.call('addFormData',{page:self.props.page,data:json},function(err){
+   Meteor.call('addFormData',{page:self.props.page,data:data},function(err){
      if(!err){
        self.setState({message:"Data saved sucessfully"})
      }
@@ -59,7 +59,7 @@ export default class ClientUserDashboard extends Component {
 
   }
   componentWillReceiveProps(nextProps){
-    console.log(nextProps.form);
+    this.setState({message:""})
   let self=this;
     let form=JSON.parse(nextProps.form.form)
     let id="#"+nextProps.page
@@ -72,7 +72,7 @@ export default class ClientUserDashboard extends Component {
     $("#showform").append('<button type="submit">submit');
     }
     var json = "";
-    let ids=id+" "+"button";
+
     $("#showform button").click(function(e){
 
       e.preventDefault()
@@ -90,8 +90,8 @@ export default class ClientUserDashboard extends Component {
     });
     json = "{" + json.substring(0, json.length - 1) + "}";
    let data=JSON.parse(json);
-   console.log(data);
-   Meteor.call('addFormData',{page:self.props.page,data:json},function(err){
+
+   Meteor.call('addFormData',{page:self.props.page,data:data},function(err){
      if(!err){
        self.setState({message:"Data saved sucessfully"})
      }
@@ -115,6 +115,7 @@ export default class ClientUserDashboard extends Component {
     return(<div className="">
     <div className="well">
     <form id="showform"></form>
+    <div>{this.state.message}</div>
     </div>
     </div>
     )
