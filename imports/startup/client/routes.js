@@ -87,7 +87,7 @@ FlowRouter.route('/client/manage-user',{
 });
 //route for add form
 
-FlowRouter.route('/aptitude/add/form',{
+FlowRouter.route('/aptitude/add-form',{
   name:'addForm',
   action:function(){
     ReactLayout.render(MainLayout,{
