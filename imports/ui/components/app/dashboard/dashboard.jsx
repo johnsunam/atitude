@@ -1,10 +1,10 @@
 import React ,{Component} from 'react';
-
+import FormDataList from '../../../container/formDataList.js'
 export default class ClientUserDashboard extends Component {
   constructor(props) {
     super(props)
     this.state={
-      selectedTab:'#form',
+      selectedTab:'#fill-form',
       formData:{},
       keys:[],
       id:props.page,
@@ -41,8 +41,9 @@ export default class ClientUserDashboard extends Component {
     console.log(json);
    let data=JSON.parse(json);
    console.log(data);
-   Meteor.call('addFormData',{page:self.props.page,data:data},function(err){
+   Meteor.call('addFormData',{page:self.props.page,data:data,user:Meteor.userId()},function(err){
      if(!err){
+       json=''
        self.setState({message:"Data saved sucessfully"})
      }
      else {
@@ -58,6 +59,7 @@ export default class ClientUserDashboard extends Component {
     })
 
   }
+
   componentWillReceiveProps(nextProps){
     this.setState({message:""})
   let self=this;
@@ -90,9 +92,10 @@ export default class ClientUserDashboard extends Component {
     });
     json = "{" + json.substring(0, json.length - 1) + "}";
    let data=JSON.parse(json);
-
+   console.log(data);
    Meteor.call('addFormData',{page:self.props.page,data:data},function(err){
      if(!err){
+       json=""
        self.setState({message:"Data saved sucessfully"})
      }
      else {
@@ -106,16 +109,41 @@ export default class ClientUserDashboard extends Component {
     })
       }
 
-
+      openTab(e){
+        let self=this;
+          $(e.target.id).addClass('in active');
+          let id=e.target.id+"-tab";
+          $(id).addClass('in active');
+          $(self.state.selectedTab).removeClass('in active');
+          let ids=self.state.selectedTab+"-tab";
+          $(ids).removeClass('in active');
+          this.setState({selectedTab:e.target.id})
+      }
 
 
   render(){
-    console.log(this.props);
+
     let self=this;
     return(<div className="">
-    <div className="well">
+    <ul className="steps_menu nav nav-tabs">
+      <li className="in active" id="fill-form"><a href="#fill-form" id="#fill-form" data-toggle="tab"
+      onClick={this.openTab.bind(this)} >Create Form</a></li>
+      <li className="" id="show-form"><a className="" href="#" id="#show-form"
+      onClick={this.openTab.bind(this)} >Preview</a></li>
+    </ul>
+    <div className="tab-content">
+    <div id="fill-form-tab" className="tab-pane fade in active">
+    <div className="well" style={{"margin":10}}>
     <form id="showform"></form>
     <div>{this.state.message}</div>
+    </div>
+
+    </div>
+    <div id="show-form-tab" className="tab-pane fade">
+    <div className="well" style={{"margin":10}}>
+    <FormDataList page={this.props.page}/>
+    </div>
+    </div>
     </div>
     </div>
     )

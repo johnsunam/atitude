@@ -29,12 +29,14 @@ export default class AdminLogin extends Component {
                     console.log(err);
                   }
                   else{
-                    FlowRouter.go('/admin');
+
+                    Roles.userIsInRole(Meteor.userId(), 'aptitude-admin')?FlowRouter.go('/aptitude/add-form'):FlowRouter.go('/aptitude/login')
+
                   }
                 })
               }}><span>LOGIN</span></button>
             </div>
-          
+
           </div>
         </div>
        </div>

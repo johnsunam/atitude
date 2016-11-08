@@ -2,7 +2,7 @@
 
 import React ,{Component} from 'react'
 import ClientPages from '../page/clientPages.jsx'
-import Messages from '../../common/submitMessage.jsx'
+
 
 
 export default class ManagePage extends Component {

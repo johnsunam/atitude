@@ -7,9 +7,11 @@ const composer = ( props, onData ) => {
 
     var subcription=Meteor.subscribe('getPage');
     var subcription=Meteor.subscribe('getClient');
+    var subcription=Meteor.subscribe('getAccount');
     if(subcription.ready()){
-      let client=ClientDb.findOne({email:email.emails[0].address});
-      
+      let user=Meteor.users.findOne({_id:Meteor.userId()})
+      let client=ClientDb.findOne({email:user.emails[0].address});
+
       let pages=client?PageDb.find({clientName:client.companyName}).fetch():[];
       onData( null, {pages} )
       }

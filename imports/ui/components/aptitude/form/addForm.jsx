@@ -57,8 +57,6 @@ export default class AddForm extends Component {
      var formName=$('#formName').val();
      var description=$('#formdescription').val()
      self.setState({formTitle:formName})
-     console.log(formBuilder.formData);
-     console.log(formBuilder.formData.length);
      if(formName!="" && formBuilder.formData.length>2){
        buildWrap.toggle();
      renderWrap.toggle();
@@ -94,11 +92,12 @@ export default class AddForm extends Component {
       $(ids).removeClass('in active');
       this.setState({selectedTab:e.target.id})
   }
+
   render(){
     return(<div className="col-md-10 no_pad">
       <ul className="steps_menu nav nav-tabs">
         <li className="in active" id="create-form"><a href="#create-form" id="#create-form" data-toggle="tab" onClick={this.openTab.bind(this)} >Create Form</a></li>
-        <li className="" id="previews"><a href="#previews" id="#previews" data-toggle="tab" onClick={this.openTab.bind(this)}>Preview</a></li>
+        <li className="" id="previews"><a className="form-builder-save" href="#" id="#previews" >Preview</a></li>
       </ul>
       <div className="tab-content">
       <div id="create-form-tab" className="tab-pane fade in active">

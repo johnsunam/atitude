@@ -2,28 +2,30 @@
 
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import Messages from '../../common/submitMessage.jsx'
+import { Alert } from 'react-bootstrap';
+var message = require('../../common/message.json');
 export default class AddWorkFlow extends Component {
   constructor(props) {
    super(props)
    this.state={
      saveResult:false,
       edit:this.props.edit,
-      workflow:this.props.workflow
+      workflow:this.props.workflow,
+	  isShowMessage: false
 
    }
      }
 
    componentDidMount(){
-    $('#messages').hide();
+
     this.refs.name.value=this.state.edit?this.props.workflow.name:'';
     this.refs.description.value=this.state.edit?this.props.workflow.description:'';
-    this.refs.status.value=this.state.edit?this.props.workflow.status:'';
+    //this.refs.status.value=this.state.edit?this.props.workflow.status:'';
    }
   componentDidUpdate(){
     this.refs.name.value=this.state.edit?this.props.workflow.name:'';
     this.refs.description.value=this.state.edit?this.props.workflow.description:'';
-    this.refs.status.value=this.state.edit?this.props.workflow.status:'';
+    //this.refs.status.value=this.state.edit?this.props.workflow.status:'';
   }
   editWorkFlow(){
 
@@ -39,8 +41,8 @@ export default class AddWorkFlow extends Component {
     {name:name,description:description}
     let res=this.state.edit?obj.create('editWorkFlow',record):obj.create('addWorkFlow',record);
 
-    this.setState({saveResult:res})
-      $('#messages').show()
+    this.setState({saveResult:res, isShowMessage: true})
+
    this.refs.name.value="";
    this.refs.description.value="";
   }
@@ -50,9 +52,12 @@ export default class AddWorkFlow extends Component {
 	 console.log(this.props.workflow);
     let submitButton=this.state.edit?<button onClick={this.addWorkFlow.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
     onClick={this.addWorkFlow.bind(this)}><span>submit</span></button>;
-    let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
     return(<div className="col-md-10 registration_form pad_t50">
-        {message}
+           {this.state.isShowMessage ?
+        <Alert bsStyle="success">
+        {message.saveWorkflowSuccess}
+        </Alert>
+      : ''}
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
         <div className="card">

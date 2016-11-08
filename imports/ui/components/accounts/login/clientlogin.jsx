@@ -34,8 +34,11 @@ export default class ClientLogin extends Component {
                   if(err){
                     self.setState({err:err.reason})
                   }
-                  else{
-                    FlowRouter.go('/client');
+                  else
+                  {
+
+                    Roles.userIsInRole(Meteor.userId(), 'client')?FlowRouter.go('/client/dashboard'):FlowRouter.go('/client/login')
+
                   }
                 })
               }}><span>LOGIN</span></button>

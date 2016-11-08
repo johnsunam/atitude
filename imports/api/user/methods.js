@@ -4,7 +4,7 @@ Meteor.methods({
   'addUser':function(record){
      UserDb.insert(record);
      let userId=Accounts.createUser({email:record.email,password:"aptitude123"})
-     Roles.addUsersToRoles(userId,'user');
+     Roles.addUsersToRoles(userId,'super-admin');
   },
   'deleteUser':function(id){
     UserDb.remove({_id:id});

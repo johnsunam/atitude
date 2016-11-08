@@ -3,17 +3,18 @@
 
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import Messages from '../../common/submitMessage.jsx'
+import { Alert } from 'react-bootstrap';
+var message = require('../../common/message.json');
 export default class AddPage extends Component {
   constructor(props) {
    super(props)
    this.state={
      saveResult:false,
-     edit:props.edit
+     edit:props.edit,
+	  isShowMessage: false
    }
   }
   componentDidMount(){
-    $('#messages').hide()
     this.refs.name.value=this.state.edit?this.props.page.name:''
     this.refs.clientName.value=this.state.edit?this.props.page.clientName:''
     this.refs.formName.value=this.state.edit?this.props.page.formName:''
@@ -44,9 +45,8 @@ export default class AddPage extends Component {
     {name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}
     let obj= new crudClass();
     let res=this.state.edit?obj.edit('editPage',record):obj.create('addPage',record);
-      this.setState({saveResult:res})
-      $('#messages').show()
-    this.refs.name.value='',
+      this.setState({saveResult:res, isShowMessage: true})
+     this.refs.name.value='',
     this.refs.clientName.value=''
     this.refs.formName.value=""
     this.refs.previewURL.value=""
@@ -58,9 +58,12 @@ export default class AddPage extends Component {
 
   }
   render(){
-    let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
       return(<div className="col-md-10 registration_form pad_t50">
-      {message}
+    {  this.state.isShowMessage ?
+        <Alert bsStyle="success">
+        {message.savePageSuccess}
+        </Alert>
+      : ''}
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
         <div className="card">

@@ -3,12 +3,12 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 import ClientAccountsLayout from '../layouts/clientAccountLayout.jsx';
 const composer = ( props, onData ) => {
 
-    if(Meteor.userId()){
-      FlowRouter.go('/client')
-        }
-      else{
-        onData( null, {null} )
+  if(Meteor.userId()){
+    onData( null, {null} )
       }
+    else{
+      onData( null, {null} )
+    }
   };
 
 

@@ -5,9 +5,13 @@ class crudClass {
   }
    create(methodName,data){
 
-      Meteor.call(methodName,data,function(err){
+      var code=Meteor.call(methodName,data,function(err,res){
        if(err){
+         console.log(err);
         return err;
+       }
+       else {
+                console.log(res);
        }
      });
 

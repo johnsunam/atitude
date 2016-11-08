@@ -29,8 +29,9 @@ export default class ClientUserLogin extends Component {
                     console.log(err);
                   }
                   else{
-                    FlowRouter.go('/app/dashboard');
-                  }
+
+                    Roles.userIsInRole(Meteor.userId(),'App User')?FlowRouter.go('/app/dashboard/'):FlowRouter.go('/app/login')
+}
                 })
               }}><span>LOGIN</span></button>
             </div>

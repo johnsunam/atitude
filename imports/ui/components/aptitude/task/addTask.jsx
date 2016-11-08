@@ -2,19 +2,21 @@
 
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import Messages from '../../common/submitMessage.jsx'
+import { Alert } from 'react-bootstrap';
+var message = require('../../common/message.json');
 export default class AddTask extends Component {
   constructor(props) {
    super(props)
    this.state={saveResult:false,
    edit:this.props.edit,
-   task:this.props.task}
+   task:this.props.task,
+   isShowMessage: false
+   }
 
   }
 
 
   componentDidMount(){
-    $('#messages').hide();
     this.refs.name.value=this.state.edit?this.props.task.name:'';
     this.refs.description.value=this.state.edit?this.props.task.description:'';
     //this.refs.status.value=this.state.edit?this.props.task.status:'';
@@ -38,8 +40,8 @@ export default class AddTask extends Component {
     {name:name,description:description}
     let res=this.state.edit?obj.create('editTask',record):obj.create('addTask',record);
 
-    this.setState({saveResult:res})
-      $('#messages').show()
+    this.setState({saveResult:res, isShowMessage: true})
+
    this.refs.name.value="";
    this.refs.description.value="";
   }
@@ -47,9 +49,12 @@ export default class AddTask extends Component {
   render(){
     let submitButton=this.state.edit?<button onClick={this.addTask.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
     onClick={this.addTask.bind(this)}><span>submit</span></button>;
-    let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
     return(  <div className="col-md-10 registration_form pad_t50">
-    {message}
+       {this.state.isShowMessage ?
+        <Alert bsStyle="success">
+        {message.saveTaskSuccess}
+        </Alert>
+      : ''}
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
         <div className="card">

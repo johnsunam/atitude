@@ -2,18 +2,22 @@
 
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import Messages from '../../common/submitMessage.jsx'
+import { Alert } from 'react-bootstrap';
+import {Random } from 'meteor/random'
+var message = require('../../common/message.json');
 export default class AddClient extends Component {
   constructor(props) {
    super(props)
    this.state={countries:[{name:"Nepal"},{name:"India"},{name:'Bhutan'}],
     saveResult:false,
     edit:this.props.edit,
-    client:this.props.client
+    client:this.props.client,
+	isShowMessage: false,
+  code:""
     }
   }
   componentDidMount(){
-    $('#messages').hide();
+
     this.refs.companyName.value=this.state.edit?this.props.client.companyName:''
     this.refs.address.value=this.state.edit?this.props.client.address:''
     this.refs.phone.value=this.state.edit?this.props.client.phone:''
@@ -54,12 +58,14 @@ export default class AddClient extends Component {
       	contactNo=this.refs.contactNo.value;
 
     let status=$('#checkbox:checked').val() ? "active":"inactive";
+    let ran=Random.hexString(7);
+    console.log(ran);
     let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}}:
-    {companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
+    {clientCode:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
+    console.log(record);
     let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
+    this.setState({saveResult:res,  isShowMessage: true,code:ran})
 
-    this.setState({saveResult:res})
-      $('#messages').show()
    this.refs.companyName.value="";
    this.refs.address.value="";
    this.refs.email.value="";
@@ -75,9 +81,13 @@ export default class AddClient extends Component {
     console.log(this.props.client);
     let submitButton=this.state.edit?<button onClick={this.addClient.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
     onClick={this.addClient.bind(this)}><span>submit</span></button>;
-    let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
-    return(<div className="col-md-10 registration_form pad_t50">
-    {message}
+     return(<div className="col-md-10 registration_form pad_t50">
+    {this.state.isShowMessage ?
+        <Alert bsStyle="success">
+        {message.saveClientSuccess}
+        </Alert>
+      : ''}
+      {this.state.edit?"":<div>{this.state.code}</div>}
       <div className="col-md-8 col-md-offset-2">
         <div className="card"></div>
         <div className="card">
@@ -153,6 +163,9 @@ export default class AddClient extends Component {
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
           </div>
+        </div>
+		<div className="message">
+
         </div>
       </div>
     </div>)

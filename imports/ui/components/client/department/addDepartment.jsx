@@ -1,19 +1,20 @@
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import Messages from '../../common/submitMessage.jsx'
+import { Alert } from 'react-bootstrap';
+var message = require('../../common/message.json');
 export default class AddRole extends Component {
   constructor(props) {
 	super(props)
   this.state={
     saveResult:false,
       edit:this.props.edit,
-      department:this.props.department
+      department:this.props.department,
+	   isShowMessage: false
 
   }
   }
 
    componentDidMount(){
-    $('#messages').hide();
     this.refs.name.value=this.state.edit?this.props.department.name:'';
     this.refs.description.value=this.state.edit?this.props.department.description:'';
     //this.refs.status.value=this.state.edit?this.props.department.status:'';
@@ -37,8 +38,7 @@ export default class AddRole extends Component {
     {name:name,description:description}
     let res=this.state.edit?obj.create('editDepartment',record):obj.create('addDepartment',record);
 
-    this.setState({saveResult:res})
-      $('#messages').show()
+    this.setState({saveResult:res, isShowMessage: true})
    this.refs.name.value="";
    this.refs.description.value="";
   }
@@ -49,9 +49,12 @@ export default class AddRole extends Component {
 	 console.log(this.props.client);
     let submitButton=this.state.edit?<button onClick={this.addDepartment.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
     onClick={this.addDepartment.bind(this)}><span>submit</span></button>;
-    let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
     return(<div><div className="box-body">
-            {message}
+      {this.state.isShowMessage ?
+        <Alert bsStyle="success">
+        {message.saveDepartmentSuccess}
+        </Alert>
+      : ''}
               <div className="form-group">
                 <label for="name"> Name</label>
                 <input type="text" className="form-control" id="name" placeholder="Name" ref="name"/>

@@ -4,12 +4,17 @@ import MainLayout from '../layouts/mainLayout.jsx';
 const composer = ( props, onData ) => {
 
     if(Meteor.userId()){
-      let user=Meteor.user();
+
+      if(Roles.userIsInRole(Meteor.userId(), 'aptitude-admin' )){
+        let user=Meteor.userId()
         onData( null, {user} )
+      }
+
     }
-    else{
+    else {
       FlowRouter.go('/aptitude/login')
     }
+
   };
 
 

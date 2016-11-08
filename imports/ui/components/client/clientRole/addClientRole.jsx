@@ -1,19 +1,20 @@
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import Messages from '../../common/submitMessage.jsx'
+import { Alert } from 'react-bootstrap';
+var message = require('../../common/message.json');
 export default class AddRole extends Component {
   constructor(props) {
 	super(props)
   this.state={
     saveResult:false,
       edit:this.props.edit,
-      clientRole:this.props.clientRole
+      clientRole:this.props.clientRole,
+	   isShowMessage: false
 
   }
   }
 
    componentDidMount(){
-    $('#messages').hide();
     this.refs.name.value=this.state.edit?this.props.clientRole.name:'';
     this.refs.description.value=this.state.edit?this.props.clientRole.description:'';
     //this.refs.status.value=this.state.edit?this.props.clientRole.status:'';
@@ -37,8 +38,7 @@ export default class AddRole extends Component {
     {name:name,description:description}
     let res=this.state.edit?obj.create('editClientRole',record):obj.create('addClientRole',record);
 
-    this.setState({saveResult:res})
-      $('#messages').show()
+    this.setState({saveResult:res, isShowMessage: true})
    this.refs.name.value="";
    this.refs.description.value="";
   }
@@ -49,10 +49,13 @@ export default class AddRole extends Component {
 	 console.log(this.props.client);
     let submitButton=this.state.edit?<button onClick={this.addClientRole.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
     onClick={this.addClientRole.bind(this)}><span>submit</span></button>;
-    let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
     return(<div>
       <div className="box-body">
-      {message}
+       {this.state.isShowMessage ?
+        <Alert bsStyle="success">
+        {message.saveRoleSuccess}
+        </Alert>
+      : ''}
               <div className="form-group">
                 <label for="name"> Name</label>
                 <input type="text" className="form-control" id="name" placeholder="Name" ref="name"/>
@@ -64,7 +67,7 @@ export default class AddRole extends Component {
             </div>
             <div className="box-footer">
               {submitButton}
-             {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
+             {this.state.edit?<button data-dismiss="modal">Cancel</button>:''}
             </div>
           </div>)
   }

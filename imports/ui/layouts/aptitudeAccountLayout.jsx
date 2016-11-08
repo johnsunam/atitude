@@ -1,5 +1,5 @@
 import React ,{Component} from 'react'
-
+import AdminLogin from '../components/accounts/login/adminlogin.jsx'
 export default class AptitudeLogin extends Component {
   constructor(props) {
     super(props)
@@ -7,11 +7,13 @@ export default class AptitudeLogin extends Component {
   render(){
     return(<div>
       <div className="hed_top">
-  <div className="mid_container">
-    <div className="logoin">Aptitude Login</div>
-  </div>
-</div>
-{this.props.content}
+      <div className="mid_container">
+        <div className="logoin">Aptitude Login</div>
+      </div>
+    </div>
+    {this.props.content?this.props.content:<div>
+      <div className="col-md-offset-5">Yout are not permission to access</div>
+      <AdminLogin/></div>}
     </div>)
   }
 }

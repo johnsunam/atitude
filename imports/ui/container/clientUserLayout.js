@@ -4,19 +4,25 @@ import {PageDb} from '../../api/page/collection/page.collection.js'
 
 import ClientUserLayout from '../layouts/clientUserLayout.jsx';
 const composer = ( props, onData ) => {
-  var subcription=Meteor.subscribe('getPage');
-  if(subcription.ready()){
+  var subcription=Meteor.subscribe('getPage')
+  if(Meteor.userId()){
 
-  if(Meteor.userId())
-    {
-      var data=PageDb.find().fetch();
-        onData( null, {data} )
-      }
-      else{
+    if(Roles.userIsInRole(Meteor.userId(), 'App User' )){
 
-        FlowRouter.go('/app/login');
+      if(subcription.ready()){
+        let data= PageDb.find().fetch();
+        let pages=data?data:[];
+        onData( null, {pages} )
       }
+
     }
+
+  }
+  else {
+    FlowRouter.go('/app/login')
+  }
+
+
 
   };
 

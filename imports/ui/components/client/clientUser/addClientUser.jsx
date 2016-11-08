@@ -1,19 +1,22 @@
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import Messages from '../../common/submitMessage.jsx'
+import { Alert } from 'react-bootstrap';
+var message = require('../../common/message.json');
 
 export default class AddClientUser extends Component {
   constructor(props) {
    super(props)
    this.state={saveResult:false,
   edit:this.props.edit,
-  clientUser:this.props.clientUser}
+  clientUser:this.props.clientUser,
+  isShowMessage: false,
+  userCode:""
+  }
 
   }
 
    componentDidMount(){
 
-    $('#messages').hide();
     this.refs.name.value=this.state.edit?this.props.clientUser.name:'';
     this.refs.dob.value=this.state.edit?this.props.clientUser.dob:'';
     this.refs.address.value=this.state.edit?this.props.clientUser.address:'';
@@ -51,13 +54,13 @@ export default class AddClientUser extends Component {
 		secAnswer=this.refs.secAnswer.value,
 		roleName=this.refs.roleName.value,
 		userType = this.refs.userType.value;
+    let userCode=Random.hexString(7);
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let record=this.props.edit?{id:this.props.clientUser._id,data:{name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName, userType:userType}}:
-    {name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName, userType:userType}
+    {userCode:userCode,name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName, userType:userType}
     let res=this.state.edit?obj.create('editClientUser',record):obj.create('addClientUser',record);
 
-    this.setState({saveResult:res})
-      $('#messages').show()
+    this.setState({saveResult:res, isShowMessage: true ,userCode:userCode})
 		this.refs.name.value="";
 		this.refs.dob.value="";
 		this.refs.address.value="";
@@ -73,10 +76,14 @@ export default class AddClientUser extends Component {
 	console.log(this.props);
     let submitButton=this.state.edit?<button onClick={this.addClientUser.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
     onClick={this.addClientUser.bind(this)}><span>Submit</span></button>;
-    let message=this.state.edit?'':<Messages saveResult={this.state.saveResult}/>
     return(<div>
       <div className="box-body">
-      {message}
+    {  this.state.isShowMessage ?
+        <Alert bsStyle="success">
+        {message.saveUserSuccess}
+        </Alert>
+      : ''}
+      {this.state.edit?"":<div>{this.state.userCode}</div>}
               <div className="form-group">
                 <label for="name"> Name</label>
                 <input type="text" className="form-control" id="name" placeholder="Name" ref="name"/>
@@ -112,14 +119,14 @@ export default class AddClientUser extends Component {
                 <label for="userType">User Type</label>
                 <select type="text" className="form-control" ref="userType">
                   <option>App User</option>
-				  <option>Admin</option>
+				  <option>Client</option>
                 </select>
               </div>
               <div className="form-group">
                 <label for="roleName">Role</label>
                 <select type="text" className="form-control" ref="roleName">
                   <option>Role to be filled in</option>
-                  {this.props.  roles.map((role)=>{
+                {this.props.roles.map((role)=>{
                     return(<option>{role.name}</option>)
                   })}
                 </select>
