@@ -35,9 +35,8 @@ import ClientUserDashboard from '../../ui/components/app/dashboard/dashboard.jsx
 import AptitudeAccountsLayout from '../../ui/container/aptitudeAccountsLayout.js'
 import ClientAccountsLayout from '../../ui/container/clientAccountLayout.js'
 import AppAccountsLayout  from '../../ui/container/appAccountLayout.js'
-import DefineWorkFlow from '../../ui/components/aptitude/workflow/defineWorkFlow.jsx'
-import ClientCode from '../../ui/container/clientCode.js'
- FlowRouter.route('/client/add-department',{
+
+FlowRouter.route('/client/add-department',{
   name:'addDepartment',
   action:function(){
     ReactLayout.render(ClientAdminLayout,{
@@ -45,7 +44,6 @@ import ClientCode from '../../ui/container/clientCode.js'
     })
   }
 });
-
 FlowRouter.route('/client/manage-department',{
   name:'manageDepartment',
   action:function(){
@@ -92,7 +90,7 @@ FlowRouter.route('/client/manage-user',{
 FlowRouter.route('/aptitude/add-form',{
   name:'addForm',
   action:function(){
-  ReactLayout.render(MainLayout,{
+    ReactLayout.render(MainLayout,{
       content:<AddForm/>
     })
   }
@@ -237,13 +235,11 @@ FlowRouter.route('/aptitude/define-workflow',{
   }
 });
 
-FlowRouter.route('/client/dashboard',{
+FlowRouter.route('/client',{
   name:'client',
   action:function(){
-    console.log('helo');
     ReactLayout.render(ClientAdminLayout,{
-      content:<ClientAdminPages/>,
-      user:Meteor.user()
+      content:<ClientAdminPages/>
     })
   }
 });

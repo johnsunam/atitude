@@ -3,7 +3,6 @@
 import React ,{Component} from 'react'
 import AddWorkFlow from './addWorkFlow.jsx'
 import crudClass from '../../common/crudClass.js'
-import DefineWorkFlow from './defineWorkFlow.jsx'
 export default class ManageWorkFlow extends Component {
   constructor(props) {
    super(props)

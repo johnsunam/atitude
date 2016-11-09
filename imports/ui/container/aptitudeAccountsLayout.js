@@ -4,7 +4,7 @@ import AptitudeAccountsLayout from '../layouts/aptitudeAccountLayout.jsx';
 const composer = ( props, onData ) => {
 
     if(Meteor.userId()){
-      onData( null, {null} )
+      FlowRouter.go('/aptitude/add-form')
         }
       else{
         onData( null, {null} )
