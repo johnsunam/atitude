@@ -30,7 +30,7 @@ export default class ClientCode extends Component  {
               <button onClick={()=>{
                 let clientCode=$('#clientCode').val();
                 console.log(this.props.client);
-                var client=_.findWhere(this.props.clients,{clientCode:clientCode});
+                var client=_.findWhere(this.props.clients,{code:clientCode});
                 client?this.props.verify.setState({verify:true}):this.setState({showMessage:true})
 
 

@@ -1,10 +1,11 @@
 //new client is added and existing client record is edited
-
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
 import { Alert } from 'react-bootstrap';
 import {Random } from 'meteor/random'
 var message = require('../../common/message.json');
+
+
 export default class AddClient extends Component {
   constructor(props) {
    super(props)
@@ -61,7 +62,7 @@ export default class AddClient extends Component {
     let ran=Random.hexString(7);
     console.log(ran);
     let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}}:
-    {clientCode:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
+    {code:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
     console.log(record);
     let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
     this.setState({saveResult:res,  isShowMessage: true,code:ran})
@@ -94,14 +95,16 @@ export default class AddClient extends Component {
           <h1 className="title">Add Client</h1>
           <div className="form_pad">
             <div className="row">
+
               <div className="col-md-6">
+
                 <div className="input-container">
-                  <input type="text" required="required" ref="companyName" />
+                  <input type="text" required="required" name="companyName" ref="companyName" />
                   <label for="">Company Name</label>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <input type="text" required="required" ref="address"/>
+                  <input type="text" required="required" name="address" ref="address"/>
                   <label for=" ">Address</label>
                   <div className="bar"></div>
                 </div>
@@ -155,9 +158,8 @@ export default class AddClient extends Component {
                   <label for=" ">Contact No</label>
                   <div className="bar"></div>
                 </div>
-
               </div>
-            </div>
+              </div>
             <div className="button-container">
              {submitButton}
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}

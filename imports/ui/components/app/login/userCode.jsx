@@ -28,8 +28,7 @@ export default class UserCode extends Component  {
             <div className="button-container">
               <button onClick={()=>{
                 let userCode=$('#userCode').val();
-                console.log(this.props.users);
-                var client=_.findWhere(this.props.users,{userCode:userCode});
+                var client=_.findWhere(this.props.users,{code:userCode});
                 console.log(client);
                 client?this.props.verify.setState({verify:true}):this.setState({showMessage:true})
 

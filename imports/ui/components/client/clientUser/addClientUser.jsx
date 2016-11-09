@@ -57,7 +57,7 @@ export default class AddClientUser extends Component {
     let userCode=Random.hexString(7);
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let record=this.props.edit?{id:this.props.clientUser._id,data:{name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName, userType:userType}}:
-    {userCode:userCode,name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName, userType:userType}
+    {code:userCode,name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName, userType:userType}
     let res=this.state.edit?obj.create('editClientUser',record):obj.create('addClientUser',record);
 
     this.setState({saveResult:res, isShowMessage: true ,userCode:userCode})
@@ -119,7 +119,7 @@ export default class AddClientUser extends Component {
                 <label for="userType">User Type</label>
                 <select type="text" className="form-control" ref="userType">
                   <option>App User</option>
-				  <option>Client</option>
+				  <option>client</option>
                 </select>
               </div>
               <div className="form-group">

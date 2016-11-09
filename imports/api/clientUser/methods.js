@@ -1,13 +1,20 @@
 import {ClientUserDb} from './collection/clientUser.collection.js'
+import {ClientDb} from '../clients/collection/client.collection.js'
 import {Random } from 'meteor/random'
 
 Meteor.methods({
   'addClientUser':function(record){
     console.log(record);
-    record.userCode=Random.hexString(7);
+
     let userId=Accounts.createUser({email:record.email,password:"aptitude123"})
     Roles.addUsersToRoles(userId,record.userType);
-    ClientUserDb.insert(record)
+    if(record.userType=="client"){
+      ClientDb.insert(record);
+    }
+    else {
+      ClientUserDb.insert(record);
+    }
+
 
   },
   'editClientUser':function(record){
