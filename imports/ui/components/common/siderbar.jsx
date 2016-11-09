@@ -9,7 +9,7 @@ export default SiderBar=()=>{
             <ul className="">
               <li><a href="javascript:void(0)">Form</a>
                 <ul>
-                  <li><a href="/aptitude/add/form">Add Form</a></li>
+                  <li><a href="/aptitude/add-form">Add Form</a></li>
                   <li><a href="/aptitude/manage-form">Manage Form</a></li>
                 </ul>
               </li>
