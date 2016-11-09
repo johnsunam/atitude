@@ -2,6 +2,7 @@ import {RoleDb} from "./collection/role.collection.js"
 
 Meteor.methods({
   'addRole':function(record){
+    console.log(record);
     return RoleDb.insert(record);
   },
   'deleteRole':function(id){

@@ -1,7 +1,17 @@
-import React ,{Component} from 'react'
-import crudClass from '../../common/crudClass.js'
-import { Alert } from 'react-bootstrap';
+import React ,{Component} from 'react';
+import Alert from 'react-s-alert';
+import crudClass from '../../common/crudClass.js';
 var message = require('../../common/message.json');
+import MyInput from '../../common/validator.js';
+import Formsy from 'formsy-react';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+import 'react-s-alert/dist/s-alert-css-effects/scale.css';
+import 'react-s-alert/dist/s-alert-css-effects/bouncyflip.css';
+import 'react-s-alert/dist/s-alert-css-effects/flip.css';
+import 'react-s-alert/dist/s-alert-css-effects/genie.css';
+import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 export default class AddRole extends Component {
   constructor(props) {
 	super(props)
@@ -9,7 +19,7 @@ export default class AddRole extends Component {
     saveResult:false,
       edit:this.props.edit,
       role:this.props.role,
-	  isShowMessage: false
+    canSubmit: false
 
   }
   }
@@ -17,28 +27,39 @@ export default class AddRole extends Component {
    componentDidMount(){
     this.refs.name.value=this.state.edit?this.props.role.name:'';
     this.refs.description.value=this.state.edit?this.props.role.description:'';
-    //this.refs.status.value=this.state.edit?this.props.role.status:'';
+    this.refs.status.value=this.state.edit?this.props.role.status:'';
    }
   componentDidUpdate(){
     this.refs.name.value=this.state.edit?this.props.role.name:'';
     this.refs.description.value=this.state.edit?this.props.role.description:'';
-    //this.refs.status.value=this.state.edit?this.props.role.status:'';
+    this.refs.status.value=this.state.edit?this.props.role.status:'';
   }
-  editRole(){
 
-  }
+ enableButton() {
+   this.setState({ canSubmit: true });
+ }
+ disableButton() {
+   this.setState({ canSubmit: false });
+ }
   // saving WorkFlow to WorkFlowDb
-  addRole(){
+  submit(){
     let obj= new crudClass();
     let name=this.refs.name.value,
         description=this.refs.description.value;
 
+
     let status=$('#checkbox:checked').val() ? "active":"inactive";
-    let record=this.props.edit?{id:this.props.role._id,data:{name:name,description:description}}:
-    {name:name,description:description}
+    let record=this.props.edit?{id:this.props.role._id,data:{name:name,description:description,status:status}}:
+    {name:name,description:description,status:status}
+    console.log(record);
     let res=this.state.edit?obj.create('editRole',record):obj.create('addRole',record);
 
-    this.setState({saveResult:res, isShowMessage: true})
+    Alert.success(message.saveRoleSuccess, {
+           position: 'top-right',
+           effect: 'bouncyflip',
+           timeout: 'none'
+       });
+    this.setState({saveResult:res})
    this.refs.name.value="";
    this.refs.description.value="";
   }
@@ -47,25 +68,20 @@ export default class AddRole extends Component {
 
  render(){
 
-    let submitButton=this.state.edit?<button onClick={this.addRole.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
-    onClick={this.addRole.bind(this)}><span>submit</span></button>;
+    let submitButton=this.state.edit?<button data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
+    <span>submit</span></button>;
 
     return(<div className="col-md-10 registration_form pad_t50">
-    {this.state.isShowMessage ?
-        <Alert bsStyle="success">
-        {message.saveRoleSuccess}
-        </Alert>
-      : ''}
       <div className="col-md-6 col-md-offset-3">
-	   <div className="card"></div>
+       <div className="card"></div>
         <div className="card">
           <h1 className="title">Add Role</h1>
           <div className="form_pad">
+          <Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <input type="text" required="required" ref="name"/>
-                  <label for="">Role Name</label>
+                  <MyInput type="text" name="name" ref="name" />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -73,18 +89,23 @@ export default class AddRole extends Component {
                 </div>
                 <div className="input-container gender">
                   <div>Page Access &nbsp;
-                    <input type="checkbox" id="checkbox" value="active" />
+                    <input type="checkbox" id="checkbox" value="active" ref="status" />
                   </div>
                 </div>
               </div>
             </div>
             <div className="button-container">
              {submitButton}
+
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
+            </Formsy.Form>
           </div>
         </div>
+        <Alert stack={{limit: 3}} />
       </div>
+
+
     </div>)
   }
 }

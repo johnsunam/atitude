@@ -127,9 +127,9 @@ export default class ClientUserDashboard extends Component {
     return(<div className="">
     <ul className="steps_menu nav nav-tabs">
       <li className="in active" id="fill-form"><a href="#fill-form" id="#fill-form" data-toggle="tab"
-      onClick={this.openTab.bind(this)} >Create Form</a></li>
+      onClick={this.openTab.bind(this)} >Fill Up Form</a></li>
       <li className="" id="show-form"><a className="" href="#" id="#show-form"
-      onClick={this.openTab.bind(this)} >Preview</a></li>
+      onClick={this.openTab.bind(this)} >Filled Up Form List</a></li>
     </ul>
     <div className="tab-content">
     <div id="fill-form-tab" className="tab-pane fade in active">

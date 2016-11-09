@@ -95,7 +95,6 @@ export default class AddClient extends Component {
           <h1 className="title">Add Client</h1>
           <div className="form_pad">
             <div className="row">
-
               <div className="col-md-6">
 
                 <div className="input-container">
@@ -159,6 +158,7 @@ export default class AddClient extends Component {
                   <div className="bar"></div>
                 </div>
               </div>
+
               </div>
             <div className="button-container">
              {submitButton}
