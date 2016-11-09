@@ -1,11 +1,21 @@
 import React,{Component} from 'react';
 import {FlowRouter} from 'meteor/kadira:flow-router';
+import message from '../../common/message.json'
+import { Alert } from 'react-bootstrap';
 export default class AdminLogin extends Component {
   constructor(props) {
     super(props)
+    this.state={
+      showMessage:false
+    }
   }
   render(){
     return(<div className="mid_content">
+    {this.state.showMessage ?
+        <Alert bsStyle="success">
+        {message.adminLoginError}
+        </Alert>
+      : ''}
       <div className="login_col">
         <div className="card"></div>
         <div className="card">
@@ -24,9 +34,10 @@ export default class AdminLogin extends Component {
               <button onClick={()=>{
                 let user=this.refs.username.value
                 let password=this.refs.password.value
+                let self=this;
                 Meteor.loginWithPassword(user,password,function(err){
                   if(err){
-                    console.log(err);
+                    self.setState({showMessage:true})
                   }
                   else{
 

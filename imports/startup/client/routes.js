@@ -235,7 +235,7 @@ FlowRouter.route('/aptitude/define-workflow',{
   }
 });
 
-FlowRouter.route('/client',{
+FlowRouter.route('/client/dashboard',{
   name:'client',
   action:function(){
     ReactLayout.render(ClientAdminLayout,{
