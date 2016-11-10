@@ -8,6 +8,7 @@ Meteor.methods({
     var userId=Accounts.createUser({email:record.email,password:"aptitude123"});
 
     Roles.addUsersToRoles( userId,'client' );
+    return userId
   //  Email.send({to:record.email,from:"johnsunam@hotmail.com",subject:"password",text:"aptitude123"});
 
   },

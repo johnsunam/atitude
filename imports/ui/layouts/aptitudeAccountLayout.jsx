@@ -15,7 +15,7 @@ export default class AptitudeLogin extends Component {
     </div>
     {this.props.content?this.props.content:<div>
       <div className="col-md-offset-5">Yout are not permission to access</div>
-      <AdminLogin/></div>}
+      <AdminLogin/><Alert stack={{limit: 3}}/></div>}
     </div>)
   }
 }

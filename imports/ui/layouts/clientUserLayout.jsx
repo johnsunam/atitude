@@ -2,6 +2,7 @@ import React , {Component} from 'react'
 import Dashboard from '../container/clientUserDashboard.js'
 import Header from '../components/common/clientUserHeader.jsx'
 import commonImports from '../components/common/commonImports.jsx'
+import Alert from 'react-s-alert';
 
 export default class ClientUserLayout extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ export default class ClientUserLayout extends Component {
     </section>
       </div>
     </div>
+    <Alert stack={{limit: 3}}/>
   </div>)
   }
 }

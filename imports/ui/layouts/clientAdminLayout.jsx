@@ -3,6 +3,7 @@ import Header from '../components/common/clientAdminHeader.jsx';
 import Footer from '../components/common/footer.jsx'
 import SiderBar from '../components/common/clientAdminSidebar.jsx';
 import commonImports from '../components/common/commonImports.jsx'
+import Alert from 'react-s-alert';
 
 export default class ClientAdminLayout extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ export default class ClientAdminLayout extends Component {
       </div>
     </div>
     <Footer/>
+    <Alert stack={{limit: 3}}/>
   </div>)
   }
 }

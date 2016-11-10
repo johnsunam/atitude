@@ -4,6 +4,8 @@ import {Random } from 'meteor/random'
 import crudClass from '../../common/crudClass.js'
 var message = require('../../common/message.json');
 import Alert from 'react-s-alert';
+import {Session} from 'meteor/session';
+
 
 export default class AddClient extends Component {
   constructor(props) {
@@ -14,7 +16,9 @@ export default class AddClient extends Component {
     client:this.props.client,
 	isShowMessage: false,
   code:"",
-  canSubmit: false
+  canSubmit: false,
+  confirm:Session.get('confirm'),
+  res:""
     }
   }
   enableButton() {
@@ -25,7 +29,11 @@ export default class AddClient extends Component {
   }
 
   componentDidMount(){
-
+    Tracker.autorun(function(){
+      if(!Session.equals('confirm',true)){
+        console.log('helo');
+      }
+    })
     this.refs.companyName.value=this.state.edit?this.props.client.companyName:''
     this.refs.address.value=this.state.edit?this.props.client.address:''
     this.refs.phone.value=this.state.edit?this.props.client.phone:''
@@ -38,15 +46,15 @@ export default class AddClient extends Component {
 
   }
   componentDidUpdate(){
-    this.refs.companyName.value=this.state.edit?this.props.client.companyName:''
-    this.refs.address.value=this.state.edit?this.props.client.address:''
-    this.refs.phone.value=this.state.edit?this.props.client.phone:''
-    this.refs.website.value=this.state.edit?this.props.client.website:''
-    this.refs.city.value=this.state.edit?this.props.client.city:''
-    this.refs.state.value=this.state.edit?this.props.client.state:''
-    this.refs.pincode.value=this.state.edit?this.props.client.pincode:''
-    this.refs.contactName.value=this.state.edit?this.props.client.contactName:''
-    this.refs.contactNo.value=this.state.edit?this.props.client.contactNo:''
+    this.state.edit?this.props.client.companyName:''
+    this.state.edit?this.props.client.address:''
+    this.state.edit?this.props.client.phone:''
+    this.state.edit?this.props.client.website:''
+    this.state.edit?this.props.client.city:''
+    this.state.edit?this.props.client.state:''
+    this.state.edit?this.props.client.pincode:''
+    this.state.edit?this.props.client.contactName:''
+    this.state.edit?this.props.client.contactNo:''
   }
   editClient(){
 
@@ -54,42 +62,43 @@ export default class AddClient extends Component {
   // saving client to ClientDb
   submit(){
     let obj= new crudClass();
-    let companyName=this.refs.companyName.value,
-        address=this.refs.address.value,
-      	email=this.refs.email.value,
-      	phone=this.refs.phone.value,
-      	website=this.refs.website.value,
-      	city=this.refs.city.value,
-      	state=this.refs.state.value,
-      	pincode=this.refs.pincode.value,
-      	contactName=this.refs.contactName.value,
-      	contactNo=this.refs.contactNo.value;
+      let companyName=$('#companyName').val(),
+          address=$('#address').val(),
+        	email=$('#email').val(),
+        	phone=$('#phone').val(),
+        	website=$('#website').val(),
+        	city=$('#city').val(),
+        	state=$('#state').val(),
+        	pincode=$('#pincode').val(),
+        	contactName=$('#contactName').val(),
+        	contactNo=$('#contactNo').val();
+          console.log(  $('#companyName').val('')   );
 
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let ran=Random.hexString(7);
     let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}}:
     {code:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
-    console.log(record);
+
     let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
+
+    if(Session.get('confirm')){
+      Session.get('res')==true?Alert.success(message.saveClientSuccess, {
+             position: 'top-right',
+             effect: 'bouncyflip',
+             timeout: 1000
+         }):Alert.warning("message.saveClientError",{
+                position: 'top-right',
+                effect: 'bouncyflip',
+                timeout: 1000
+            })
+    }
+
+
     this.setState({saveResult:res,  isShowMessage: true,code:ran})
-    Alert.success(message.saveClientSuccess, {
-           position: 'top-right',
-           effect: 'bouncyflip',
-           timeout: 'none'
-       });
-   this.refs.companyName.value="";
-   this.refs.address.value="";
-   this.refs.email.value="";
-   this.refs.phone.value="";
-   this.refs.website.value="";
-   this.refs.city.value="",
-   this.refs.state.value="",
-   this.refs.pincode.value="",
-   this.refs.contactName.value=""
-   this.refs.contactNo.value=""
+
   }
   render(){
-    console.log(this.props.client);
+    console.log(Session.get('confirm'));
     let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
     <span>submit</span></button>;
      return(<div className="col-md-10 registration_form pad_t50">
@@ -100,21 +109,21 @@ export default class AddClient extends Component {
         <div className="card">
           <h1 className="title">Add Client</h1>
           <div className="form_pad">
-          <Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-6">
 
                 <div className="input-container">
-                  <MyInput type="text" title="Company Name" name="companyName" ref="companyName" />
+                  <MyInput type="text" title="Company Name" name="companyName" ref="companyName" value='' />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" type="Address" title="Address" name="address" ref="address"/>
+                  <MyInput type="text"  title="Address" name="address" ref="address"/>
 
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" title="Email" name="emil" ref="email"/>
+                  <MyInput type="text" title="Email" name="email" ref="email"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">

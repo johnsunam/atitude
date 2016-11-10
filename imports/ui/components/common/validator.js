@@ -11,11 +11,14 @@ export default MyInput = React.createClass({
     return (
       <div className={className}>
         <input type={this.props.type || 'text'}
+        id={this.props.id}
          required="required"
          ref={this.props.name}
          name={this.props.name}
          onChange={this.changeValue}
          value={this.getValue()}
+         id={this.props.name}
+         className={this.props.className}
          checked={this.props.type === 'checkbox' && this.getValue() ? 'checked' : null}
          />
         <label>{this.props.title}</label>
