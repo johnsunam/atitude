@@ -1,7 +1,7 @@
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import { Alert } from 'react-bootstrap';
-var message = require('../../common/message.json');
+
+
 export default class AddRole extends Component {
   constructor(props) {
 	super(props)
@@ -42,8 +42,6 @@ export default class AddRole extends Component {
    this.refs.name.value="";
    this.refs.description.value="";
   }
-
-
 
  render(){
 	 console.log(this.props.client);

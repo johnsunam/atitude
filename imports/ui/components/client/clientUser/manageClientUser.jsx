@@ -1,6 +1,7 @@
 import React ,{Component} from 'react'
 import AddClientUser from './addClientUser.jsx'
 import crudClass from '../../common/crudClass.js'
+
 export default class ManageClientUser extends Component {
   constructor(props) {
    super(props)

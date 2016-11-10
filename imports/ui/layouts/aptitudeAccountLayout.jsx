@@ -1,5 +1,7 @@
 import React ,{Component} from 'react'
 import AdminLogin from '../components/accounts/login/adminlogin.jsx'
+import commonImports from '../components/common/commonImports.jsx'
+
 export default class AptitudeLogin extends Component {
   constructor(props) {
     super(props)

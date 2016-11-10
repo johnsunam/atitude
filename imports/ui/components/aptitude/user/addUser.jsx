@@ -1,9 +1,11 @@
 //add user to the UserDb
 
+
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import { Alert } from 'react-bootstrap';
+import Alert from 'react-s-alert';
 var message = require('../../common/message.json');
+
 export default class addUser extends Component {
   constructor(props) {
    super(props)
@@ -11,7 +13,8 @@ export default class addUser extends Component {
      saveResult:false,
     edit:this.props.edit,
     user:this.props.user,
-	isShowMessage: false
+	isShowMessage: false,
+  canSubmit: false
 
    }
   }
@@ -37,11 +40,15 @@ export default class addUser extends Component {
     this.refs.roleName.value=this.state.edit?this.props.user.roleName:'';
 
   }
-  editUser(){
-
+  enableButton() {
+    this.setState({ canSubmit: true });
   }
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
+
   // saving user to userDb
-  addUser(){
+  submit(){
     let obj= new crudClass();
 	let name=this.refs.name.value,
 		dob=this.refs.dob.value,
@@ -55,7 +62,11 @@ export default class addUser extends Component {
     let record=this.props.edit?{id:this.props.user._id,data:{name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName}}:
     {name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName}
     let res=this.state.edit?obj.create('editUser',record):obj.create('addUser',record);
-
+    Alert.success(message.saveClientSuccess, {
+           position: 'top-right',
+           effect: 'bouncyflip',
+           timeout: 'none'
+       });
     this.setState({saveResult:res, isShowMessage: true})
 		this.refs.name.value="";
 		this.refs.dob.value="";
@@ -69,31 +80,26 @@ export default class addUser extends Component {
 
   render(){
 	console.log(this.props.user);
-    let submitButton=this.state.edit?<button onClick={this.addUser.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
-    onClick={this.addUser.bind(this)}><span>submit</span></button>;
-
+    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
+    <span>submit</span></button>;
     return(<div className="col-md-10 registration_form pad_t50">
-	   {this.state.isShowMessage ?
-        <Alert bsStyle="success">
-        {message.saveUserSuccess}
-        </Alert>
-      : ''}
+
       <div className="col-md-8 col-md-offset-2">
 	   <div className="card"></div>
         <div className="card">
           <h1 className="title">Add User</h1>
           <div className="form_pad">
+          <Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+
             <div className="row">
               <div className="col-md-6">
                 <div className="input-container">
-                  <input type="text" required="required" ref="name"/>
-                  <label for="">Name</label>
+                  <MyInput type="text" name="name" title="User Name" ref="name"/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <input type="text" required="required" ref="dob"/>
-                  <label for=" ">Date of Birth</label>
+                  <MyInput type="text" name="dob" title="Date of Birth" ref="dob"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -103,13 +109,11 @@ export default class addUser extends Component {
               <div className="col-md-6">
 
                 <div className="input-container">
-                  <input type="num" required="required" ref="mobile"/>
-                  <label for="">Mobile Number</label>
+                  <MyInput type="num" name="mobile" title="Mobile Number" ref="mobile"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <input type="email" required="required" ref="email"/>
-                  <label for="">Email ID</label>
+                  <MyInput type="email" name="email" title="Email ID" ref="email"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -118,18 +122,16 @@ export default class addUser extends Component {
                   </select>
                 </div>
                 <div className="input-container">
-                  <input type="text" required="required" ref="secAnswer"/>
-                  <label for=" ">Security Answer</label>
+                  <MyInput type="text" name="secAnswer" title="Security Answer" ref="secAnswer"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <input type="text" required="required" ref="roleName"/>
-                  <label for=" ">Role Name</label>
+                  <MyInput type="text" name="roleName" title="Role Name" ref="roleName"/>
                   <div className="bar"></div>
                 </div>
 				 <div className="input-container gender">
                   <div>Active? &nbsp;
-                    <input type="checkbox" id="checkbox" value="active"/>
+                    <MyInput type="checkbox" id="checkbox" value=""/>
                   </div>
                 </div>
               </div>
@@ -138,6 +140,7 @@ export default class addUser extends Component {
              {submitButton}
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
+            </Formsy.Form>
           </div>
         </div>
       </div>

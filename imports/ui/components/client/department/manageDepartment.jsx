@@ -1,6 +1,7 @@
 import React ,{Component} from 'react'
 import AddDepartment from '../department/addDepartment.jsx'
 import crudClass from '../../common/crudClass.js'
+
 export default class ManageDepartment extends Component {
   constructor(props) {
    super(props)

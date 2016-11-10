@@ -1,5 +1,7 @@
 import React ,{Component} from 'react';
 import FormDataList from '../../../container/formDataList.js'
+import crudClass from '../../common/crudClass.js'
+
 export default class ClientUserDashboard extends Component {
   constructor(props) {
     super(props)
@@ -14,6 +16,7 @@ export default class ClientUserDashboard extends Component {
   componentDidMount(){
 
     let self=this;
+    let data=this.props.form?this.props.form.form:''
     let form=JSON.parse(this.props.form.form)
     let id="#"+self.state.id
     $("#showform").formRender({
@@ -63,6 +66,7 @@ export default class ClientUserDashboard extends Component {
   componentWillReceiveProps(nextProps){
     this.setState({message:""})
   let self=this;
+    let data=nextProps.form?nextProps.form.form:''
     let form=JSON.parse(nextProps.form.form)
     let id="#"+nextProps.page
     $("#showform").formRender({

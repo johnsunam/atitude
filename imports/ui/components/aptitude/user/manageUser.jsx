@@ -2,7 +2,6 @@
 
 import React ,{Component} from 'react'
 import AddUser from './addUser.jsx'
-import crudClass from '../../common/crudClass.js'
 export default class ManageUser extends Component {
   constructor(props) {
    super(props)

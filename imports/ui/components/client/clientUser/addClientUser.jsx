@@ -1,7 +1,6 @@
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import { Alert } from 'react-bootstrap';
-var message = require('../../common/message.json');
+
 
 export default class AddClientUser extends Component {
   constructor(props) {

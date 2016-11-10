@@ -3,15 +3,17 @@
 
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-import { Alert } from 'react-bootstrap';
+import Alert from 'react-s-alert';
 var message = require('../../common/message.json');
+
 export default class AddPage extends Component {
   constructor(props) {
    super(props)
    this.state={
      saveResult:false,
      edit:props.edit,
-	  isShowMessage: false
+	  isShowMessage: false,
+    canSubmit: false
    }
   }
   componentDidMount(){
@@ -32,8 +34,15 @@ export default class AddPage extends Component {
 	  this.refs.metakeys.value=this.state.edit?this.props.page.metakeys:''
     this.refs.status.value=this.state.edit?this.props.page.status:''
   }
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
+
   //add page to PageDb
-  addPage(){
+  submit(){
     let name=this.refs.name.value,
     clientName=this.refs.clientName.value,
 	formName=this.refs.formName.value,
@@ -46,9 +55,15 @@ export default class AddPage extends Component {
     let obj= new crudClass();
     let res=this.state.edit?obj.edit('editPage',record):obj.create('addPage',record);
       this.setState({saveResult:res, isShowMessage: true})
+      Alert.success(message.saveClientSuccess, {
+             position: 'top-right',
+             effect: 'bouncyflip',
+             timeout: 'none'
+         });
+
      this.refs.name.value='',
-    this.refs.clientName.value=''
-    this.refs.formName.value=""
+    //this.refs.clientName.value=''
+    //this.refs.formName.value=""
     this.refs.previewURL.value=""
     this.refs.publishURL.value=""
     this.refs.metakeys.value=""
@@ -58,22 +73,20 @@ export default class AddPage extends Component {
 
   }
   render(){
+    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
+    <span>submit</span></button>;
+
       return(<div className="col-md-10 registration_form pad_t50">
-    {  this.state.isShowMessage ?
-        <Alert bsStyle="success">
-        {message.savePageSuccess}
-        </Alert>
-      : ''}
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
         <div className="card">
           <h1 className="title">Create page for the client</h1>
           <div className="form_pad">
+          <Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <input type="text" required="required" ref="name"/>
-                  <label for="">Page Name</label>
+                  <MyInput type="text" title="Page Name" name="name"  ref="name"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -96,18 +109,15 @@ export default class AddPage extends Component {
                 </div>
 
 				 <div className="input-container">
-                  <input type="text" required="required" ref="previewURL"/>
-                  <label for="">Preview URL</label>
+                  <MyInput type="text" title="Preview URL" name="previewURL" ref="previewURL"/>
                   <div className="bar"></div>
                 </div>
 				<div className="input-container">
-                  <input type="text" required="required" ref="publishURL"/>
-                  <label for="">Publish URL</label>
+                  <MyInput type="text" title="Publish URL" ref="publishURL" name="publishURL"/>
                   <div className="bar"></div>
                 </div>
                  <div className="input-container">
-                  <input type="text" required="required" ref="metakeys"/>
-                  <label for="">Meta Keywords</label>
+                  <MyInput type="text" title="Meta Keywords" ref="metakeys" name="metakeys"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -116,15 +126,13 @@ export default class AddPage extends Component {
               </div>
             </div>
             <div className="button-container">
-            <button onClick={this.addPage.bind(this)}  data-dismiss="modal"><span>{this.state.edit?"Edit":"Add"}</span></button>
-             {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
+            {submitButton}
             </div>
+            </Formsy.Form>
           </div>
         </div>
-        <div className="message">
-
-        </div>
       </div>
+
     </div>)
   }
 }

@@ -1,7 +1,7 @@
 import { composeWithTracker } from 'react-komposer';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import ClientAdminLayout from '../layouts/clientAdminLayout.jsx';
-import {Session } from  'meteor/session'
+
 const composer = ( props, onData ) => {
 
 

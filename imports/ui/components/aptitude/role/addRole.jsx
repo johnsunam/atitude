@@ -1,17 +1,8 @@
 import React ,{Component} from 'react';
 import Alert from 'react-s-alert';
-import crudClass from '../../common/crudClass.js';
 var message = require('../../common/message.json');
-import MyInput from '../../common/validator.js';
-import Formsy from 'formsy-react';
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/slide.css';
-import 'react-s-alert/dist/s-alert-css-effects/scale.css';
-import 'react-s-alert/dist/s-alert-css-effects/bouncyflip.css';
-import 'react-s-alert/dist/s-alert-css-effects/flip.css';
-import 'react-s-alert/dist/s-alert-css-effects/genie.css';
-import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
-import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
+import crudClass from '../../common/crudClass.js'
+
 export default class AddRole extends Component {
   constructor(props) {
 	super(props)
@@ -68,7 +59,7 @@ export default class AddRole extends Component {
 
  render(){
 
-    let submitButton=this.state.edit?<button data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
+    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
     <span>submit</span></button>;
 
     return(<div className="col-md-10 registration_form pad_t50">
@@ -81,7 +72,7 @@ export default class AddRole extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" name="name" ref="name" />
+                  <MyInput type="text" name="name" title="Role Name" ref="name" />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -102,7 +93,7 @@ export default class AddRole extends Component {
             </Formsy.Form>
           </div>
         </div>
-        <Alert stack={{limit: 3}} />
+
       </div>
 
 

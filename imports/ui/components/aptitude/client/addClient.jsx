@@ -1,10 +1,9 @@
 //new client is added and existing client record is edited
 import React ,{Component} from 'react'
-import crudClass from '../../common/crudClass.js'
-import { Alert } from 'react-bootstrap';
 import {Random } from 'meteor/random'
+import crudClass from '../../common/crudClass.js'
 var message = require('../../common/message.json');
-
+import Alert from 'react-s-alert';
 
 export default class AddClient extends Component {
   constructor(props) {
@@ -14,9 +13,17 @@ export default class AddClient extends Component {
     edit:this.props.edit,
     client:this.props.client,
 	isShowMessage: false,
-  code:""
+  code:"",
+  canSubmit: false
     }
   }
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
+
   componentDidMount(){
 
     this.refs.companyName.value=this.state.edit?this.props.client.companyName:''
@@ -45,7 +52,7 @@ export default class AddClient extends Component {
 
   }
   // saving client to ClientDb
-  addClient(){
+  submit(){
     let obj= new crudClass();
     let companyName=this.refs.companyName.value,
         address=this.refs.address.value,
@@ -60,13 +67,16 @@ export default class AddClient extends Component {
 
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let ran=Random.hexString(7);
-    console.log(ran);
     let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}}:
     {code:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
     console.log(record);
     let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
     this.setState({saveResult:res,  isShowMessage: true,code:ran})
-
+    Alert.success(message.saveClientSuccess, {
+           position: 'top-right',
+           effect: 'bouncyflip',
+           timeout: 'none'
+       });
    this.refs.companyName.value="";
    this.refs.address.value="";
    this.refs.email.value="";
@@ -80,58 +90,51 @@ export default class AddClient extends Component {
   }
   render(){
     console.log(this.props.client);
-    let submitButton=this.state.edit?<button onClick={this.addClient.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
-    onClick={this.addClient.bind(this)}><span>submit</span></button>;
+    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
+    <span>submit</span></button>;
      return(<div className="col-md-10 registration_form pad_t50">
-    {this.state.isShowMessage ?
-        <Alert bsStyle="success">
-        {message.saveClientSuccess}
-        </Alert>
-      : ''}
+
       {this.state.edit?"":<div>{this.state.code}</div>}
       <div className="col-md-8 col-md-offset-2">
         <div className="card"></div>
         <div className="card">
           <h1 className="title">Add Client</h1>
           <div className="form_pad">
+          <Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-6">
 
                 <div className="input-container">
-                  <input type="text" required="required" name="companyName" ref="companyName" />
-                  <label for="">Company Name</label>
+                  <MyInput type="text" title="Company Name" name="companyName" ref="companyName" />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <input type="text" required="required" name="address" ref="address"/>
-                  <label for=" ">Address</label>
+                  <MyInput type="text" type="Address" title="Address" name="address" ref="address"/>
+
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <input type="text" required="required" ref="email"/>
-                  <label for=" ">Email</label>
+                  <MyInput type="text" title="Email" name="emil" ref="email"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <input type="num"  required="required" ref="phone"/>
-                  <label for=" ">Phone No</label>
+                  <MyInput type="num" title="Phone" name="phone" ref="phone"/>
+
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <input type="text"  required="required" ref="website"/>
-                  <label for="">Website</label>
+                  <MyInput type="text" title="Website" name="website" ref="website"/>
+
                   <div className="bar"></div>
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="input-container">
-                  <input type="text" required="required" ref="city"/>
-                  <label for="">City</label>
+                  <MyInput type="text" title="City" name="city" ref="city"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <input type="text" required="required" ref="state"/>
-                  <label for="">State</label>
+                  <MyInput type="text" title="State" name="state" ref="state"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -143,18 +146,15 @@ export default class AddClient extends Component {
                   </select>
                 </div>
                 <div className="input-container">
-                  <input type="num" required="required" ref="pincode"/>
-                  <label for=" ">Pin Code</label>
+                  <MyInput type="num" title="Pincode" name="pincode" ref="pincode"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <input type="text" required="required" ref="contactName"/>
-                  <label for=" ">Contact Name</label>
+                  <MyInput type="text" title="Contact Name" name="contactName" ref="contactName"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <input type="num" required="required" ref="contactNo"/>
-                  <label for=" ">Contact No</label>
+                  <MyInput type="num" name="contactNo" title="Contact No" ref="contactNo"/>
                   <div className="bar"></div>
                 </div>
               </div>
@@ -164,12 +164,11 @@ export default class AddClient extends Component {
              {submitButton}
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
+            </Formsy.Form>
           </div>
-        </div>
-		<div className="message">
 
         </div>
-      </div>
+		  </div>
     </div>)
   }
 }

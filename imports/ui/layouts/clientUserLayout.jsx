@@ -1,7 +1,8 @@
-
 import React , {Component} from 'react'
 import Dashboard from '../container/clientUserDashboard.js'
 import Header from '../components/common/clientUserHeader.jsx'
+import commonImports from '../components/common/commonImports.jsx'
+
 export default class ClientUserLayout extends Component {
   constructor(props) {
     super(props)
@@ -10,8 +11,13 @@ export default class ClientUserLayout extends Component {
       choosedPage:props.pages[0]?props.pages[0]._id:''
     }
   }
+  componentWillReceiveProps(nextProps){
+    this.state({choosedform:nextProps.pages[0]?nextProps.pages[0].formName:'',
+    choosedPage:nextProps.pages[0]?nextProps  .pages[0]._id:''})
+  }
   render(){
-
+    console.log(this.state.choosedform);
+    console.log(this.state.choosedPage);
     return(<div className="hold-transition skin-blue sidebar-mini">
       <div className="wrapper">
       <Header/>

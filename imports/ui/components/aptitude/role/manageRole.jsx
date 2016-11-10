@@ -2,7 +2,6 @@
 
 import React ,{Component} from 'react'
 import AddRole from './addRole.jsx'
-import crudClass from '../../common/crudClass.js'
 export default class ManageRole extends Component {
   constructor(props) {
    super(props)

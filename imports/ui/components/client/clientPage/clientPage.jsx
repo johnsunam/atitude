@@ -1,7 +1,8 @@
 //pages listed according to the client
 import React,{Component} from 'react';
-import crudClass from '../../common/crudClass.js'
 import AddPage from '../../../container/addPage.js'
+import crudClass from '../../common/crudClass.js'
+
 export default class ClientAdminPages extends Component {
   constructor(props) {
     super(props)

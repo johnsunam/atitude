@@ -1,4 +1,5 @@
 import React ,{Component} from 'react'
+import crudClass from '../../common/crudClass.js'
 
 export default class DefineWorkFlow extends Component {
   constructor(props) {

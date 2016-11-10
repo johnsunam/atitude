@@ -1,7 +1,5 @@
 import React,{Component} from 'react';
 import {FlowRouter} from 'meteor/kadira:flow-router';
-import message from '../../common/message.json'
-import { Alert } from 'react-bootstrap';
 export default class AdminLogin extends Component {
   constructor(props) {
     super(props)
@@ -11,11 +9,7 @@ export default class AdminLogin extends Component {
   }
   render(){
     return(<div className="mid_content">
-    {this.state.showMessage ?
-        <Alert bsStyle="success">
-        {message.adminLoginError}
-        </Alert>
-      : ''}
+
       <div className="login_col">
         <div className="card"></div>
         <div className="card">

@@ -1,7 +1,4 @@
 import React, {Component} from 'react'
-import { Alert } from 'react-bootstrap';
-import { Session } from 'meteor/session'
-var message = require('../../common/message.json');
 export default class ClientCode extends Component  {
   constructor(props) {
     super(props)

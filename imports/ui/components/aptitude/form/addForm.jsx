@@ -1,9 +1,9 @@
 //creates new form && previews for newly created form
 import React ,{Component} from 'react';
-import crudClass from '../../common/crudClass.js'
 import HTML5Backend from 'react-dnd-html5-backend';
-
-
+import crudClass from '../../common/crudClass.js'
+import Alert from 'react-s-alert';
+var message = require('../../common/message.json');
 
 export default class AddForm extends Component {
   constructor(props) {

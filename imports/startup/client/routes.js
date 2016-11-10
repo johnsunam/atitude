@@ -19,7 +19,6 @@ import defineWorkFlow from '../../ui/components/aptitude/workflow/defineWorkFlow
 import AddUser from '../../ui/components/aptitude/user/addUser.jsx'
 import ManageUser from '../../ui/container/manageUser.js'
 import ClientAdminLayout from '../../ui/container/clientAdminLayout.js'
-import AccountLayout from '../../ui/layouts/accountLayout.jsx'
 import AdminLogin from '../../ui/components/accounts/login/adminlogin.jsx'
 import ClientLogin from '../../ui/components/accounts/login/clientlogin.jsx'
 import ClientAdminPages from '../../ui/container/clientAdminPages.js'
@@ -40,7 +39,7 @@ FlowRouter.route('/client/add-department',{
   name:'addDepartment',
   action:function(){
     ReactLayout.render(ClientAdminLayout,{
-      content:<AddDepartment/>
+      content:<AddDepartment />
     })
   }
 });

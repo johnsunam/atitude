@@ -2,6 +2,7 @@ import React ,{Component} from 'react'
 import {Session} from 'meteor/session'
 import ClientCode from '../container/clientCode.js';
 import Login from '../components/accounts/login/clientlogin.jsx'
+import commonImports from '../components/common/commonImports.jsx'
 
 export default class ClientLogin extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ export default class ClientLogin extends Component {
     }
   }
   render(){
-    
+
     return(<div>
       <div className="hed_top">
   <div className="mid_container">

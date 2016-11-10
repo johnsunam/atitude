@@ -2,6 +2,7 @@
 import React ,{Component} from 'react'
 import AddClient from '../client/addClient.jsx'
 import crudClass from '../../common/crudClass.js'
+
 export default class ManageClient extends Component {
   constructor(props) {
    super(props)

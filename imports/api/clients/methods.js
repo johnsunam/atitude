@@ -4,9 +4,6 @@ import {Email } from "meteor/email"
 import {Random} from "meteor/random"
 Meteor.methods({
   'addClient':function(record){
-    let ran=Random.hexString(7);
-    record.clientCode=ran;
-
     ClientDb.insert(record);
     var userId=Accounts.createUser({email:record.email,password:"aptitude123"});
 

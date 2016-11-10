@@ -1,6 +1,8 @@
 import React ,{Component} from 'react'
 import Login from '../components/app/login/login.jsx'
 import UserCode from '../container/userCode.js';
+import commonImports from '../components/common/commonImports.jsx'
+
 export default class AppLogin extends Component {
   constructor(props) {
     super(props)

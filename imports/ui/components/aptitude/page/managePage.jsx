@@ -2,6 +2,7 @@
 
 import React ,{Component} from 'react'
 import ClientPages from '../page/clientPages.jsx'
+import crudClass from '../../common/crudClass.js'
 
 
 
@@ -9,7 +10,7 @@ export default class ManagePage extends Component {
   constructor(props) {
    super(props)
    this.state={
-     choosedClient:props.data.clients[0].companyName
+     choosedClient:props.data.clients[0]?props.data.clients[0].companyName:null
    }
   }
 

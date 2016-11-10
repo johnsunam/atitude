@@ -1,6 +1,7 @@
 //edits,deletes and lists the forms
 
 import React,{Component} from 'react'
+import crudClass from '../../common/crudClass.js'
 
 export default class ManageForm extends Component {
   constructor(props) {
