@@ -1,10 +1,10 @@
 //add user to the UserDb
-
-
 import React ,{Component} from 'react'
+import {Random } from 'meteor/random'
 import crudClass from '../../common/crudClass.js'
-import Alert from 'react-s-alert';
 var message = require('../../common/message.json');
+import Alert from 'react-s-alert';
+import {Session} from 'meteor/session';
 
 export default class addUser extends Component {
   constructor(props) {
@@ -13,13 +13,18 @@ export default class addUser extends Component {
      saveResult:false,
     edit:this.props.edit,
     user:this.props.user,
-	isShowMessage: false,
-  canSubmit: false
+	canSubmit: false,
+	res: ""
 
    }
   }
 
    componentDidMount(){
+	   Tracker.autorun(function(){
+      if(!Session.equals('confirm',true)){
+        console.log('helo');
+      }
+    })
     this.refs.name.value=this.state.edit?this.props.user.name:'';
     this.refs.dob.value=this.state.edit?this.props.user.dob:'';
     this.refs.address.value=this.state.edit?this.props.user.address:'';
@@ -62,12 +67,18 @@ export default class addUser extends Component {
     let record=this.props.edit?{id:this.props.user._id,data:{name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName}}:
     {name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName}
     let res=this.state.edit?obj.create('editUser',record):obj.create('addUser',record);
-    Alert.success(message.saveClientSuccess, {
-           position: 'top-right',
-           effect: 'bouncyflip',
-           timeout: 'none'
-       });
-    this.setState({saveResult:res, isShowMessage: true})
+     if(Session.get('confirm')){
+			Session.get('res')==true?Alert.success(message.saveUserSuccess, {
+             position: 'top-right',
+             effect: 'bouncyflip',
+             timeout: 1000
+         }):Alert.warning("message.saveUserFailure",{
+                position: 'top-right',
+                effect: 'bouncyflip',
+                timeout: 1000
+            })
+		}
+    this.setState({saveResult:res})
 		this.refs.name.value="";
 		this.refs.dob.value="";
 		this.refs.address.value="";
@@ -89,7 +100,7 @@ export default class addUser extends Component {
         <div className="card">
           <h1 className="title">Add User</h1>
           <div className="form_pad">
-          <Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addUser" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 
             <div className="row">
               <div className="col-md-6">

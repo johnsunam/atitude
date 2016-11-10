@@ -1,9 +1,11 @@
 //add tasks to TaskDb
 
 import React ,{Component} from 'react'
+import {Random } from 'meteor/random'
 import crudClass from '../../common/crudClass.js'
-import Alert from 'react-s-alert';
 var message = require('../../common/message.json');
+import Alert from 'react-s-alert';
+import {Session} from 'meteor/session';
 
 export default class AddTask extends Component {
   constructor(props) {
@@ -11,14 +13,20 @@ export default class AddTask extends Component {
    this.state={saveResult:false,
    edit:this.props.edit,
    task:this.props.task,
-   isShowMessage: false,
-   canSubmit: false
+   canSubmit: false,
+	confirm:Session.get('confirm'),
+	res:""
    }
 
   }
 
 
   componentDidMount(){
+	Tracker.autorun(function(){
+      if(!Session.equals('confirm',true)){
+        console.log('helo');
+      }
+    })
     this.refs.name.value=this.state.edit?this.props.task.name:'';
     this.refs.description.value=this.state.edit?this.props.task.description:'';
     //this.refs.status.value=this.state.edit?this.props.task.status:'';
@@ -45,12 +53,18 @@ export default class AddTask extends Component {
     let record=this.props.edit?{id:this.props.task._id,data:{name:name,description:description}}:
     {name:name,description:description}
     let res=this.state.edit?obj.create('editTask',record):obj.create('addTask',record);
-    Alert.success(message.saveClientSuccess, {
-           position: 'top-right',
-           effect: 'bouncyflip',
-           timeout: 'none'
-       });
-    this.setState({saveResult:res, isShowMessage: true})
+    if(Session.get('confirm')){
+			Session.get('res')==true?Alert.success(message.saveTaskSuccess, {
+             position: 'top-right',
+             effect: 'bouncyflip',
+             timeout: 1000
+         }):Alert.warning("message.saveTaskFailure",{
+                position: 'top-right',
+                effect: 'bouncyflip',
+                timeout: 1000
+            })
+		}
+    this.setState({saveResult:res})
 
    this.refs.name.value="";
    this.refs.description.value="";
@@ -66,7 +80,7 @@ export default class AddTask extends Component {
         <div className="card">
           <h1 className="title">Add Task</h1>
           <div className="form_pad">
-          <Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addTask" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 
             <div className="row">
               <div className="col-md-12">

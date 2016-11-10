@@ -1,25 +1,31 @@
 //add workflow to WorkflowDb
 
 import React ,{Component} from 'react'
+import {Random } from 'meteor/random'
 import crudClass from '../../common/crudClass.js'
-import Alert from 'react-s-alert';
 var message = require('../../common/message.json');
+import Alert from 'react-s-alert';
+import {Session} from 'meteor/session';
 
 export default class AddWorkFlow extends Component {
   constructor(props) {
    super(props)
    this.state={
-     saveResult:false,
-      edit:this.props.edit,
-      workflow:this.props.workflow,
-	  isShowMessage: false,
-    canSubmit: false
+		saveResult:false,
+		edit:this.props.edit,
+		workflow:this.props.workflow,
+		canSubmit: false,
+		res: ""
 
-   }
-     }
+	}
+  }
 
    componentDidMount(){
-
+	Tracker.autorun(function(){
+      if(!Session.equals('confirm',true)){
+        console.log('helo');
+      }
+    })
     this.refs.name.value=this.state.edit?this.props.workflow.name:'';
     this.refs.description.value=this.state.edit?this.props.workflow.description:'';
     //this.refs.status.value=this.state.edit?this.props.workflow.status:'';
@@ -46,12 +52,18 @@ export default class AddWorkFlow extends Component {
     let record=this.props.edit?{id:this.props.workflow._id,data:{name:name,description:description}}:
     {name:name,description:description}
     let res=this.state.edit?obj.create('editWorkFlow',record):obj.create('addWorkFlow',record);
-    Alert.success(message.saveClientSuccess, {
-           position: 'top-right',
-           effect: 'bouncyflip',
-           timeout: 'none'
-       });
-    this.setState({saveResult:res, isShowMessage: true})
+    if(Session.get('confirm')){
+			Session.get('res')==true?Alert.success(message.saveWorkflowSuccess, {
+             position: 'top-right',
+             effect: 'bouncyflip',
+             timeout: 1000
+         }):Alert.warning("message.saveWorkflowFailure",{
+                position: 'top-right',
+                effect: 'bouncyflip',
+                timeout: 1000
+            })
+		}
+    this.setState({saveResult:res})
 
    this.refs.name.value="";
    this.refs.description.value="";
@@ -69,7 +81,7 @@ export default class AddWorkFlow extends Component {
         <div className="card">
           <h1 className="title">Add Workflow</h1>
           <div className="form_pad">
-          <Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addWorkflow" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 
             <div className="row">
               <div className="col-md-12">

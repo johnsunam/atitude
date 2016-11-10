@@ -1,6 +1,6 @@
 import { composeWithTracker } from 'react-komposer';
 import {FormDb} from '../../api/form/collection/form.collection.js'
-import ClientUserDashboard from '../components/app/dashboard/dashboard.jsx'
+import FormTab from '../components/app/dashboard/formTab.jsx'
 const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getForm');
     console.log(props);
@@ -13,4 +13,4 @@ const composer = ( props, onData ) => {
   };
 
 
-export default composeWithTracker(composer)(ClientUserDashboard);
+export default composeWithTracker(composer)(FormTab);

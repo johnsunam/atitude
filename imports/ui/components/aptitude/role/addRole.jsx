@@ -1,7 +1,10 @@
-import React ,{Component} from 'react';
-import Alert from 'react-s-alert';
-var message = require('../../common/message.json');
+import React ,{Component} from 'react'
+import {Random } from 'meteor/random'
 import crudClass from '../../common/crudClass.js'
+var message = require('../../common/message.json');
+import Alert from 'react-s-alert';
+import {Session} from 'meteor/session';
+
 
 export default class AddRole extends Component {
   constructor(props) {
@@ -10,12 +13,19 @@ export default class AddRole extends Component {
     saveResult:false,
       edit:this.props.edit,
       role:this.props.role,
-    canSubmit: false
+    canSubmit: false,
+	confirm:Session.get('confirm'),
+	res:""
 
   }
   }
 
    componentDidMount(){
+	    Tracker.autorun(function(){
+      if(!Session.equals('confirm',true)){
+        console.log('helo');
+      }
+    })
     this.refs.name.value=this.state.edit?this.props.role.name:'';
     this.refs.description.value=this.state.edit?this.props.role.description:'';
     this.refs.status.value=this.state.edit?this.props.role.status:'';
@@ -45,11 +55,17 @@ export default class AddRole extends Component {
     console.log(record);
     let res=this.state.edit?obj.create('editRole',record):obj.create('addRole',record);
 
-    Alert.success(message.saveRoleSuccess, {
-           position: 'top-right',
-           effect: 'bouncyflip',
-           timeout: 'none'
-       });
+    if(Session.get('confirm')){
+			Session.get('res')==true?Alert.success(message.saveRoleSuccess, {
+             position: 'top-right',
+             effect: 'bouncyflip',
+             timeout: 1000
+         }):Alert.warning("message.saveRoleFailure",{
+                position: 'top-right',
+                effect: 'bouncyflip',
+                timeout: 1000
+            })
+		}
     this.setState({saveResult:res})
    this.refs.name.value="";
    this.refs.description.value="";
@@ -59,7 +75,7 @@ export default class AddRole extends Component {
 
  render(){
 
-    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
+     let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
     <span>submit</span></button>;
 
     return(<div className="col-md-10 registration_form pad_t50">
@@ -68,7 +84,7 @@ export default class AddRole extends Component {
         <div className="card">
           <h1 className="title">Add Role</h1>
           <div className="form_pad">
-          <Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addRole" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
@@ -87,7 +103,6 @@ export default class AddRole extends Component {
             </div>
             <div className="button-container">
              {submitButton}
-
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
             </Formsy.Form>

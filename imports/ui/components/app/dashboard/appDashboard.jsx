@@ -1,10 +1,7 @@
 import React , {Component} from 'react'
-import Dashboard from '../container/clientUserDashboard.js'
-import Header from '../components/common/clientUserHeader.jsx'
-import commonImports from '../components/common/commonImports.jsx'
-import Alert from 'react-s-alert';
+import FormTab from '../../../container/formTab.js'
 
-export default class ClientUserLayout extends Component {
+export default class AppDashboard extends Component {
   constructor(props) {
     super(props)
     this.state={
@@ -19,9 +16,7 @@ export default class ClientUserLayout extends Component {
   render(){
     console.log(this.state.choosedform);
     console.log(this.state.choosedPage);
-    return(<div className="hold-transition skin-blue sidebar-mini">
-      <div className="wrapper">
-      <Header/>
+    return(<div>
       <aside className="main-sidebar">
         <section className="sidebar">
           <ul className="sidebar-menu">
@@ -46,11 +41,10 @@ export default class ClientUserLayout extends Component {
       <h1>Client Pages</h1>
     </section>
     <section className="content">
-    <Dashboard form={this.state.choosedform} page={this.state.choosedPage}/>
+    <FormTab form={this.state.choosedform} page={this.state.choosedPage}/>
     </section>
       </div>
-    </div>
-    <Alert stack={{limit: 3}}/>
+
   </div>)
   }
 }

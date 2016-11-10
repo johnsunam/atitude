@@ -5,7 +5,7 @@ import crudClass from '../../common/crudClass.js'
 var message = require('../../common/message.json');
 import Alert from 'react-s-alert';
 import {Session} from 'meteor/session';
-
+import MyInput from '../../common/validator.js'
 
 export default class AddClient extends Component {
   constructor(props) {
@@ -29,11 +29,7 @@ export default class AddClient extends Component {
   }
 
   componentDidMount(){
-    Tracker.autorun(function(){
-      if(!Session.equals('confirm',true)){
-        console.log('helo');
-      }
-    })
+
     this.refs.companyName.value=this.state.edit?this.props.client.companyName:''
     this.refs.address.value=this.state.edit?this.props.client.address:''
     this.refs.phone.value=this.state.edit?this.props.client.phone:''
@@ -45,6 +41,24 @@ export default class AddClient extends Component {
     this.refs.contactNo.value=this.state.edit?this.props.client.contactNo:''
 
   }
+
+  shouldComponentUpdate(nextProps, nextState){
+    Tracker.autorun(function(){
+      if(Session.equals('confirm',true)){
+        Session.get('res')==true?Alert.success(message.saveClientSuccess, {
+               position: 'top-right',
+               effect: 'bouncyflip',
+               timeout: 1000
+           }):Alert.warning("message.saveClientError",{
+                  position: 'top-right',
+                  effect: 'bouncyflip',
+                  timeout: 1000
+              })
+              Session.set('confirm',false)
+      }
+    })
+    return true;
+}
   componentDidUpdate(){
     this.state.edit?this.props.client.companyName:''
     this.state.edit?this.props.client.address:''
@@ -55,9 +69,6 @@ export default class AddClient extends Component {
     this.state.edit?this.props.client.pincode:''
     this.state.edit?this.props.client.contactName:''
     this.state.edit?this.props.client.contactNo:''
-  }
-  editClient(){
-
   }
   // saving client to ClientDb
   submit(){
@@ -82,23 +93,13 @@ export default class AddClient extends Component {
     let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
 
     if(Session.get('confirm')){
-      Session.get('res')==true?Alert.success(message.saveClientSuccess, {
-             position: 'top-right',
-             effect: 'bouncyflip',
-             timeout: 1000
-         }):Alert.warning("message.saveClientError",{
-                position: 'top-right',
-                effect: 'bouncyflip',
-                timeout: 1000
-            })
+
     }
-
-
     this.setState({saveResult:res,  isShowMessage: true,code:ran})
 
   }
   render(){
-    console.log(Session.get('confirm'));
+
     let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
     <span>submit</span></button>;
      return(<div className="col-md-10 registration_form pad_t50">

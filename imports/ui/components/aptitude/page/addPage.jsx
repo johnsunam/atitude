@@ -1,10 +1,10 @@
 //adding new pages to the pagedb
-
-
 import React ,{Component} from 'react'
+import {Random } from 'meteor/random'
 import crudClass from '../../common/crudClass.js'
-import Alert from 'react-s-alert';
 var message = require('../../common/message.json');
+import Alert from 'react-s-alert';
+import {Session} from 'meteor/session';
 
 export default class AddPage extends Component {
   constructor(props) {
@@ -12,11 +12,17 @@ export default class AddPage extends Component {
    this.state={
      saveResult:false,
      edit:props.edit,
-	  isShowMessage: false,
-    canSubmit: false
+    canSubmit: false,
+	confirm:Session.get('confirm'),
+	res:""
    }
   }
   componentDidMount(){
+	  Tracker.autorun(function(){
+      if(!Session.equals('confirm',true)){
+        console.log('helo');
+      }
+    });
     this.refs.name.value=this.state.edit?this.props.page.name:''
     this.refs.clientName.value=this.state.edit?this.props.page.clientName:''
     this.refs.formName.value=this.state.edit?this.props.page.formName:''
@@ -54,12 +60,19 @@ export default class AddPage extends Component {
     {name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}
     let obj= new crudClass();
     let res=this.state.edit?obj.edit('editPage',record):obj.create('addPage',record);
-      this.setState({saveResult:res, isShowMessage: true})
-      Alert.success(message.saveClientSuccess, {
+    if(Session.get('confirm')){
+			Session.get('res')==true?Alert.success(message.savePageSuccess, {
              position: 'top-right',
              effect: 'bouncyflip',
-             timeout: 'none'
-         });
+             timeout: 1000
+         }):Alert.warning("message.savePageFailure",{
+                position: 'top-right',
+                effect: 'bouncyflip',
+                timeout: 1000
+            })
+		}
+	this.setState({saveResult:res})
+
 
      this.refs.name.value='',
     //this.refs.clientName.value=''
@@ -73,7 +86,7 @@ export default class AddPage extends Component {
 
   }
   render(){
-    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
+     let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
     <span>submit</span></button>;
 
       return(<div className="col-md-10 registration_form pad_t50">
@@ -82,7 +95,7 @@ export default class AddPage extends Component {
         <div className="card">
           <h1 className="title">Create page for the client</h1>
           <div className="form_pad">
-          <Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+           <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addPage" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
@@ -127,6 +140,7 @@ export default class AddPage extends Component {
             </div>
             <div className="button-container">
             {submitButton}
+			{this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
             </Formsy.Form>
           </div>

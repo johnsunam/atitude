@@ -29,12 +29,11 @@ import ManageClientUser from '../../ui/container/manageClientUser.js'
 import AddClientRole from '../../ui/components/client/clientRole/addClientRole.jsx'
 import ManageClientRole from '../../ui/container/manageClientRole.js'
 import ClientUserLogin from '../../ui/components/app/login/login.jsx'
-import ClientUserLayout from '../../ui/container/clientUserLayout.js'
-import ClientUserDashboard from '../../ui/components/app/dashboard/dashboard.jsx'
+import AppDashboard from '../../ui/container/appDashboard.js'
 import AptitudeAccountsLayout from '../../ui/container/aptitudeAccountsLayout.js'
 import ClientAccountsLayout from '../../ui/container/clientAccountLayout.js'
 import AppAccountsLayout  from '../../ui/container/appAccountLayout.js'
-
+import AppLayout from '../../ui/container/appLayout.js'
 FlowRouter.route('/client/add-department',{
   name:'addDepartment',
   action:function(){
@@ -270,8 +269,8 @@ FlowRouter.route('/app/login',{
 FlowRouter.route('/app/dashboard',{
   name:'dashboard',
   action:function(){
-    ReactLayout.render(ClientUserLayout,{
-      content:<ClientUserDashboard/>
+    ReactLayout.render(AppLayout,{
+      content:<AppDashboard/>
     })
   }
 })
