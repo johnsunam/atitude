@@ -26,18 +26,15 @@ export default class AddForm extends Component {
      dataType: 'json',
      inputSets: [
      {
-       type:"file",
-       accept:"image/*;capture=camera",
-       label: 'Camera',
-       name: 'camera', // optional - one will be generated from the label if name not supplied
+      label:'Camera',// optional - one will be generated from the label if name not supplied
        showHeader: true, // optional - Use the label as the header for this set of inputs
        fields: [
            {
-
-             type: 'text',
-             label: 'Take SnapShot',
-             className: 'form-control',
-             id:'video'
+             type:"file",
+             accept:"image/*;capture=camera",
+             label: 'Camera',
+             id:'video',
+             name: 'camera'
            }
 
          ]
