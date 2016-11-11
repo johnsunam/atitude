@@ -15,18 +15,17 @@ export default class AddTask extends Component {
    task:this.props.task,
    canSubmit: false,
 	confirm:Session.get('confirm'),
-	res:""
+	res:"",
+  name:"",
+  description:'',
+  status:''
    }
 
   }
 
 
   componentDidMount(){
-	Tracker.autorun(function(){
-      if(!Session.equals('confirm',true)){
-        console.log('helo');
-      }
-    })
+
     this.refs.name.value=this.state.edit?this.props.task.name:'';
     this.refs.description.value=this.state.edit?this.props.task.description:'';
     //this.refs.status.value=this.state.edit?this.props.task.status:'';
@@ -36,6 +35,25 @@ export default class AddTask extends Component {
     this.refs.description.value=this.state.edit?this.props.task.description:'';
   //  this.refs.status.value=this.state.edit?this.props.task.status:'';
   }
+  shouldComponentUpdate(nextProps, nextState){
+    Tracker.autorun(function(){
+      if(Session.equals('confirm',true)){
+        Session.get('res')==true?Alert.success(message.saveClientSuccess, {
+               position: 'top-right',
+               effect: 'bouncyflip',
+               timeout: 1000
+           }):Alert.warning("message.saveClientError",{
+                  position: 'top-right',
+                  effect: 'bouncyflip',
+                  timeout: 1000
+              })
+              Session.set('confirm',false)
+      }
+    })
+
+    return true;
+}
+
   enableButton() {
     this.setState({ canSubmit: true });
   }
@@ -53,17 +71,7 @@ export default class AddTask extends Component {
     let record=this.props.edit?{id:this.props.task._id,data:{name:name,description:description}}:
     {name:name,description:description}
     let res=this.state.edit?obj.create('editTask',record):obj.create('addTask',record);
-    if(Session.get('confirm')){
-			Session.get('res')==true?Alert.success(message.saveTaskSuccess, {
-             position: 'top-right',
-             effect: 'bouncyflip',
-             timeout: 1000
-         }):Alert.warning("message.saveTaskFailure",{
-                position: 'top-right',
-                effect: 'bouncyflip',
-                timeout: 1000
-            })
-		}
+
     this.setState({saveResult:res})
 
    this.refs.name.value="";

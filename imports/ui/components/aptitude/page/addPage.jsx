@@ -14,32 +14,47 @@ export default class AddPage extends Component {
      edit:props.edit,
     canSubmit: false,
 	confirm:Session.get('confirm'),
-	res:""
-   }
+	res:"",
+  name:'',
+  className:'',
+  formName:'',
+  previewURL:'',
+  publishURL:'',
+  metakeys:'',
+  status:''
+}
+
   }
   componentDidMount(){
-	  Tracker.autorun(function(){
-      if(!Session.equals('confirm',true)){
-        console.log('helo');
+
+    this.refs.name.value=this.state.edit?this.props.page.name:''
+    this.refs.clientName.value=this.state.edit?this.props.page.clientName:''
+    this.refs.formName.value=this.state.edit?this.props.page.formName:''
+	  this.refs.previewURL.value=this.state.edit?this.props.page.previewURL:''
+	  this.refs.publishURL.value=this.state.edit?this.props.page.publishURL:''
+	  this.refs.metakeys.value=this.state.edit?this.props.page.metakeys:''
+    this.refs.status.value=this.state.edit?this.props.page.status:''
+  }
+  shouldComponentUpdate(nextProps, nextState){
+    Tracker.autorun(function(){
+      if(Session.equals('confirm',true)){
+        Session.get('res')==true?Alert.success(message.saveClientSuccess, {
+               position: 'top-right',
+               effect: 'bouncyflip',
+               timeout: 1000
+           }):Alert.warning("message.saveClientError",{
+                  position: 'top-right',
+                  effect: 'bouncyflip',
+                  timeout: 1000
+              })
+              Session.set('confirm',false)
       }
-    });
-    this.refs.name.value=this.state.edit?this.props.page.name:''
-    this.refs.clientName.value=this.state.edit?this.props.page.clientName:''
-    this.refs.formName.value=this.state.edit?this.props.page.formName:''
-	  this.refs.previewURL.value=this.state.edit?this.props.page.previewURL:''
-	  this.refs.publishURL.value=this.state.edit?this.props.page.publishURL:''
-	  this.refs.metakeys.value=this.state.edit?this.props.page.metakeys:''
-    this.refs.status.value=this.state.edit?this.props.page.status:''
-  }
-  componentDidUpdate(){
-    this.refs.name.value=this.state.edit?this.props.page.name:''
-    this.refs.clientName.value=this.state.edit?this.props.page.clientName:''
-    this.refs.formName.value=this.state.edit?this.props.page.formName:''
-	  this.refs.previewURL.value=this.state.edit?this.props.page.previewURL:''
-	  this.refs.publishURL.value=this.state.edit?this.props.page.publishURL:''
-	  this.refs.metakeys.value=this.state.edit?this.props.page.metakeys:''
-    this.refs.status.value=this.state.edit?this.props.page.status:''
-  }
+    })
+
+    return true;
+}
+
+
   enableButton() {
     this.setState({ canSubmit: true });
   }
@@ -48,29 +63,19 @@ export default class AddPage extends Component {
   }
 
   //add page to PageDb
-  submit(){
-    let name=this.refs.name.value,
-    clientName=this.refs.clientName.value,
-	formName=this.refs.formName.value,
-	previewURL=this.refs.previewURL.value,
-	publishURL=this.refs.publishURL.value,
-	metakeys=this.refs.metakeys.value,
-    status= this.refs.status.value;
+  submit(e){
+    let name=e.name,
+    clientName=e.clientName,
+	formName=e.formName,
+	previewURL=e.previewURL,
+	publishURL=e.publishURL,
+	metakeys=e.metakeys,
+    status= e.status;
     let record=this.props.edit?{id:this.props.page._id,data:{name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}}:
     {name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}
     let obj= new crudClass();
     let res=this.state.edit?obj.edit('editPage',record):obj.create('addPage',record);
-    if(Session.get('confirm')){
-			Session.get('res')==true?Alert.success(message.savePageSuccess, {
-             position: 'top-right',
-             effect: 'bouncyflip',
-             timeout: 1000
-         }):Alert.warning("message.savePageFailure",{
-                position: 'top-right',
-                effect: 'bouncyflip',
-                timeout: 1000
-            })
-		}
+
 	this.setState({saveResult:res})
 
 

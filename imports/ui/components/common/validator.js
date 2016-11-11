@@ -6,7 +6,6 @@ export default MyInput = React.createClass({
     this.setValue(event.currentTarget[this.props.type === 'checkbox' ? 'checked' : 'value']);
   },
   render() {
-    console.log(this.props);
     const className = 'form-group' + (this.props.className || ' ') + (this.showRequired() ? 'required' : this.showError() ? 'error' : null);
     const errorMessage = this.getErrorMessage();
     return (

@@ -15,17 +15,16 @@ export default class AddWorkFlow extends Component {
 		edit:this.props.edit,
 		workflow:this.props.workflow,
 		canSubmit: false,
-		res: ""
+		res: "",
+    name:'',
+    description:'',
+    status:''
 
 	}
   }
 
    componentDidMount(){
-	Tracker.autorun(function(){
-      if(!Session.equals('confirm',true)){
-        console.log('helo');
-      }
-    })
+
     this.refs.name.value=this.state.edit?this.props.workflow.name:'';
     this.refs.description.value=this.state.edit?this.props.workflow.description:'';
     //this.refs.status.value=this.state.edit?this.props.workflow.status:'';
@@ -35,6 +34,25 @@ export default class AddWorkFlow extends Component {
     this.refs.description.value=this.state.edit?this.props.workflow.description:'';
     //this.refs.status.value=this.state.edit?this.props.workflow.status:'';
   }
+  shouldComponentUpdate(nextProps, nextState){
+    Tracker.autorun(function(){
+      if(Session.equals('confirm',true)){
+        Session.get('res')==true?Alert.success(message.saveClientSuccess, {
+               position: 'top-right',
+               effect: 'bouncyflip',
+               timeout: 1000
+           }):Alert.warning("message.saveClientError",{
+                  position: 'top-right',
+                  effect: 'bouncyflip',
+                  timeout: 1000
+              })
+              Session.set('confirm',false)
+      }
+    })
+
+    return true;
+}
+
   enableButton() {
     this.setState({ canSubmit: true });
   }
@@ -43,7 +61,7 @@ export default class AddWorkFlow extends Component {
   }
 
   // saving WorkFlow to WorkFlowDb
-  submit(){
+  submit(e){
     let obj= new crudClass();
     let name=this.refs.name.value,
         description=this.refs.description.value;
@@ -52,17 +70,7 @@ export default class AddWorkFlow extends Component {
     let record=this.props.edit?{id:this.props.workflow._id,data:{name:name,description:description}}:
     {name:name,description:description}
     let res=this.state.edit?obj.create('editWorkFlow',record):obj.create('addWorkFlow',record);
-    if(Session.get('confirm')){
-			Session.get('res')==true?Alert.success(message.saveWorkflowSuccess, {
-             position: 'top-right',
-             effect: 'bouncyflip',
-             timeout: 1000
-         }):Alert.warning("message.saveWorkflowFailure",{
-                position: 'top-right',
-                effect: 'bouncyflip',
-                timeout: 1000
-            })
-		}
+
     this.setState({saveResult:res})
 
    this.refs.name.value="";

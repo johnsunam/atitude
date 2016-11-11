@@ -14,11 +14,22 @@ export default class AddClient extends Component {
     saveResult:false,
     edit:this.props.edit,
     client:this.props.client,
-	isShowMessage: false,
   code:"",
   canSubmit: false,
-  confirm:Session.get('confirm'),
-  res:""
+  res:"",
+  companyName:"",
+  address:'',
+  email:'',
+  phone:'',
+  website:'',
+  city:'',
+  state:'',
+  country:'',
+  pincode:'',
+  contactName:'',
+  contactNo:''
+
+
     }
   }
   enableButton() {
@@ -30,15 +41,16 @@ export default class AddClient extends Component {
 
   componentDidMount(){
 
-    this.refs.companyName.value=this.state.edit?this.props.client.companyName:''
-    this.refs.address.value=this.state.edit?this.props.client.address:''
-    this.refs.phone.value=this.state.edit?this.props.client.phone:''
-    this.refs.website.value=this.state.edit?this.props.client.website:''
-    this.refs.city.value=this.state.edit?this.props.client.city:''
-    this.refs.state.value=this.state.edit?this.props.client.state:''
-    this.refs.pincode.value=this.state.edit?this.props.client.pincode:''
-    this.refs.contactName.value=this.state.edit?this.props.client.contactName:''
-    this.refs.contactNo.value=this.state.edit?this.props.client.contactNo:''
+    let client=this.props.client;
+    this.state.edit?this.setState({companyName:client.companyName}):this.setState({companyName:''})
+    this.state.edit?this.setState({address:client.address}):this.setState({address:''})
+    this.state.edit?this.setState({phone:client.phone}):this.setState({phone:''})
+    this.state.edit?this.setState({website:client.website}):this.setState({website:''})
+    this.state.edit?this.setState({city:client.city}):this.setState({city:''})
+    this.state.edit?this.setState({state:client.state}):this.setState({state:''})
+    this.state.edit?this.setState({pincode:client.pincode}):this.setState({pincode:''})
+    this.state.edit?this.setState({contactName:client.contactName}):this.setState({contactName:''})
+    this.state.edit?this.setState({contactNo:client.contactNo}):this.setState({contactNo:''})
 
   }
 
@@ -57,47 +69,44 @@ export default class AddClient extends Component {
               Session.set('confirm',false)
       }
     })
+
     return true;
 }
   componentDidUpdate(){
-    this.state.edit?this.props.client.companyName:''
-    this.state.edit?this.props.client.address:''
-    this.state.edit?this.props.client.phone:''
-    this.state.edit?this.props.client.website:''
-    this.state.edit?this.props.client.city:''
-    this.state.edit?this.props.client.state:''
-    this.state.edit?this.props.client.pincode:''
-    this.state.edit?this.props.client.contactName:''
-    this.state.edit?this.props.client.contactNo:''
-  }
+      }
   // saving client to ClientDb
-  submit(){
-    let obj= new crudClass();
-      let companyName=$('#companyName').val(),
-          address=$('#address').val(),
-        	email=$('#email').val(),
-        	phone=$('#phone').val(),
-        	website=$('#website').val(),
-        	city=$('#city').val(),
-        	state=$('#state').val(),
-        	pincode=$('#pincode').val(),
-        	contactName=$('#contactName').val(),
-        	contactNo=$('#contactNo').val();
-          console.log(  $('#companyName').val('')   );
+  submit(e){
 
+    let obj= new crudClass();
+      let companyName=e.companyName,
+          address=e.address,
+        	email=e.email,
+        	phone=e.phone,
+        	website=e.website,
+        	city=e.city,
+        	state=e.state,
+        	pincode=e.pincode,
+        	contactName=e.contactName,
+        	contactNo=e.contactNo;
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let ran=Random.hexString(7);
     let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}}:
     {code:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
-
     let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
-
-    if(Session.get('confirm')){
-
-    }
     this.setState({saveResult:res,  isShowMessage: true,code:ran})
+    let client=this.props.client;
+    this.state.edit?this.setState({companyName:client.companyName}):this.setState({companyName:''})
+    this.state.edit?this.setState({address:client.address}):this.setState({address:''})
+    this.state.edit?this.setState({phone:client.phone}):this.setState({phone:''})
+    this.state.edit?this.setState({website:client.website}):this.setState({website:''})
+    this.state.edit?this.setState({city:client.city}):this.setState({city:''})
+    this.state.edit?this.setState({state:client.state}):this.setState({state:''})
+    this.state.edit?this.setState({pincode:client.pincode}):this.setState({pincode:''})
+    this.state.edit?this.setState({contactName:client.contactName}):this.setState({contactName:''})
+    this.state.edit?this.setState({contactNo:client.contactNo}):this.setState({contactNo:''})
 
   }
+
   render(){
 
     let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
@@ -115,36 +124,36 @@ export default class AddClient extends Component {
               <div className="col-md-6">
 
                 <div className="input-container">
-                  <MyInput type="text" title="Company Name" name="companyName" ref="companyName" value='' />
+                  <MyInput type="text" title="Company Name" name="companyName" ref="companyName" value={this.state.className} />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text"  title="Address" name="address" ref="address"/>
+                  <MyInput type="text"  title="Address" name="address" ref="address" value={this.state.address}/>
 
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" title="Email" name="email" ref="email"/>
+                  <MyInput type="text" title="Email" name="email" ref="email" value={this.state.email}/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="num" title="Phone" name="phone" ref="phone"/>
+                  <MyInput type="num" title="Phone" name="phone" ref="phone" value={this.state.phone}/>
 
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" title="Website" name="website" ref="website"/>
+                  <MyInput type="text" title="Website" name="website" ref="website" value={this.state.website}/>
 
                   <div className="bar"></div>
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="input-container">
-                  <MyInput type="text" title="City" name="city" ref="city"/>
+                  <MyInput type="text" title="City" name="city" ref="city" value={this.state.city}/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" title="State" name="state" ref="state"/>
+                  <MyInput type="text" title="State" name="state" ref="state" value={this.state.state}/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -156,15 +165,15 @@ export default class AddClient extends Component {
                   </select>
                 </div>
                 <div className="input-container">
-                  <MyInput type="num" title="Pincode" name="pincode" ref="pincode"/>
+                  <MyInput type="num" title="Pincode" name="pincode" ref="pincode" value={this.state.pincode}/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" title="Contact Name" name="contactName" ref="contactName"/>
+                  <MyInput type="text" title="Contact Name" name="contactName" ref="contactName" value={this.state.contactName}/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="num" name="contactNo" title="Contact No" ref="contactNo"/>
+                  <MyInput type="num" name="contactNo" title="Contact No" ref="contactNo" value={this.state.contactNo}/>
                   <div className="bar"></div>
                 </div>
               </div>

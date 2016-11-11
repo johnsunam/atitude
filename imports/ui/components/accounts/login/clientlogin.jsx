@@ -36,8 +36,8 @@ export default class ClientLogin extends Component {
                   }
                   else
                   {
-
-                    Roles.userIsInRole(Meteor.userId(), 'client')?FlowRouter.go('/client/dashboard'):FlowRouter.go('/client/login')
+                    console.log(Meteor.userId());
+                    Roles.userIsInRole(Meteor.userId(),'client')?FlowRouter.go('/client/dashboard'):FlowRouter.go('/client/login')
 
                   }
                 })

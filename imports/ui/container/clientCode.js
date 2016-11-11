@@ -8,7 +8,7 @@ const composer = ( props, onData ) => {
     var Subcription=Meteor.subscribe('getClient');
     if(Subcription.ready()){
       let clients=ClientDb.find().fetch();
-
+      console.log(clients);
         onData( null, {clients} )
       }
 

@@ -14,17 +14,22 @@ export default class addUser extends Component {
     edit:this.props.edit,
     user:this.props.user,
 	canSubmit: false,
-	res: ""
+	res: "",
+  name:'',
+  dob:'',
+  address:'',
+  mobile:'',
+  email:'',
+  secQuestion:'',
+  secAnswer:'',
+  roleName:'',
+
 
    }
   }
 
    componentDidMount(){
-	   Tracker.autorun(function(){
-      if(!Session.equals('confirm',true)){
-        console.log('helo');
-      }
-    })
+
     this.refs.name.value=this.state.edit?this.props.user.name:'';
     this.refs.dob.value=this.state.edit?this.props.user.dob:'';
     this.refs.address.value=this.state.edit?this.props.user.address:'';
@@ -45,6 +50,25 @@ export default class addUser extends Component {
     this.refs.roleName.value=this.state.edit?this.props.user.roleName:'';
 
   }
+  shouldComponentUpdate(nextProps, nextState){
+    Tracker.autorun(function(){
+      if(Session.equals('confirm',true)){
+        Session.get('res')==true?Alert.success(message.saveClientSuccess, {
+               position: 'top-right',
+               effect: 'bouncyflip',
+               timeout: 1000
+           }):Alert.warning("message.saveClientError",{
+                  position: 'top-right',
+                  effect: 'bouncyflip',
+                  timeout: 1000
+              })
+              Session.set('confirm',false)
+      }
+    })
+
+    return true;
+}
+
   enableButton() {
     this.setState({ canSubmit: true });
   }
@@ -53,31 +77,21 @@ export default class addUser extends Component {
   }
 
   // saving user to userDb
-  submit(){
+  submit(e){
     let obj= new crudClass();
-	let name=this.refs.name.value,
-		dob=this.refs.dob.value,
-		address=this.refs.address.value,
-		mobile=this.refs.mobile.value,
-		email=this.refs.email.value,
-		secQuestion=this.refs.secQuestion.value,
-		secAnswer=this.refs.secAnswer.value,
-		roleName=this.refs.roleName.value;
+	let name=e.name,
+		dob=e.dob,
+		address=e.address,
+		mobile=e.mobile,
+		email=e.email,
+		secQuestion=e.secQuestion,
+		secAnswer=e.secAnswer,
+		roleName=e.roleName;
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let record=this.props.edit?{id:this.props.user._id,data:{name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName}}:
     {name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName}
     let res=this.state.edit?obj.create('editUser',record):obj.create('addUser',record);
-     if(Session.get('confirm')){
-			Session.get('res')==true?Alert.success(message.saveUserSuccess, {
-             position: 'top-right',
-             effect: 'bouncyflip',
-             timeout: 1000
-         }):Alert.warning("message.saveUserFailure",{
-                position: 'top-right',
-                effect: 'bouncyflip',
-                timeout: 1000
-            })
-		}
+
     this.setState({saveResult:res})
 		this.refs.name.value="";
 		this.refs.dob.value="";
@@ -90,7 +104,7 @@ export default class addUser extends Component {
   }
 
   render(){
-	console.log(this.props.user);
+
     let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
     <span>submit</span></button>;
     return(<div className="col-md-10 registration_form pad_t50">
@@ -114,7 +128,7 @@ export default class addUser extends Component {
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <textarea placeholder="Address" ref="address"></textarea>
+                  <textarea placeholder="Address" name="address" ref="address"></textarea>
                 </div>
               </div>
               <div className="col-md-6">
@@ -142,7 +156,7 @@ export default class addUser extends Component {
                 </div>
 				 <div className="input-container gender">
                   <div>Active? &nbsp;
-                    <MyInput type="checkbox" id="checkbox" value=""/>
+                    <input type="checkbox" id="checkbox"  value=""/>
                   </div>
                 </div>
               </div>

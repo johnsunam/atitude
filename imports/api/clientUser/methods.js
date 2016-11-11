@@ -4,17 +4,19 @@ import {Random } from 'meteor/random'
 
 Meteor.methods({
   'addClientUser':function(record){
-    console.log(record);
+
 
     let userId=Accounts.createUser({email:record.email,password:"aptitude123"})
+    console.log(record);
     Roles.addUsersToRoles(userId,record.userType);
     if(record.userType=="client"){
       ClientDb.insert(record);
     }
     else {
+      console.log(record);
       ClientUserDb.insert(record);
     }
-
+    return userId;
 
   },
   'editClientUser':function(record){

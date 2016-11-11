@@ -17,7 +17,7 @@ export default class AddForm extends Component {
   }
 
   componentDidMount(){
-  $('h4').hide();
+/*  $('h4').hide();
   $('#save-alert').hide();
   let self=this;
     var buildWrap = $(document.getElementById('fb-editors')),
@@ -80,8 +80,8 @@ export default class AddForm extends Component {
       $('h4').show();
      }
 
-  });
-  }
+  });*/
+}
   openTab(e){
     let self=this;
       $(e.target.id).addClass('in active');

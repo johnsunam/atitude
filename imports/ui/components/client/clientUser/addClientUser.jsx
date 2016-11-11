@@ -1,6 +1,9 @@
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
-
+var message = require('../../common/message.json');
+import Alert from 'react-s-alert';
+import {Session} from 'meteor/session';
+import MyInput from '../../common/validator.js'
 
 export default class AddClientUser extends Component {
   constructor(props) {
@@ -9,54 +12,68 @@ export default class AddClientUser extends Component {
   edit:this.props.edit,
   clientUser:this.props.clientUser,
   isShowMessage: false,
-  userCode:""
+  userCode:"",
+  clientUser:'',
+  dob:'',
+  address:'',
+  mobile:'',
+  email:'',
+  secQuestion:'',
+  secAnswer:'',
+  roleName:'',
+  userType:''
   }
 
   }
 
    componentDidMount(){
 
-    this.refs.name.value=this.state.edit?this.props.clientUser.name:'';
-    this.refs.dob.value=this.state.edit?this.props.clientUser.dob:'';
-    this.refs.address.value=this.state.edit?this.props.clientUser.address:'';
-	this.refs.mobile.value=this.state.edit?this.props.clientUser.mobile:'';
-    this.refs.email.value=this.state.edit?this.props.clientUser.email:'';
-    this.refs.secQuestion.value=this.state.edit?this.props.clientUser.secQuestion:'';
-	this.refs.secAnswer.value=this.state.edit?this.props.clientUser.secAnswer:'';
-    this.refs.roleName.value=this.state.edit?this.props.clientUser.roleName:'';
-	this.refs.userType.value=this.state.edit?this.props.clientUser.userType:'';
+    this.state.edit?this.setState({name:this.props.clientUser.name,
+      dob:this.props.clientUser.dob,
+      address:this.props.clientUser.address,
+      mobile:this.props.clientUser.mobile,
+      email:this.props.clientUser.email,
+      secQuestion:this.props.clientUser.secQuestion,
+      secAnswer:this.props.clientUser.secAnswer,
+      roleName:this.props.clientUser.roleName,
+      userType:this.props.clientUser.userType
+    }):'';
+
    }
   componentDidUpdate(){
-	this.refs.name.value=this.state.edit?this.props.clientUser.name:'';
-    this.refs.dob.value=this.state.edit?this.props.clientUser.dob:'';
-    this.refs.address.value=this.state.edit?this.props.clientUser.address:'';
-	this.refs.mobile.value=this.state.edit?this.props.clientUser.mobile:'';
-    this.refs.email.value=this.state.edit?this.props.clientUser.email:'';
-    this.refs.secQuestion.value=this.state.edit?this.props.clientUser.secQuestion:'';
-	this.refs.secAnswer.value=this.state.edit?this.props.clientUser.secAnswer:'';
-    this.refs.roleName.value=this.state.edit?this.props.clientUser.roleName:'';
-	this.refs.userType.value=this.state.edit?this.props.clientUser.userType:'';
+    this.state.edit?this.setState({name:this.props.clientUser.name,
+      dob:this.props.clientUser.dob,
+      address:this.props.clientUser.address,
+      mobile:this.props.clientUser.mobile,
+      email:this.props.clientUser.email,
+      secQuestion:this.props.clientUser.secQuestion,
+      secAnswer:this.props.clientUser.secAnswer,
+      roleName:this.props.clientUser.roleName,
+      userType:this.props.clientUser.userType
+    }):'';
 
   }
   editClientUser(){
 
   }
   // saving clientUser to clientUserDb
-  addClientUser(){
+  submit(e){
     let obj= new crudClass();
-	let name=this.refs.name.value,
-		dob=this.refs.dob.value,
-		address=this.refs.address.value,
-		mobile=this.refs.mobile.value,
-		email=this.refs.email.value,
+    console.log(e);
+	let name=e.name,
+		dob=e.dob,
+		address=e.address,
+		mobile=e.mobile,
+		email=e.email,
 		secQuestion=this.refs.secQuestion.value,
-		secAnswer=this.refs.secAnswer.value,
+		secAnswer=e.secAnswer,
 		roleName=this.refs.roleName.value,
 		userType = this.refs.userType.value;
     let userCode=Random.hexString(7);
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let record=this.props.edit?{id:this.props.clientUser._id,data:{name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName, userType:userType}}:
     {code:userCode,name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName, userType:userType}
+    console.log(record);
     let res=this.state.edit?obj.create('editClientUser',record):obj.create('addClientUser',record);
 
     this.setState({saveResult:res, isShowMessage: true ,userCode:userCode})
@@ -70,38 +87,61 @@ export default class AddClientUser extends Component {
 		this.refs.roleName.value="Choose your roll name";
 		this.refs.userType.value="";
   }
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+    Tracker.autorun(function(){
+      if(Session.equals('confirm',true)){
+        Session.get('res')==true?Alert.success(message.saveUserSuccess, {
+               position: 'top-right',
+               effect: 'bouncyflip',
+               timeout: 1000
+           }):Alert.warning("message.saveClientError",{
+                  position: 'top-right',
+                  effect: 'bouncyflip',
+                  timeout: 1000
+              })
+              Session.set('confirm',false)
+      }
+    })
+
+    return true;
+}
 
   render(){
-	console.log(this.props);
-    let submitButton=this.state.edit?<button onClick={this.addClientUser.bind(this)} data-dismiss="modal"><span>Edit</span></button>:<button
-    onClick={this.addClientUser.bind(this)}><span>Submit</span></button>;
-    return(<div>
+
+  let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  ><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
+  <span>submit</span></button>;
+   return(<div>
       <div className="box-body">
-    {  this.state.isShowMessage ?
-        <Alert bsStyle="success">
-        {message.saveUserSuccess}
-        </Alert>
-      : ''}
+
       {this.state.edit?"":<div>{this.state.userCode}</div>}
+      <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+
               <div className="form-group">
                 <label for="name"> Name</label>
-                <input type="text" className="form-control" id="name" placeholder="Name" ref="name"/>
+                <MyInput type="text" className="form-control" value={this.state.name} id="name" name="name" placeholder="Name" ref="name"/>
               </div>
               <div className="form-group">
                 <label for="dob">Date of Birth</label>
-                <input type="text" className="form-control" id="dob" placeholder="DOB" ref="dob"/>
+                <MyInput type="text" name="dob" className="form-control" value={this.state.dob} id="dob" placeholder="DOB" ref="dob"/>
               </div>
               <div className="form-group">
                 <label for="address">Address</label>
-                <input type="text" className="form-control" id="address" placeholder="Mobile Number" ref="address"/>
+                <MyInput type="text" name="address" className="form-control" value={this.state.address} id="address" placeholder="Mobile Number" ref="address"/>
               </div>
               <div className="form-group">
                 <label for="mobile">Contact #</label>
-                <input type="text" className="form-control" id="contactNo" placeholder="Contact Number" ref="mobile"/>
+                <MyInput name="contact" type="text" className="form-control" id="contactNo" value={this.state.contactNo} placeholder="Contact Number" ref="mobile"/>
               </div>
 			  <div className="form-group">
                 <label for="email">E-Mail</label>
-                <input type="text" className="form-control" id="email" placeholder="E-Mail" ref="email"/>
+                <MyInput name="email" type="text" className="form-control" id="email" value={this.state.email} placeholder="E-Mail" ref="email"/>
               </div>
               <div className="form-group">
                 <label for="secQuestion">Security Question</label>
@@ -111,12 +151,12 @@ export default class AddClientUser extends Component {
               </div>
               <div className="form-group">
                 <label for="secAnswer">Security Answer</label>
-                <input type="text" className="form-control" id="secAnswer" placeholder="Security Answer" ref="secAnswer"/>
+                <MyInput name="secAnswer" type="text" className="form-control" id="secAnswer" placeholder="Security Answer" ref="secAnswer"/>
               </div>
 
              <div className="form-group">
                 <label for="userType">User Type</label>
-                <select type="text" className="form-control" ref="userType">
+                <select type="text" className="form-control" name="userType" ref="userType">
                   <option>App User</option>
 				  <option>client</option>
                 </select>
@@ -130,12 +170,14 @@ export default class AddClientUser extends Component {
                   })}
                 </select>
               </div>
+              <div className="box-footer">
+                {submitButton}
+               {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
+              </div>
+
+              </Formsy.Form>
             </div>
 
-            <div className="box-footer">
-              {submitButton}
-             {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
-            </div>
           </div>)
   }
 }

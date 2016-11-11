@@ -8,11 +8,7 @@ export default class ClientCode extends Component  {
   }
   render(){
     return(<div className="mid_content">
-    {this.state.showMessage ?
-        <Alert bsStyle="success">
-        {message.codeError}
-        </Alert>
-      : ''}
+
       <div className="login_col">
 
         <div className="card"></div>
@@ -26,11 +22,10 @@ export default class ClientCode extends Component  {
             <div className="button-container">
               <button onClick={()=>{
                 let clientCode=$('#clientCode').val();
-                console.log(this.props.client);
+                console.log(clientCode);
                 var client=_.findWhere(this.props.clients,{code:clientCode});
+                console.log(client);
                 client?this.props.verify.setState({verify:true}):this.setState({showMessage:true})
-
-
               }}><span>submit</span></button>
             </div>
 
