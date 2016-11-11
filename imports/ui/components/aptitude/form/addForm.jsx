@@ -41,10 +41,10 @@ export default class AddForm extends Component {
          label: 'Rating',
          fields: [
          {
-           type: 'header',
+           type: 'number',
            subtype: 'h2',
            label: 'Rating',
-           className: 'header'
+           className:'rating'
          }
        ]
        }
