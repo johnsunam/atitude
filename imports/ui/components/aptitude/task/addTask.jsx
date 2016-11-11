@@ -62,9 +62,9 @@ export default class AddTask extends Component {
   }
 
   // saving WorkFlow to WorkFlowDb
-  submit(){
+  submit(e){
     let obj= new crudClass();
-    let name=this.refs.name.value,
+    let name=e.name,
         description=this.refs.description.value;
 
     let status=$('#checkbox:checked').val() ? "active":"inactive";
@@ -79,7 +79,7 @@ export default class AddTask extends Component {
   }
 
   render(){
-    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
+    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit} ><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
     <span>submit</span></button>;
     return(  <div className="col-md-10 registration_form pad_t50">
 

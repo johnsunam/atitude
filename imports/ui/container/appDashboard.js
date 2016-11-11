@@ -8,6 +8,7 @@ const composer = ( props, onData ) => {
       if(subcription.ready()){
         let data= PageDb.find().fetch();
         let pages=data?data:[];
+        console.log(pages);
         onData( null, {pages} )
       }
 

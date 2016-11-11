@@ -21,6 +21,7 @@ export default class ManageTask extends Component {
 
           </tr>
           {this.props.tasks.map((task)=>{
+            console.log(task);
           return(<tr>
               <td>{task.name}</td>
               <td>{task.description}</td>

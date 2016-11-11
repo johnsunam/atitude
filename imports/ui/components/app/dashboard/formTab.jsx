@@ -23,7 +23,7 @@ export default class ClientUserDashboard extends Component {
       dataType: 'json',
       formData: form
     })
-    if($(":submit").length==0){
+    if($(":submit").length==0 && $(':button').length==0){
       $("#showform").append('<button type="submit">submit<button/>');
     }
     var json = "";
@@ -74,7 +74,7 @@ export default class ClientUserDashboard extends Component {
       formData: form
     })
 
-    if($(":submit").length==0){
+    if($(":submit").length==0 && $(':button').length==0){
     $("#showform").append('<button type="submit">submit');
     }
     var json = "";

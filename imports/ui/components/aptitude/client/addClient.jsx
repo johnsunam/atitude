@@ -51,7 +51,7 @@ export default class AddClient extends Component {
     this.state.edit?this.setState({pincode:client.pincode}):this.setState({pincode:''})
     this.state.edit?this.setState({contactName:client.contactName}):this.setState({contactName:''})
     this.state.edit?this.setState({contactNo:client.contactNo}):this.setState({contactNo:''})
-
+    Session.set('showCode',false)
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -60,7 +60,10 @@ export default class AddClient extends Component {
         Session.get('res')==true?Alert.success(message.saveClientSuccess, {
                position: 'top-right',
                effect: 'bouncyflip',
-               timeout: 1000
+               timeout: 1000,
+               onShow:function(){
+                 Session.set('showCode',true)
+               }
            }):Alert.warning("message.saveClientError",{
                   position: 'top-right',
                   effect: 'bouncyflip',

@@ -105,7 +105,7 @@ export default class addUser extends Component {
 
   render(){
 
-    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
+    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
     <span>submit</span></button>;
     return(<div className="col-md-10 registration_form pad_t50">
 
