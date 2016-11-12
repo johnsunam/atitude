@@ -4,7 +4,7 @@ import ClientAccountsLayout from '../layouts/clientAccountLayout.jsx';
 const composer = ( props, onData ) => {
 
   if(Meteor.userId()){
-    onData( null, {null} )
+    FlowRouter.go('/client/dashboard');
       }
     else{
       onData( null, {null} )
