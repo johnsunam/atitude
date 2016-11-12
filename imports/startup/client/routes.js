@@ -4,7 +4,7 @@ import {FlowRouter} from 'meteor/kadira:flow-router'
 import {ReactLayout} from 'meteor/kadira:react-layout'
 import MainLayout from '../../ui/container/mainLayout.js';
 import AddForm from '../../ui/components/aptitude/form/addForm.jsx'
-import ManageForm from '../../ui/components/aptitude/form/manageForm.jsx'
+import ManageForm from '../../ui/container/manageForm.js'
 import AddClient from '../../ui/components/aptitude/client/addClient.jsx'
 import ManageClient from '../../ui/container/manageClient.js'
 import AddPage from '../../ui/container/addPage.js'
@@ -34,6 +34,7 @@ import AptitudeAccountsLayout from '../../ui/container/aptitudeAccountsLayout.js
 import ClientAccountsLayout from '../../ui/container/clientAccountLayout.js'
 import AppAccountsLayout  from '../../ui/container/appAccountLayout.js'
 import AppLayout from '../../ui/container/appLayout.js'
+import EditForm from '../../ui/container/editForm.js'
 FlowRouter.route('/client/add-department',{
   name:'addDepartment',
   action:function(){
@@ -163,7 +164,14 @@ FlowRouter.route('/aptitude/manage-user',{
     })
   }
 });
-
+FlowRouter.route('/aptitude/edit-form/:id',{
+  name:'editForm',
+  action:function(params){
+    ReactLayout.render(MainLayout,{
+      content:<EditForm id={params.id}/>
+    })
+  }
+})
 //route for add role
 FlowRouter.route('/aptitude/add-role',{
   name:'addRole',

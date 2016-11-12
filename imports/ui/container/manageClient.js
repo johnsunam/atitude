@@ -4,7 +4,8 @@ import ManageClient from '../components/aptitude/client/manageClient.jsx'
 const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getClient');
     if(subcription.ready()){
-        var clients=ClientDb.find().fetch();
+        var data=ClientDb.find().fetch();
+        clients=data?data:[];
         console.log(clients);
         onData( null, {clients} )
       }
