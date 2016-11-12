@@ -8,13 +8,13 @@ export default class ClientLogin extends Component {
   }
   render(){
     let message=this.state.err?<span className="col-md-offset-5">{this.state.err}</span>:"";
-    return(<div className="mid_content">
+    return(<div className="client_mid_content">
             {message}
       <div className="login_col">
 
-        <div className="card"></div>
-        <div className="card">
-          <h1 className="title">Login</h1>
+ 
+       <div className="client_card">
+           
 
             <div className="input-container">
               <input type="text" id="Username" required="required" ref="username"/>

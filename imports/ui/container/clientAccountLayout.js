@@ -4,6 +4,7 @@ import ClientAccountsLayout from '../layouts/clientAccountLayout.jsx';
 const composer = ( props, onData ) => {
 
   if(Meteor.userId()){
+    console.log('helo');
     FlowRouter.go('/client/dashboard');
       }
     else{

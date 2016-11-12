@@ -11,13 +11,14 @@ export default class AppLogin extends Component {
         }
   }
   render(){
-    return(<div>
-      <div className="hed_top">
-  <div className="mid_container">
+    return(<div className="app_login">
+    <div className="app_login_inner">
+  <span className="mid_container">
     <div className="logoin">User Login</div>
-  </div>
+  </span>
+  {this.state.verify?<Login verify={this}/>:<UserCode verify={this}/>}
 </div>
-{this.state.verify?<Login verify={this}/>:<UserCode verify={this}/>}
+
     </div>)
   }
 }

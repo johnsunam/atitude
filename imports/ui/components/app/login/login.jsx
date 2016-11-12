@@ -6,10 +6,10 @@ export default class ClientUserLogin extends Component {
   }
   render(){
     return(<div className="mid_content">
-      <div className="login_col">
-        <div className="card"></div>
-        <div className="card">
-          <h1 className="title">Login</h1>
+      <div className=" ">
+
+        <div className=" ">
+          <h1 className=" ">Login</h1>
 
             <div className="input-container">
               <input type="text" id="Username" required="required" ref="username"/>

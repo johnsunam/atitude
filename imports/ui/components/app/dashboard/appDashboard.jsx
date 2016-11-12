@@ -38,7 +38,7 @@ export default class AppDashboard extends Component {
       </aside>
       <div className="content-wrapper ">
       <section className="content-header">
-      
+      <h1>Client Pages</h1>
     </section>
     <section className="content">
     <FormTab form={this.state.choosedform} page={this.state.choosedPage}/>

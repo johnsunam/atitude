@@ -13,14 +13,15 @@ export default class ClientLogin extends Component {
   }
   render(){
 
-    return(<div>
-      <div className="hed_top">
+    return(<div className="client_login">
+	<div className="client_login_mid">
+     <div className="left_client_login">
   <div className="mid_container">
     <div className="logoin">Client Login</div>
   </div>
 </div>
 {this.state.verify?<Login verify={this}/>:<ClientCode verify={this}/>}
 
-    </div>)
+    </div> </div>)
   }
 }

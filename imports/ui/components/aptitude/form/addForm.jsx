@@ -35,7 +35,7 @@ export default class AddForm extends Component {
            className:'rating'
          }
        ]
-       }
+     }
      ]
    },
      formBuilder = $(buildWrap).formBuilder(fbOptions).data('formBuilder');

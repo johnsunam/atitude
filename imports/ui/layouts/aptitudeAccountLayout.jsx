@@ -8,7 +8,7 @@ export default class AptitudeLogin extends Component {
   }
   render(){
     return(<div>
-      <div className="hed_top">
+      <div className="admin_hed_top">
       <div className="mid_container">
         <div className="logoin">Aptitude Login</div>
       </div>

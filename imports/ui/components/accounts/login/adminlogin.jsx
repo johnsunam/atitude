@@ -8,7 +8,7 @@ export default class AdminLogin extends Component {
     }
   }
   render(){
-    return(<div className="mid_content">
+    return(<div className="admin_mid_content">
 
       <div className="login_col">
         <div className="card"></div>

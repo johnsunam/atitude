@@ -15,11 +15,11 @@ export default class UserCode extends Component  {
         {message.codeError}
         </Alert>
       : ''}
-      <div className="login_col">
+      <div className=" ">
 
-        <div className="card"></div>
-        <div className="card">
-          <h1 className="title">Enter Code</h1>
+
+        <div className=" ">
+          <h1 className=" ">Enter Code</h1>
 
             <div className="input-container">
               <input type="text" id="userCode" required="required" ref="clientCode"/>

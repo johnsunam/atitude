@@ -11,7 +11,6 @@ export default class ManageClient extends Component {
    }
   }
  render(){
-console.log(this.props.clients);
     return( <div className="col-md-10 registration_form pad_t50">
       <div className="col-md-10 col-md-offset-1">
         <h1 className="title">Manage Clients</h1>

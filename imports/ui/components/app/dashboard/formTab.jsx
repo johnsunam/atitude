@@ -16,18 +16,15 @@ export default class ClientUserDashboard extends Component {
   componentDidMount(){
 
     let self=this;
-    let data=this.props.form?this.props.form.form:null
-    let form=JSON.parse(data)
+    let data=this.props.form?this.props.form.form:''
+    let form=JSON.parse(this.props.form.form)
     let id="#"+self.state.id
     $("#showform").formRender({
       dataType: 'json',
       formData: form
     })
-    if(data!=null){
-      if($(":submit").length==0 && $(':button').length==0){
-        $("#showform").append('<button type="submit">submit<button/>');
-      }
-
+    if($(":submit").length==0 && $(':button').length==0){
+      $("#showform").append('<button type="submit">submit<button/>');
     }
     var json = "";
 
