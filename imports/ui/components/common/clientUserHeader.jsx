@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 
 export default ClientUserHeader=(props)=>{
-  return(<header className="main-header"> <a href="index2.html" className="logo"> <span className="logo-lg"> APTITUDE </span> </a>
+  return(<header className="main-header"> <a href="index2.html" className="logo"> <span className="logo-lg"> APTITUDE USER</span> </a>
     <nav className="navbar navbar-static-top">
       <div className="navbar-custom-menu">
         <ul className="nav navbar-nav">

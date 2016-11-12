@@ -5,7 +5,7 @@ export default ClientAdminSidebar=()=>{
     <section className="sidebar">
       <ul className="sidebar-menu">
         <li className="header">MAIN NAVIGATION</li>
-        <li className="treeview active"> <a href="#"><i className="fa fa-dashboard"></i> <span>Dashboard</span> <span className="pull-right-container"> <i className="fa fa-angle-left pull-right"></i> </span> </a>
+        <li className="treeview active"> <a href="/client/dashboard"><i className="fa fa-dashboard"></i> <span>Dashboard</span> <span className="pull-right-container"> <i className="fa fa-angle-left pull-right"></i> </span> </a>
         </li>
         <li className="treeview active"> <a href="#"> <i className="fa fa-pie-chart"></i> <span>User</span> <span className="pull-right-container"> <i className="fa fa-angle-left pull-right"></i> </span> </a>
         <ul className="treeview-menu">

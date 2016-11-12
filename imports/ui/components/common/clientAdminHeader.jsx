@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 
 export default ClientAdminHeader=(props)=>{
-  return(<header className="main-header"> <a href="index2.html" className="logo"> <span className="logo-lg"> APTITUDE </span> </a>
+  return(<header className="main-header"> <a href="index2.html" className="logo"> <span className="logo-lg"> APTITUDE CLIENT</span> </a>
     <nav className="navbar navbar-static-top">
       <div className="navbar-custom-menu">
         <ul className="nav navbar-nav">

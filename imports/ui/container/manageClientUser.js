@@ -9,6 +9,7 @@ const composer = ( props, onData ) => {
       let roles=ClientRoleDb.find().fetch();
       let users=ClientUserDb.find().fetch();
       let data={roles:roles,users:users}
+      console.log(data);
         onData( null, {data} )
       }
 
