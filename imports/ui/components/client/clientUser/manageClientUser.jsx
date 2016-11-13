@@ -19,6 +19,7 @@ export default class ManageClientUser extends Component {
             <th>Email</th>
 			<th>Phone</th>
 			<th>Website</th>
+      <th>User Code</th>
             <th>Action</th>
           </tr>
           {this.props.data.users.map((clientUser)=>{
@@ -27,6 +28,7 @@ export default class ManageClientUser extends Component {
               <td>{clientUser.email}</td>
               <td>{clientUser.phone}</td>
 			  <td>{clientUser.website}</td>
+        <td>{clientUser.code}</td>
               <td><div className="button-container">
               <a href="#"  data-toggle="modal" data-target={`#${clientUser._id}`}>Edit</a>
               <div className="modal fade" id={`${clientUser._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

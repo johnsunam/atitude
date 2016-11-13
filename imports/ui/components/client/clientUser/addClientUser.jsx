@@ -120,7 +120,7 @@ export default class AddClientUser extends Component {
    return(<div>
       <div className="box-body">
 
-      {this.state.edit?"":<div>{this.state.userCode}</div>}
+    
       <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 
               <div className="form-group">

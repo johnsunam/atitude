@@ -116,7 +116,7 @@ export default class AddClient extends Component {
     <span>submit</span></button>;
      return(<div className="col-md-10 registration_form pad_t50">
 
-      {this.state.edit?"":<div>{this.state.code}</div>}
+
       <div className="col-md-8 col-md-offset-2">
         <div className="card"></div>
         <div className="card">
