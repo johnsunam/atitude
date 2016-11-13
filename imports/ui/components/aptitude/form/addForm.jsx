@@ -94,27 +94,6 @@ export default class AddForm extends Component {
 
   });
 }
-shouldComponentUpdate(nextProps, nextState){
-  Tracker.autorun(function(){
-    if(Session.equals('confirm',true)){
-      Session.get('res')==true?Alert.success(message.formSaved, {
-             position: 'top-right',
-             effect: 'bouncyflip',
-             timeout: 1000,
-             onShow:function(){
-               Session.set('showCode',true)
-             }
-         }):Alert.warning("error saveing",{
-                position: 'top-right',
-                effect: 'bouncyflip',
-                timeout: 1000
-            })
-            Session.set('confirm',false)
-    }
-  })
-
-  return true;
-}
   openTab(e){
     let self=this;
       $(e.target.id).addClass('in active');
@@ -160,7 +139,9 @@ shouldComponentUpdate(nextProps, nextState){
       }}>{this.props.edit?"Save Changes":"Save Form"}</a>
       <div  id="mainForm">
       </div>
-
+      <div className="" id="save-alert">
+      <span style={{"fontSize":20,"color":"green"}}>{this.state.message?"form sucessfully saved":""}</span>
+      </div>
 
       </div>
 
