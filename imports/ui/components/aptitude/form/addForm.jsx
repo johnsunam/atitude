@@ -12,7 +12,8 @@ export default class AddForm extends Component {
      selectedTab:'#create-form',
      formTitle:"",
      result:"",
-     messages:null
+     messages:null,
+     formData:props.form?props.form.form:null
    }
   }
 
@@ -35,11 +36,34 @@ export default class AddForm extends Component {
            className:'rating'
          }
        ]
+     },
+     {
+       label:'toggle button',
+       fields:[
+         {
+           label:"choose toggle",
+           type:"checkbox",
+           "data-toggle":"toggle",
+           "data-on":"yes",
+           "data-off":"no"
+         }
+       ]
+     },
+     {
+       label:"Hidden Input",
+       fields:[
+         {
+          type:"text",
+          className:"hidden-input",
+
+         }
+       ]
      }
-     ]
+   ],
+   formData:JSON.parse(this.state.formData)
    },
      formBuilder = $(buildWrap).formBuilder(fbOptions).data('formBuilder');
-
+     this.refs.formName.value=this.props.edit?this.props.form.name:""
     $('.form-builder-save').click(function(e) {
       let obj=new crudClass();
      var formName=$('#formName').val();
@@ -56,8 +80,8 @@ export default class AddForm extends Component {
          $('#save-alert').show()
         window.sessionStorage.setItem('formData', JSON.stringify(formBuilder.formData));
          let data=JSON.stringify(formBuilder.formData);
-
-        self.setState({result:{name:formName,description:description,form:data}})
+         console.log(self.props);
+        self.props.edit?self.setState({result:{id:self.props.form._id,data:{name:formName,description:description,form:data}}}):self.setState({result:{name:formName,description:description,form:data}})
        $('#create-form').removeClass('in active');
        $('#create-form-tab').removeClass('in active');
        $('#previews').addClass('in active');
@@ -82,6 +106,7 @@ export default class AddForm extends Component {
   }
 
   render(){
+    console.log(this.props.form);
     return(<div className="col-md-10 no_pad">
       <ul className="steps_menu nav nav-tabs">
         <li className="in active" id="create-form"><a href="#create-form" id="#create-form" data-toggle="tab" onClick={this.openTab.bind(this)} >Create Form</a></li>
@@ -91,7 +116,8 @@ export default class AddForm extends Component {
       <div id="create-form-tab" className="tab-pane fade in active">
       <div className="row" style={{"marginTop":30,"marginBottom":20,"marginLeft":10}}>
       <div className="col-md-5 input-container">
-      <input type="text" className="form-control" placeholder="Form Name" id="formName" style={{height: 50,width: 400}} required=""/>
+      <input type="text" className="form-control" placeholder="Form Name" ref="formName"
+      id="formName" style={{height: 50,width: 400}} required=""/>
       <h4 className="" style={{color:"red"}}>Please insert form Name</h4>
       </div>
       <div className="col-md-6 input-container">
@@ -107,10 +133,10 @@ export default class AddForm extends Component {
       <div className="col-md-12">
       <a href="#" className="btn btn-primary formsubmit" onClick={()=>{
         let obj= new crudClass()
-        obj.create('addForm',this.state.result)
+        this.props.edit?obj.edit('editForm',this.state.result):obj.create('addForm',this.state.result);
         this.setState({message:true})
         $('.formsubmit').hide()
-      }}>save form</a>
+      }}>{this.props.edit?"Save Changes":"Save Form"}</a>
       <div  id="mainForm">
       </div>
       <div className="" id="save-alert">

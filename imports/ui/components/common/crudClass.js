@@ -30,7 +30,7 @@ class crudClass {
     })
   }
   edit(methodName,record){
-    Meteor.call(methodName,record,function(err){
+    Meteor.call(methodName,record,function(err,result){
       if(err){
         console.log(err);
         Session.set('res',false)

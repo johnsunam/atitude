@@ -7,19 +7,20 @@ export default class EditForm extends Component{
       form:JSON.parse(this.props.form.form)
     }
   }
-/*  componentDidMount(){
-  var buildWrap = $(document.getElementById('form-edit'))
+ componentDidMount(){
+  var buildWrap = $(document.getElementById('form-editors'))
     console.log(this.state.form);
     var options={
-      defaultFields:this.state.form
+      formData:this.state.form,
+      dataType:'json'
     }
-      console.log(options);
-    $(buildWrap).formBuilder(options)
-  }*/
+
+    $(buildWrap).formBuilder(options).data('formBuilder')
+  }
   render(){
 
     return(<div>
-      <div id="form-edit"></div>
+      <div id="form-editors"></div>
     </div>)
   }
 }
