@@ -10,10 +10,13 @@ const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getAccount');
     if(subcription.ready()){
       let user=Meteor.users.findOne({_id:Meteor.userId()})
+      console.log(user);
       let email=user?user.emails[0].address:null;
-      let client=ClientDb.findOne({email:user});
+
+      let client=ClientDb.findOne({email:email});
 
       let pages=client?PageDb.find({clientName:client.companyName}).fetch():[];
+      console.log(pages);
       onData( null, {pages} )
       }
 
