@@ -65,7 +65,7 @@ export default class AddPage extends Component {
   //add page to PageDb
   submit(e){
     let name=e.name,
-    clientName=e.clientName,
+    clientName=this.refs.clientName.value,
 	formName=this.refs.formName.value,
 	previewURL=e.previewURL,
 	publishURL=e.publishURL,

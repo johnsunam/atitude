@@ -14,7 +14,7 @@ export default class ClientPages extends Component {
 
     let pages=_.where(this.props.pages,{clientName:this.props.client})
     let pagelist=pages.map((page)=>{
-      console.log(page);
+      
       return(
         <tr>
       <td>{page.formName}</td>

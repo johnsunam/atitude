@@ -6,7 +6,7 @@ const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getPage');
 
     if(subcription.ready()){
-        var pages=PageDb.find({}).fetch();
+        var pages=PageDb.find({clientName:props.clientName}).fetch();
 
         let data={pages:pages,clients:clients}
         console.log(pages);
