@@ -20,6 +20,7 @@ export default class ManageClient extends Component {
             <th>Email</th>
 			<th>Phone</th>
 			<th>Website</th>
+      <th>Client Code</th>
             <th>Action</th>
           </tr>
           {this.props.clients.map((client)=>{
@@ -28,6 +29,7 @@ export default class ManageClient extends Component {
               <td>{client.email}</td>
               <td>{client.phone}</td>
 			  <td>{client.website}</td>
+        <td>{client.code}</td>
               <td><div className="button-container">
               <a href="#"  data-toggle="modal" data-target={`#${client._id}`}>Edit</a>
               <div className="modal fade" id={`${client._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

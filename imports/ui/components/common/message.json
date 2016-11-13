@@ -1,4 +1,6 @@
-{ "adminLoginError":"You are not permitted to access",
+{
+	"formSaved":"Form saved successfully",
+	 "adminLoginError":"You are not permitted to access",
 	"saveFormSucess": "Form saved successfully",
 	"saveFormFailure": "Form save failure. Please try after sometime.",
 	"deleteFormSucess": "Form deleted successfully",
