@@ -27,9 +27,8 @@ export default class AddRole extends Component {
 	}
 
    componentDidMount(){
-    this.refs.name.value=this.state.edit?this.props.clientRole.name:'';
-    this.refs.description.value=this.state.edit?this.props.clientRole.description:'';
-    //this.refs.status.value=this.state.edit?this.props.clientRole.status:'';
+     this.props.edit?this.setState({name:this.props.name,description:this.props.description}):this.setState({name:'',description:''})
+        //this.refs.status.value=this.state.edit?this.props.clientRole.status:'';
    }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -65,14 +64,16 @@ export default class AddRole extends Component {
     let res=this.state.edit?obj.edit('editClientRole',record):obj.create('addClientRole',record);
 
       this.setState({saveResult:res})
-   this.refs.name.value="";
-   this.refs.description.value="";
+
   }
 
  render(){
-   let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  ><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
-   <span>submit</span></button>;
+   let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Edit</span></button>
      return(<div>
+       <section className="content-header">
+       <h1>{this.props.edit?"Edit Role":"Add Role"} </h1>
+     </section>
+     <section className="content">
 		<div className="box-body">
 			<Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
               <div className="form-group">
@@ -80,8 +81,8 @@ export default class AddRole extends Component {
                 <MyInput type="text" className="form-control"  name="name" id="name" placeholder="Name" ref="name"/>
               </div>
               <div className="form-group">
-                <label for="description">Description</label>
-                <input type="text" className="form-control" id="description" placeholder="Description" ref="description"/>
+
+                <MyInput type="text" className="form-control" id="description" title="Description" ref="description"/>
               </div>
 
            <div className="box-footer">
@@ -91,7 +92,7 @@ export default class AddRole extends Component {
             </div>
           </Formsy.Form>
        </div>
-
+       </section>
       </div>)
   }
 }

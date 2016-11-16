@@ -17,6 +17,7 @@ export default SiderBar=()=>{
                 <ul>
                   <li><a href="/aptitude/add-client">Add Client</a></li>
                   <li><a href="/aptitude/manage-client">Manage Client</a></li>
+                  <li><a href="/aptitude/assign-roles">Assign Roles</a></li>
                 </ul>
               </li>
               <li><a href="javascript:void(0)">Page</a>

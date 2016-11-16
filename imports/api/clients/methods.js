@@ -8,7 +8,7 @@ Meteor.methods({
     var userId=Accounts.createUser({email:record.email,password:"aptitude123"});
 
     Roles.addUsersToRoles( userId,'client' );
-    return userId
+    return userId;
   //  Email.send({to:record.email,from:"johnsunam@hotmail.com",subject:"password",text:"aptitude123"});
 
   },
@@ -17,6 +17,10 @@ Meteor.methods({
   },
   'editClient':function(record){
     ClientDb.update({_id:record.id},{$set:record.data})
+  },
+  'saveRoles':function(data){
+    console.log(data);
+    ClientDb.update({_id:data.client},{$set:{roles:data.roles}})
   }
 
 })

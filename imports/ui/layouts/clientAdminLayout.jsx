@@ -17,12 +17,7 @@ export default class ClientAdminLayout extends Component {
       <Header/>
       <SiderBar/>
       <div className="content-wrapper ">
-      <section className="content-header">
-      <h1>Client Pages</h1>
-    </section>
-    <section className="content">
     {this.props.content}
-    </section>
       </div>
     </div>
     <Footer/>

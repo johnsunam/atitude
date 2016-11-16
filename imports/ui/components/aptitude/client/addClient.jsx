@@ -42,15 +42,26 @@ export default class AddClient extends Component {
   componentDidMount(){
 
     let client=this.props.client;
-    this.state.edit?this.setState({companyName:client.companyName}):this.setState({companyName:''})
-    this.state.edit?this.setState({address:client.address}):this.setState({address:''})
-    this.state.edit?this.setState({phone:client.phone}):this.setState({phone:''})
-    this.state.edit?this.setState({website:client.website}):this.setState({website:''})
-    this.state.edit?this.setState({city:client.city}):this.setState({city:''})
-    this.state.edit?this.setState({state:client.state}):this.setState({state:''})
-    this.state.edit?this.setState({pincode:client.pincode}):this.setState({pincode:''})
-    this.state.edit?this.setState({contactName:client.contactName}):this.setState({contactName:''})
-    this.state.edit?this.setState({contactNo:client.contactNo}):this.setState({contactNo:''})
+    console.log(client);
+    this.state.edit?this.setState({companyName:client.companyName,
+      email:client.email,
+      address:client.address,
+      phone:client.phone,
+      website:client.website,
+      city:client.city,
+      state:client.state,
+      pincode:client.pincode,
+      contactName:client.contactName,
+      contactNo:client.contactNo,country:client.country}):this.setState({companyName:'',
+      address:'',
+      phone:'',
+      website:'',
+      city:'',
+      state:'',
+      pincode:'',
+      contactName:'',
+      contactNo:'',
+      country:''})
     Session.set('showCode',false)
   }
 
@@ -75,8 +86,7 @@ export default class AddClient extends Component {
 
     return true;
 }
-  componentDidUpdate(){
-      }
+
   // saving client to ClientDb
   submit(e){
 
@@ -90,44 +100,33 @@ export default class AddClient extends Component {
         	state=e.state,
         	pincode=e.pincode,
         	contactName=e.contactName,
-        	contactNo=e.contactNo;
-    let status=$('#checkbox:checked').val() ? "active":"inactive";
+        	contactNo=e.contactNo,
+          country=this.refs.country.value
+          console.log(country);
     let ran=Random.hexString(7);
-    let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}}:
-    {code:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo}
+    let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo,country:country}}:
+      {code:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo,country:country}
     let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
     this.setState({saveResult:res,  isShowMessage: true,code:ran})
-    let client=this.props.client;
-    this.state.edit?this.setState({companyName:client.companyName}):this.setState({companyName:''})
-    this.state.edit?this.setState({address:client.address}):this.setState({address:''})
-    this.state.edit?this.setState({phone:client.phone}):this.setState({phone:''})
-    this.state.edit?this.setState({website:client.website}):this.setState({website:''})
-    this.state.edit?this.setState({city:client.city}):this.setState({city:''})
-    this.state.edit?this.setState({state:client.state}):this.setState({state:''})
-    this.state.edit?this.setState({pincode:client.pincode}):this.setState({pincode:''})
-    this.state.edit?this.setState({contactName:client.contactName}):this.setState({contactName:''})
-    this.state.edit?this.setState({contactNo:client.contactNo}):this.setState({contactNo:''})
+  this.refs.form.reset();
 
   }
 
   render(){
 
-    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}  data-dismiss="modal"><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
-    <span>submit</span></button>;
-     return(<div className="col-md-10 registration_form pad_t50">
-
-
+    let submitButton=<button type="submit" disabled={!this.state.canSubmit} data-dismiss="modal"><span>Save</span></button>
+         return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-8 col-md-offset-2">
         <div className="card"></div>
         <div className="card">
-          <h1 className="title">Add Client</h1>
+          <h1 className="title">{this.props.edit?"Edit Client":"Add Client"}</h1>
           <div className="form_pad">
-          <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-6">
 
                 <div className="input-container">
-                  <MyInput type="text" title="Company Name" name="companyName" ref="companyName" value={this.state.className} />
+                  <MyInput type="text" title="Company Name" name="companyName" ref="companyName" value={this.state.companyName} />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -136,11 +135,11 @@ export default class AddClient extends Component {
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" title="Email" name="email" ref="email" value={this.state.email}/>
+                  <MyInput type="email" title="Email" name="email" ref="email" value={this.state.email}/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="num" title="Phone" name="phone" ref="phone" value={this.state.phone}/>
+                  <MyInput type="number" title="Phone" name="phone" ref="phone" value={this.state.phone}/>
 
                   <div className="bar"></div>
                 </div>
@@ -160,15 +159,15 @@ export default class AddClient extends Component {
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <select id="countries">
-                  <option>Country</option>
+                  <select id="countries" ref="country">
+                  <option>{this.props.edit?this.state.country:"Country"}</option>
                   {this.state.countries.map((country)=>{
                     return(<option>{country.name}</option>)
                   })}
                   </select>
                 </div>
                 <div className="input-container">
-                  <MyInput type="num" title="Pincode" name="pincode" ref="pincode" value={this.state.pincode}/>
+                  <MyInput type="text" title="Pincode" name="pincode" ref="pincode" value={this.state.pincode}/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -176,7 +175,7 @@ export default class AddClient extends Component {
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="num" name="contactNo" title="Contact No" ref="contactNo" value={this.state.contactNo}/>
+                  <MyInput type="number" name="contactNo" title="Contact No" ref="contactNo" value={this.state.contactNo}/>
                   <div className="bar"></div>
                 </div>
               </div>

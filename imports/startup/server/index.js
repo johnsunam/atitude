@@ -12,8 +12,6 @@ import '../../api/role/methods.js';
 import '../../api/role/publication.js'
 import '../../api/user/methods.js'
 import '../../api/user/publication.js'
-import '../../api/clientRole/methods.js'
-import '../../api/clientRole/publiction.js'
 import '../../api/department/methods.js'
 import '../../api/department/publiction.js'
 import '../../api/clientUser/methods.js'

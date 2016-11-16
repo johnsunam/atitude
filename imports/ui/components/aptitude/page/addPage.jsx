@@ -16,7 +16,7 @@ export default class AddPage extends Component {
 	confirm:Session.get('confirm'),
 	res:"",
   name:'',
-  className:'',
+  clName:'',
   formName:'',
   previewURL:'',
   publishURL:'',
@@ -26,14 +26,21 @@ export default class AddPage extends Component {
 
   }
   componentDidMount(){
-
-    this.refs.name.value=this.state.edit?this.props.page.name:''
-    this.refs.clientName.value=this.state.edit?this.props.page.clientName:''
-    this.refs.formName.value=this.state.edit?this.props.page.formName:''
-	  this.refs.previewURL.value=this.state.edit?this.props.page.previewURL:''
-	  this.refs.publishURL.value=this.state.edit?this.props.page.publishURL:''
-	  this.refs.metakeys.value=this.state.edit?this.props.page.metakeys:''
-    this.refs.status.value=this.state.edit?this.props.page.status:''
+    let page=this.props.page;
+    console.log(page);
+    this.state.edit?this.setState({name:page.name,
+      clientName:page.clientName,
+      formName:page.formName,
+      previewURL:page.previewURL,
+      publishURL:page.publishURL,
+      metakeys:page.metakeys,
+      status:page.status}):this.setState({name:"",
+      clientName:"",
+      formName:"",
+      previewURL:"",
+      publishURL:"",
+      metakeys:"",
+      status:""})
   }
   shouldComponentUpdate(nextProps, nextState){
     Tracker.autorun(function(){
@@ -66,50 +73,47 @@ export default class AddPage extends Component {
   submit(e){
     let name=e.name,
     clientName=this.refs.clientName.value,
-	formName=this.refs.formName.value,
-	previewURL=e.previewURL,
-	publishURL=e.publishURL,
-	metakeys=e.metakeys,
-    status= e.status;
+    	formName=this.refs.formName.value,
+    	previewURL=e.previewURL,
+    	publishURL=e.publishURL,
+    	metakeys=e.metakeys,
+      status= this.refs.status.value;
     let record=this.props.edit?{id:this.props.page._id,data:{name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}}:
     {name:name,clientName:clientName,formName:formName,previewURL:previewURL,publishURL:publishURL, metakeys:metakeys, status:status}
     let obj= new crudClass();
     let res=this.state.edit?obj.edit('editPage',record):obj.create('addPage',record);
-
+    this.setState({name:"",
+    clientName:"",
+    formName:"",
+    previewURL:"",
+    publishURL:"",
+    metakeys:"",
+    status:""})
 	this.setState({saveResult:res})
-
-
-     this.refs.name.value='',
-    //this.refs.clientName.value=''
-    //this.refs.formName.value=""
-    this.refs.previewURL.value=""
-    this.refs.publishURL.value=""
-    this.refs.metakeys.value=""
-    this.refs.status.value=""
+  this.refs.form.reset();
   }
   editPage(){
 
   }
   render(){
-     let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit} ><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
-    <span>submit</span></button>;
-
+     let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
+     let page=this.props.page;
       return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
         <div className="card">
-          <h1 className="title">Create page for the client</h1>
+          <h1 className="title">{this.state.edit?"Edit Page":"Create page for the client"}</h1>
           <div className="form_pad">
-           <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addPage" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+           <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addPage" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" title="Page Name" name="name"  ref="name"/>
+                  <MyInput type="text" title="Page Name" name="name" value={this.props.edit?page.name:''}  ref="name"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
                  <select ref="clientName" placeholder="client">
-                 <option> choose client</option>
+                 <option>{this.props.edit?page.clientName:'choose client'}</option>
                  {this.props.data.clients.map((client)=>{
 
                 return(<option>{client.companyName}</option>)
@@ -119,7 +123,7 @@ export default class AddPage extends Component {
 
                 <div className="input-container" placeholder="form">
                  <select ref="formName">
-                 <option> choose form</option>
+                 <option>{this.props.edit?page.formName:'choose form'}</option>
                   {this.props.data.forms.map((form)=>{
                 return(<option>{form.name}</option>)
                  })}
@@ -127,19 +131,21 @@ export default class AddPage extends Component {
                 </div>
 
 				 <div className="input-container">
-                  <MyInput type="text" title="Preview URL" name="previewURL" ref="previewURL"/>
+                  <MyInput type="text" title="Preview URL" name="previewURL" value={this.props.edit?page.previewURL:''} ref="previewURL"/>
                   <div className="bar"></div>
                 </div>
 				<div className="input-container">
-                  <MyInput type="text" title="Publish URL" ref="publishURL" name="publishURL"/>
+                  <MyInput type="text" title="Publish URL" ref="publishURL" value={this.props.edit?page.publishURL:''} name="publishURL"/>
                   <div className="bar"></div>
                 </div>
                  <div className="input-container">
-                  <MyInput type="text" title="Meta Keywords" ref="metakeys" name="metakeys"/>
+                  <MyInput type="text" title="Meta Keywords" ref="metakeys" name="metakeys" value={this.props.edit?page.metakeys:''}/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                 <select ref="status"><option> Status </option> <option> Draft </option><option> Publish </option> </select>
+                 <select ref="status">
+                 <option>{this.props.edit?page.status:'choose Status'}</option>
+                 <option> Status </option> <option> Draft </option><option> Publish </option> </select>
                 </div>
               </div>
             </div>

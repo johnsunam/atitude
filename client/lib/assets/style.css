@@ -781,7 +781,7 @@ td{
 .wrapper {
         display: grid;
     grid-gap: 10px;
-    grid-template-columns: 100px 100px 100px;
+  
         background-color: #fff;
         color: #444;
     }

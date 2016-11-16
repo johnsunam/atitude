@@ -30,26 +30,22 @@ export default class addUser extends Component {
 
    componentDidMount(){
 
-    this.refs.name.value=this.state.edit?this.props.user.name:'';
-    this.refs.dob.value=this.state.edit?this.props.user.dob:'';
-    this.refs.address.value=this.state.edit?this.props.user.address:'';
-	this.refs.mobile.value=this.state.edit?this.props.user.mobile:'';
-    this.refs.email.value=this.state.edit?this.props.user.email:'';
-    this.refs.secQuestion.value=this.state.edit?this.props.user.secQuestion:'';
-	this.refs.secAnswer.value=this.state.edit?this.props.user.secAnswer:'';
-    this.refs.roleName.value=this.state.edit?this.props.user.roleName:'';
-   }
-  componentDidUpdate(){
-	this.refs.name.value=this.state.edit?this.props.user.name:'';
-    this.refs.dob.value=this.state.edit?this.props.user.dob:'';
-    this.refs.address.value=this.state.edit?this.props.user.address:'';
-	this.refs.mobile.value=this.state.edit?this.props.user.mobile:'';
-    this.refs.email.value=this.state.edit?this.props.user.email:'';
-    this.refs.secQuestion.value=this.state.edit?this.props.user.secQuestion:'';
-	this.refs.secAnswer.value=this.state.edit?this.props.user.secAnswer:'';
-    this.refs.roleName.value=this.state.edit?this.props.user.roleName:'';
-
-  }
+     this.props.edit?this.setState({name:this.props.user.name,
+    dob:this.props.user.dob,
+    address:this.props.user.address,
+    mobile:this.props.user.mobile,
+    email:this.props.user.email,
+    secQuestion:this.props.user.secQuestion,
+    secAnswer:this.props.user.secAnswer,
+    roleName:this.props.user.roleName}):this.setState({name:'',
+    dob:'',
+    address:'',
+    mobile:'',
+    email:'',
+    secQuestion:'',
+    secAnswer:'',
+    roleName:''})
+       }
   shouldComponentUpdate(nextProps, nextState){
     Tracker.autorun(function(){
       if(Session.equals('confirm',true)){
@@ -81,7 +77,7 @@ export default class addUser extends Component {
     let obj= new crudClass();
 	let name=e.name,
 		dob=e.dob,
-		address=e.address,
+		address=this.refs.address.value,
 		mobile=e.mobile,
 		email=e.email,
 		secQuestion=e.secQuestion,
@@ -93,20 +89,12 @@ export default class addUser extends Component {
     let res=this.state.edit?obj.create('editUser',record):obj.create('addUser',record);
 
     this.setState({saveResult:res})
-		this.refs.name.value="";
-		this.refs.dob.value="";
-		this.refs.address.value="";
-		this.refs.mobile.value="";
-		this.refs.email.value="";
-		this.refs.secQuestion.value="";
-		this.refs.secAnswer.value="";
-		this.refs.roleName.value="";
+    this.refs.form.reset()
   }
 
   render(){
-
-    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit}><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
-    <span>submit</span></button>;
+    let user=this.props.user;
+    let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Edit</span></button>
     return(<div className="col-md-10 registration_form pad_t50">
 
       <div className="col-md-8 col-md-offset-2">
@@ -114,31 +102,34 @@ export default class addUser extends Component {
         <div className="card">
           <h1 className="title">Add User</h1>
           <div className="form_pad">
-          <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addUser" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addUser" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 
             <div className="row">
               <div className="col-md-6">
                 <div className="input-container">
-                  <MyInput type="text" name="name" title="User Name" ref="name"/>
+                  <MyInput type="text" name="name" value={this.props.edit?user.name:""} title="User Name"  ref="name"/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="text" name="dob" title="Date of Birth" ref="dob"/>
+                <div>Birth Date</div>
+                  <MyInput type="date" name="dob" value={this.props.edit?user.dob:""}    ref="dob"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <textarea placeholder="Address" name="address" ref="address"></textarea>
+                  <MyInput placeholder="Address" name="address" title="Address" value={this.props.edit?user.dob:""} ref="address" />
+                  <div className="bar"></div>
+
                 </div>
               </div>
               <div className="col-md-6">
 
                 <div className="input-container">
-                  <MyInput type="num" name="mobile" title="Mobile Number" ref="mobile"/>
+                  <MyInput type="number" name="mobile" title="Mobile Number" ref="mobile" value={this.props.edit?user.mobile:""}/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="email" name="email" title="Email ID" ref="email"/>
+                  <MyInput type="email" name="email" title="Email ID" value={this.props.edit?user.email:""} ref="email" />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -147,11 +138,11 @@ export default class addUser extends Component {
                   </select>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" name="secAnswer" title="Security Answer" ref="secAnswer"/>
+                  <MyInput type="text" name="secAnswer" title="Security Answer" value={this.props.edit?user.secAnswer:""} ref="secAnswer"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" name="roleName" title="Role Name" ref="roleName"/>
+                  <MyInput type="text" name="roleName" title="Role Name" ref="roleName" value={this.props.edit?user.roleName:""}/>
                   <div className="bar"></div>
                 </div>
 				 <div className="input-container gender">

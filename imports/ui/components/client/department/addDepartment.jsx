@@ -77,9 +77,13 @@ export default class AddRole extends Component {
 
  render(){
 
-   let submitButton=this.state.edit?<button type="submit"  disabled={!this.state.canSubmit} ><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
-   <span>submit</span></button>;
-      return(<div><div className="box-body">
+   let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Edit</span></button>
+      return(<div>
+        <section className="content-header">
+        <h1>{this.props.edit?"Edit Department":"Add Department"} </h1>
+      </section>
+      <section className="content">
+        <div className="box-body">
       <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 
         <div className="form-group">
@@ -97,6 +101,7 @@ export default class AddRole extends Component {
             </div>
             </Formsy.Form>
             </div>
+            </section>
           </div>)
   }
 }

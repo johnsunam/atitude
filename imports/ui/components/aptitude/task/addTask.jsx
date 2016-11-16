@@ -26,15 +26,12 @@ export default class AddTask extends Component {
 
   componentDidMount(){
 
-    this.refs.name.value=this.state.edit?this.props.task.name:'';
-    this.refs.description.value=this.state.edit?this.props.task.description:'';
+    this.state.edit?this.setState({name:this.props.task.name,
+    description:this.props.task.description}):this.setState({name:"",description:''})
+//    this.refs.description.value=this.state.edit?this.props.task.description:'';
     //this.refs.status.value=this.state.edit?this.props.task.status:'';
    }
-  componentDidUpdate(){
-    this.refs.name.value=this.state.edit?this.props.task.name:'';
-    this.refs.description.value=this.state.edit?this.props.task.description:'';
-  //  this.refs.status.value=this.state.edit?this.props.task.status:'';
-  }
+
   shouldComponentUpdate(nextProps, nextState){
     Tracker.autorun(function(){
       if(Session.equals('confirm',true)){
@@ -65,22 +62,17 @@ export default class AddTask extends Component {
   submit(e){
     let obj= new crudClass();
     let name=e.name,
-        description=this.refs.description.value;
-
+        description=e.description;
     let status=$('#checkbox:checked').val() ? "active":"inactive";
-    let record=this.props.edit?{id:this.props.task._id,data:{name:name,description:description}}:
-    {name:name,description:description}
+    let record=this.props.edit?{id:this.props.task._id,data:{name:name,description:description,status:status}}:
+    {name:name,description:description,status:status}
     let res=this.state.edit?obj.create('editTask',record):obj.create('addTask',record);
-
+    this.refs.form.reset()
     this.setState({saveResult:res})
-
-   this.refs.name.value="";
-   this.refs.description.value="";
-  }
+      }
 
   render(){
-    let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit} ><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
-    <span>submit</span></button>;
+    let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
     return(  <div className="col-md-10 registration_form pad_t50">
 
       <div className="col-md-6 col-md-offset-3">
@@ -88,16 +80,17 @@ export default class AddTask extends Component {
         <div className="card">
           <h1 className="title">Add Task</h1>
           <div className="form_pad">
-          <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addTask" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addTask" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" name="name" title="Task Name" ref="name"/>
+                  <MyInput type="text" name="name" value={this.props.edit?this.state.name:''} title="Task Name" ref="name"/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <textarea placeholder=" Description" ref="description"></textarea>
+                  <MyInput title="Description" name="description" value={this.props.edit?this.state.description:''} ref="description"/>
+                    <div className="bar"></div>
                 </div>
                 <div className="input-container gender">
                   <div>Active? &nbsp;

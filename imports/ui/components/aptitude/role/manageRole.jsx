@@ -2,6 +2,8 @@
 
 import React ,{Component} from 'react'
 import AddRole from './addRole.jsx'
+import crudClass from '../../common/crudClass.js'
+
 export default class ManageRole extends Component {
   constructor(props) {
    super(props)
@@ -13,7 +15,7 @@ export default class ManageRole extends Component {
         <table width="100%" border="0" cellspacing="0" cellpadding="0" className="table_cont">
           <tr>
             <th>Role Name</th>
-            <th>Status</th>
+            <th>Description</th>
             <th>Access</th>
 			<th>Action </th>
           </tr>

@@ -24,15 +24,10 @@ export default class AddRole extends Component {
 
    componentDidMount(){
 
-    this.refs.name.value=this.state.edit?this.props.role.name:'';
-    this.refs.description.value=this.state.edit?this.props.role.description:'';
-    this.refs.status.value=this.state.edit?this.props.role.status:'';
+
+     this.props.edit?this.setState({name:this.props.role.name,
+       description:this.props.role.description,status:this.props.role.status}):''
    }
-  componentDidUpdate(){
-    this.refs.name.value=this.state.edit?this.props.role.name:'';
-    this.refs.description.value=this.state.edit?this.props.role.description:'';
-    this.refs.status.value=this.state.edit?this.props.role.status:'';
-  }
   shouldComponentUpdate(nextProps, nextState){
     Tracker.autorun(function(){
       if(Session.equals('confirm',true)){
@@ -63,46 +58,43 @@ export default class AddRole extends Component {
     let obj= new crudClass();
     let name=e.name,
         description=e.description;
-
-
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let record=this.props.edit?{id:this.props.role._id,data:{name:name,description:description,status:status}}:
     {name:name,description:description,status:status}
     console.log(record);
     let res=this.state.edit?obj.create('editRole',record):obj.create('addRole',record);
-
+    this.refs.form.reset()
 
     this.setState({saveResult:res})
-   this.refs.name.value="";
-   this.refs.description.value="";
+
   }
 
 
 
  render(){
 
-     let submitButton=this.state.edit?<button type="submit" disabled={!this.state.canSubmit} ><span>Edit</span></button>:<button  type="submit" disabled={!this.state.canSubmit}>
-    <span>submit</span></button>;
-
+     let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
+     let roles=this.props.role;
     return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-6 col-md-offset-3">
        <div className="card"></div>
         <div className="card">
           <h1 className="title">Add Role</h1>
           <div className="form_pad">
-          <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addRole" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form ref='form' onValidSubmit={this.submit.bind(this)} id="addRole" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" name="name" title="Role Name" ref="name" />
+                  <MyInput type="text" name="name" value={this.props.edit?roles.name:""} title="Role Name" ref="name" />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <textarea placeholder="Role Description" ref="description"></textarea>
+                  <MyInput type="textarea" title="Description" value={this.props.edit?roles.description:''} placeholder="Role Description" name="description" ref="description" />
+                  <div className="bar"></div>
                 </div>
                 <div className="input-container gender">
                   <div>Page Access &nbsp;
-                    <input type="checkbox" id="checkbox" value="active" ref="status" />
+                    <input type="checkbox" id="checkbox" value="active" ref="status" value={this.props.edit?roles.status:""} />
                   </div>
                 </div>
               </div>

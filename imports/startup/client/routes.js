@@ -13,7 +13,7 @@ import AddRole from '../../ui/components/aptitude/role/addRole.jsx'
 import ManageRole from '../../ui/container/manageRole.js'
 import AddTask from '../../ui/components/aptitude/task/addTask.jsx'
 import ManageTask from '../../ui/container/manageTask.js'
-import AddWorkFlow from '../../ui/components/aptitude/workflow/addWorkFlow.jsx'
+import AddWorkFlow from '../../ui/container/addWorkFlow.js'
 import ManageWorkFlow from '../../ui/container/manageWorkFlow.js'
 import defineWorkFlow from '../../ui/components/aptitude/workflow/defineWorkFlow.jsx'
 import AddUser from '../../ui/components/aptitude/user/addUser.jsx'
@@ -26,8 +26,7 @@ import AddDepartment from '../../ui/components/client/department/addDepartment.j
 import ManageDepartment from '../../ui/container/manageDepartment'
 import AddClientUser from '../../ui/container/addClientUser.js';
 import ManageClientUser from '../../ui/container/manageClientUser.js'
-import AddClientRole from '../../ui/components/client/clientRole/addClientRole.jsx'
-import ManageClientRole from '../../ui/container/manageClientRole.js'
+import AssignRoles from '../../ui/container/assignRoles.js'
 import ClientUserLogin from '../../ui/components/app/login/login.jsx'
 import AppDashboard from '../../ui/container/appDashboard.js'
 import AptitudeAccountsLayout from '../../ui/container/aptitudeAccountsLayout.js'
@@ -85,6 +84,14 @@ FlowRouter.route('/client/manage-user',{
   }
 });
 //route for add form
+FlowRouter.route('/aptitude/assign-roles',{
+  name:'assignRoles',
+  action:function(){
+    ReactLayout.render(MainLayout,{
+      content:<AssignRoles/>
+    })
+  }
+});
 
 FlowRouter.route('/aptitude/add-form',{
   name:'addForm',

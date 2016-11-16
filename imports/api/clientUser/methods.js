@@ -20,6 +20,6 @@ Meteor.methods({
 
   },
   'editClientUser':function(record){
-    ClientRoleDb.update({_id:record.id},{$set:record.data})
+    ClientUserDb.update({_id:record.id},{$set:record.data})
   }
 })

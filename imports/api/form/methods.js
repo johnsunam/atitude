@@ -7,6 +7,8 @@ Meteor.methods({
   },
   'editForm':function(form){
     return FormDb.update({_id:form.id},{$set:form.data })
+  },
+  'deleteForm':function(id){
+    return FormDb.remove({_id:id})
   }
-
 })

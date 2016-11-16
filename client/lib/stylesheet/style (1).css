@@ -711,7 +711,9 @@ border-bottom:1px solid #ddd; display:block; font-weight:700;
     font-size: 15px !important;
     font-weight: 300 !important;
 }
-
+.modal-backdrop{
+	z-index:0 !important;
+}
 .input-container :-moz-placeholder { /* Firefox 18- */
   color: #757575 !important;
     font-size: 15px !important;

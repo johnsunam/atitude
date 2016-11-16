@@ -7,7 +7,12 @@ export default class ManageDepartment extends Component {
    super(props)
   }
   render(){
-    return(<div className="col-md-10 registration_form pad_t50">
+    return(<div>
+      <section className="content-header">
+      <h1>Manage Department</h1>
+    </section>
+    <section className="content">
+    <div className="col-md-10 registration_form pad_t50">
       <div className="col-md-10 col-md-offset-1">
         <h1 className="title">Manage Department</h1>
         <table width="100%" border="0" cellspacing="0" cellpadding="0" className="table_cont">
@@ -39,6 +44,6 @@ export default class ManageDepartment extends Component {
 
         </table>
       </div>
-    </div>)
+    </div></section></div>)
   }
 }

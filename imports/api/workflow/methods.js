@@ -6,6 +6,9 @@ Meteor.methods({
   },
   'deleteWorkFlow':function(id){
     WorkflowDb.remove({_id:id});
+  },
+  'editWorkFlow':function(record){
+  return  WorkflowDb.update({_id:record.id},{$set:record.data})
   }
 
 })

@@ -14,8 +14,7 @@ export default class AppDashboard extends Component {
     choosedPage:nextProps.pages[0]?nextProps  .pages[0]._id:''})
   }
   render(){
-    console.log(this.state.choosedform);
-    console.log(this.state.choosedPage);
+    
     return(<div>
       <aside className="main-sidebar">
         <section className="sidebar">

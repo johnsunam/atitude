@@ -29,7 +29,11 @@ export default class ClientAdminPages extends Component {
 
     </tr>)
     })
-    return (<table width="100%" border="0" cellspacing="0" cellpadding="0" className="table_cont">
+    return (<div><section className="content-header">
+    <h1>{this.props.edit?"Edit Role":"Add Role"} </h1>
+  </section>
+  <section className="content">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" className="table_cont">
               <tr>
                 <th>Form Name</th>
     			<th> Preview URL </th>
@@ -38,7 +42,7 @@ export default class ClientAdminPages extends Component {
                 <th>Access</th>
                </tr>
                {pagelist}
-            </table>
+            </table></section></div>
 )
 
   }

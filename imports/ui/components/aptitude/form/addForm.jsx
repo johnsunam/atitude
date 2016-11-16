@@ -58,8 +58,49 @@ export default class AddForm extends Component {
 
          }
        ]
-     }
-   ],
+     },
+     {
+        label:"Take Picture",
+        fields:[
+                {
+                type:'button',
+                label:'Camera',
+                className:'take-picture'
+                }
+               ]
+      },
+    ],
+    typeUserEvents:{
+       button:{
+         onadd:function(fld){
+           console.log(fld);
+           $('.take-picture',fld).click(function(){
+             navigator.getUserMedia = navigator.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.mozGetUserMedia;
+             console.log(navigator.getUserMedia);
+
+             if (navigator.getUserMedia) {
+                navigator.getUserMedia({ video: { width: 1280, height: 720 } },
+                   function(stream) {
+                      var video = document.querySelector('video');
+                      video.src = window.URL.createObjectURL(stream);
+                      video.onloadedmetadata = function(e) {
+                        video.play();
+                      };
+                   },
+                   function(err) {
+                      console.log("The following error occurred: " + err.name);
+                   }
+                );
+             } else {
+                console.log("getUserMedia not supported");
+             }
+
+           });
+         }
+       }
+     },
    formData:JSON.parse(this.state.formData)
    },
      formBuilder = $(buildWrap).formBuilder(fbOptions).data('formBuilder');
@@ -109,7 +150,7 @@ export default class AddForm extends Component {
     console.log(this.props.form);
     return(<div className="col-md-10 no_pad">
       <ul className="steps_menu nav nav-tabs">
-        <li className="in active" id="create-form"><a href="#create-form" id="#create-form" data-toggle="tab" onClick={this.openTab.bind(this)} >Create Form</a></li>
+        <li className="in active" id="create-form"><a href="#create-form" id="#create-form" data-toggle="tab" onClick={this.openTab.bind(this)} >{this.props.edit?"Edit Form":"Create Form"}</a></li>
         <li className="" id="previews"><a className="form-builder-save" href="#" id="#previews" >Preview</a></li>
       </ul>
       <div className="tab-content">
@@ -127,6 +168,7 @@ export default class AddForm extends Component {
       </div>
       <div  id="fb-editors">
       </div>
+      <video></video>
       </div>
       <div className="tab-pane fade" id="previews-tab">
       <h2 className="col-md-offset-5">{this.state.formTitle}</h2>
