@@ -9,13 +9,11 @@ const composer = ( props, onData ) => {
     if(subcription.ready()){
       let user=Meteor.user();
       console.log(user);
-      let client=ClientDb.findOne({email:user.emails[0].address});
-      console.log(client);
-      let data=RoleDb.find({name:{$in:client.roles}}).fetch();
-      console.log(data);
-      var roles=data?data:[]
+      let data=ClientDb.findOne({email:user.emails[0].address});
 
-        onData( null, {roles} )
+       data=data?data:[]
+
+        onData( null, {data} )
       }
 
   };

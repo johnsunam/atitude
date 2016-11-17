@@ -1,5 +1,5 @@
 import React ,{Component} from 'react'
-import AddClientUser from './addClientUser.jsx'
+import AddClientUser from '../../../container/addClientUser.js'
 import crudClass from '../../common/crudClass.js'
 
 export default class ManageClientUser extends Component {
@@ -38,11 +38,12 @@ export default class ManageClientUser extends Component {
               <a href="#"  data-toggle="modal" data-target={`#${clientUser._id}`}>Edit</a>
               <div className="modal fade"   id={`${clientUser._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div className=" col-md-9 col-md-offset-2" style={{"backgroundColor":"white"}}>
-              <AddClientUser edit="true" clientUser={clientUser} roles={this.props.data.roles}/>
+              <AddClientUser edit="true" clientUser={clientUser} />
 
               </div>
             </div>
               <a href="#" id={clientUser._id} onClick={(e)=>{
+              
                 let obj=new crudClass()
                 obj.delete('deleteClientUser',e.target.id)
               }}>Delete</a></div></td>

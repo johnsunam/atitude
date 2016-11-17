@@ -59,7 +59,7 @@ export default class AddRole extends Component {
     let name=e.name,
         description=e.description;
     let status=$('#checkbox:checked').val() ? "active":"inactive";
-    let record=this.props.edit?{id:this.props.role._id,data:{name:name,description:description,status:status}}:
+    let record=this.props.edit?{id:this.props.role.id,data:{name:name,description:description,status:status}}:
     {name:name,description:description,status:status}
     console.log(record);
     let res=this.state.edit?obj.create('editRole',record):obj.create('addRole',record);

@@ -1,3 +1,4 @@
+
 import React ,{Component} from 'react'
 import crudClass from '../../common/crudClass.js'
 var message = require('../../common/message.json');
@@ -22,7 +23,7 @@ export default class AddClientUser extends Component {
   secQuestion:'',
   secAnswer:'',
   userType:'',
-  addedRoles:[]
+  roles:[]
   }
 
   }
@@ -36,7 +37,7 @@ export default class AddClientUser extends Component {
       email:this.props.clientUser.email,
       secQuestion:this.props.clientUser.secQuestion,
       secAnswer:this.props.clientUser.secAnswer,
-      addedRoles:this.props.clientUser.addedRoles,
+      roles:this.props.clientUser.roles,
       userType:this.props.clientUser.userType
     }):'';
 
@@ -56,13 +57,13 @@ export default class AddClientUser extends Component {
 		email=e.email,
 		secQuestion=this.refs.secQuestion.value,
 		secAnswer=e.secAnswer,
-		addedRoles=this.state.addedRoles,
+		roles=this.state.roles,
 		userType = this.refs.userType.value;
     let userCode=Random.hexString(7);
     let status=$('#checkbox:checked').val() ? "active":"inactive";
-    let record=this.props.edit?{id:this.props.clientUser._id,data:{name:name,dob:dob,status:status,address:address,contact:contact,email:email,secQuestion:secQuestion, secAnswer:secAnswer,addedRoles:addedRoles, userType:userType}}:
-    {code:userCode,name:name,dob:dob,status:status,address:address,contact:contact,email:email,secQuestion:secQuestion, secAnswer:secAnswer,userType:userType,addedRoles:addedRoles}
-    if(addedRoles.length!=0){
+    let record=this.props.edit?{id:this.props.clientUser._id,data:{name:name,dob:dob,status:status,address:address,contact:contact,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roles:roles, userType:userType}}:
+    {code:userCode,name:name,dob:dob,status:status,address:address,contact:contact,email:email,secQuestion:secQuestion, secAnswer:secAnswer,userType:userType,roles:roles}
+    if(roles.length!=0){
         let res=this.state.edit?obj.create('editClientUser',record):obj.create('addClientUser',record);
     }
     else {
@@ -73,9 +74,9 @@ export default class AddClientUser extends Component {
          })
     }
 
-
-    this.setState({saveResult:res, isShowMessage: true ,userCode:userCode})
-    this.setState({addedRoles:[]})
+    console.log('geda');
+  //  this.setState({saveResult:res, isShowMessage: true ,userCode:userCode})
+    this.setState({roles:[]})
     this.refs.form.reset();
   }
   enableButton() {
@@ -105,7 +106,7 @@ export default class AddClientUser extends Component {
 }
 
   render(){
-    console.log(this.props.roles);
+
     let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
    return(<div>
      <section className="content-header">
@@ -153,36 +154,22 @@ export default class AddClientUser extends Component {
              </select>
            </div>
            <div className="form-group">
-             <a href="#" data-toggle="modal" data-target="#roles">Assign Roles</a>
-             <div className="modal fade" id="roles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 className="modal-title" id="myModalLabel">Choose Roles</h4>
-                  </div>
-                  <div className="modal-body">
-                  <CheckboxGroup name="fruits" value={this.state.addedRoles} onChange={(newroles)=>{
-                    this.setState({addedRoles:newroles})
-                  }}>
-                  {this.props.roles.map((role)=>{
-                  return(<div><label><Checkbox value={role.name}/>{role.name}</label></div>)
-                  })}
-                  </CheckboxGroup>
-                  </div>
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-default" data-dismiss="modal">Done</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+             <label>Assign Roles</label>
+             <CheckboxGroup name="roles" value={this.state.roles} onChange={(newroles)=>{
+               this.setState({roles:newroles})
+             }}>
+             {this.props.data.roles.map((role)=>{
+               console.log(role);
+             return(<div><label><Checkbox value={role}/>{role}</label></div>)
+             })}
+             </CheckboxGroup>
              <h4>Added Roles</h4>
              <ul  style={{"listStyleType": "none"}}>
-             {this.state.addedRoles.map((role)=>{
+             {this.state.roles.map((role)=>{
                return(<li>{role} <a href="#" id={role} onClick={(e)=>{
-                 let addedRoles=this.state.addedRoles
-                 let roles=_.without(addedRoles,e.target.id)
-                 this.setState({addedRoles:roles})
+                 let roles=this.state.roles
+                 let addedRoles=_.without(roles,e.target.id)
+                 this.setState({roles:addedRoles})
                }}><i className="fa fa-times" id={role}></i></a></li>)
              })}
              </ul>
