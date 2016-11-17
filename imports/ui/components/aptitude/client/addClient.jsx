@@ -27,8 +27,8 @@ export default class AddClient extends Component {
   country:'',
   pincode:'',
   contactName:'',
-  contactNo:''
-
+  contactNo:'',
+  roles:[]
 
     }
   }
@@ -52,7 +52,7 @@ export default class AddClient extends Component {
       state:client.state,
       pincode:client.pincode,
       contactName:client.contactName,
-      contactNo:client.contactNo,country:client.country}):this.setState({companyName:'',
+      contactNo:client.contactNo,country:client.country,roles:client.roles}):this.setState({companyName:'',
       address:'',
       phone:'',
       website:'',
@@ -61,7 +61,8 @@ export default class AddClient extends Component {
       pincode:'',
       contactName:'',
       contactNo:'',
-      country:''})
+      country:''
+      })
     Session.set('showCode',false)
   }
 
@@ -89,7 +90,6 @@ export default class AddClient extends Component {
 
   // saving client to ClientDb
   submit(e){
-
     let obj= new crudClass();
       let companyName=e.companyName,
           address=e.address,
@@ -104,8 +104,9 @@ export default class AddClient extends Component {
           country=this.refs.country.value
           console.log(country);
     let ran=Random.hexString(7);
-    let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo,country:country}}:
-      {code:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo,country:country}
+    console.log(this.state.roles);
+    let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo,country:country,roles:this.state.roles}}:
+      {code:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo,country:country,roles:this.state.roles}
     let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
     this.setState({saveResult:res,  isShowMessage: true,code:ran})
   this.refs.form.reset();
@@ -114,7 +115,7 @@ export default class AddClient extends Component {
 
   render(){
 
-    let submitButton=<button type="submit" disabled={!this.state.canSubmit} data-dismiss="modal"><span>Save</span></button>
+    let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
          return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-8 col-md-offset-2">
         <div className="card"></div>
@@ -148,6 +149,31 @@ export default class AddClient extends Component {
 
                   <div className="bar"></div>
                 </div>
+                <label>Add Roles</label>
+              <div className="input-group">
+
+              <input type="text" className="form-control" ref="roles" placeholder="Roles...."/>
+      <span className="input-group-btn">
+        <button className="btn btn-default" type="button" onClick={()=>{
+          let pre=this.state.roles
+          this.refs.roles.value!=''?pre.push(this.refs.roles.value):Alert.warning("role is empty",{
+                 position: 'top-right',
+                 effect: 'bouncyflip',
+                 timeout: 1000
+             })
+             this.setState({roles:pre})
+             this.refs.roles.value=''
+        }}>Add</button>
+      </span>
+      </div>
+      <div>
+      <ul>{this.state.roles.map((role)=>{
+      return(<li>{role}<a href="#" id={role} onClick={(e)=>{
+        let pre=_.without(this.state.roles,e.target.id)
+        this.setState({roles:pre})
+      }}><i id={role} className="fa fa-times"></i></a></li>)
+      })}</ul>
+              </div>
               </div>
               <div className="col-md-6">
                 <div className="input-container">

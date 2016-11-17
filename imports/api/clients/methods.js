@@ -20,6 +20,9 @@ Meteor.methods({
   },
   'saveRoles':function(data){
     console.log(data);
+    ClientDb.update({_id:data.client},{$set:{roles:data.data}})
+  },
+  'removeRoles':function(data){
     ClientDb.update({_id:data.client},{$set:{roles:data.roles}})
   }
 

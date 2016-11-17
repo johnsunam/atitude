@@ -7,9 +7,10 @@ import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 export default class AssignRole extends Component {
   constructor(props) {
     super(props)
-    this.state={clientRoles:null,choosedClient:null}
+    this.state={clientRoles:[],choosedClient:null}
   }
   render(){
+    console.log(this.state.clientRoles);
     let options=this.props.data.clients.map((client)=>{
       return {value:client.companyName,label:client.companyName}
     })
@@ -22,7 +23,7 @@ export default class AssignRole extends Component {
      <div className="row">
        <div className="col-md-12">
        <select onChange={(e)=>{
-         console.log(e.target.value);
+
          let client=_.findWhere(this.props.data.clients,{_id:e.target.value})
          console.log(client);
          this.setState({clientRoles:client.roles,choosedClient:e.target.value})
@@ -36,7 +37,12 @@ export default class AssignRole extends Component {
        <h2>Client Roles</h2>
        <ul>
        {this.state.clientRoles?this.state.clientRoles.map((role)=>{
-         return(<li>{role}</li>)
+         return(<li>{role}<a id={role} href="#" onClick={(e)=>{
+           let pre=this.state.clientRoles?this.state.clientRoles:[]
+              pres=_.without(pre,e.target.id)
+              this.setState({clientRoles:pres})
+           Meteor.call('removeRoles',{client:this.state.choosedClient,roles:pres})
+  }}><i id={role} className="fa fa-times" ></i></a></li>)
        }):''}
        </ul>
        <a href="#" className="" data-toggle="modal" data-target="#roles"><i className="fa fa-plus-square"></i></a>
@@ -48,15 +54,18 @@ export default class AssignRole extends Component {
         <h4 className="modal-title" id="myModalLabel">Choose Roles</h4>
       </div>
       <div className="modal-body">
-      <CheckboxGroup name="roles" value={this.state.clientRoles}   onChange={(newroles)=>{
-        this.setState({clientRoles:newroles})
-        let data={client:this.state.choosedClient,roles:newroles}
-        Meteor.call('saveRoles',data);
-      }}>
-      {this.props.data.roles.map((role)=>{
-      return(<div><label><Checkbox value={role.name}/>{role.name}</label></div>)
-      })}
-      </CheckboxGroup>
+    <div className="input-group">
+      <a href="#" className="input-group-addon" onClick={()=>{
+         let pre=this.state.clientRoles?this.state.clientRoles:[]
+        pre.push(this.refs.roles.value)
+          let rec={client:this.state.choosedClient,data:pre}
+          console.log(rec);
+        Meteor.call('saveRoles',rec);
+        this.refs.roles.value=''
+      }}>Add</a>
+      <input type="text" ref="roles" className="form-control" placeholder="Add Roles" aria-describedby="sizing-addon2"/>
+    </div>
+
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
