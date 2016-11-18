@@ -70,7 +70,7 @@ export default class ClientUserDashboard extends Component {
     this.setState({message:""})
   let self=this;
     let data=nextProps.form?nextProps.form.form:''
-    let form=JSON.parse(nextProps.form.form)
+    let form=JSON.parse(data)
     let id="#"+nextProps.page
     $("#showform").formRender({
       dataType: 'json',
@@ -99,7 +99,7 @@ export default class ClientUserDashboard extends Component {
     });
     json = "{" + json.substring(0, json.length - 1) + "}";
    let data=JSON.parse(json);
-   console.log(data);
+
    Meteor.call('addFormData',{page:self.props.page,data:data},function(err){
      if(!err){
        json=""

@@ -68,7 +68,7 @@ export default class AddRole extends Component {
   }
 
  render(){
-   let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Edit</span></button>
+   let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>save</span></button>
      return(<div>
        <section className="content-header">
        <h1>{this.props.edit?"Edit Role":"Add Role"} </h1>

@@ -4,7 +4,8 @@ import AppAccountsLayout from '../layouts/appAccountLayout.jsx';
 const composer = ( props, onData ) => {
 
   if(Meteor.userId()){
-    onData( null, {null} )
+    Roles.userIsInRole(Meteor.userId(), 'App User')?FlowRouter.go('/app/dashboard'):FlowRouter.go('/app/login')
+
       }
     else{
       onData( null, {null} )

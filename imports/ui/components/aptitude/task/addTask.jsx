@@ -78,7 +78,7 @@ export default class AddTask extends Component {
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
         <div className="card">
-          <h1 className="title">Add Task</h1>
+          <h1 className="title">{this.props.edit?'Edit Taks':'Add Task'}</h1>
           <div className="form_pad">
           <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addTask" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 

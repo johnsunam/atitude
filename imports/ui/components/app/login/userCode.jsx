@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Alert } from 'react-bootstrap';
+import Alert from 'react-s-alert';
 var message = require('../../common/message.json');
 export default class UserCode extends Component  {
   constructor(props) {
@@ -10,11 +10,7 @@ export default class UserCode extends Component  {
   }
   render(){
     return(<div className="mid_content">
-    {this.state.showMessage ?
-        <Alert bsStyle="success">
-        {message.codeError}
-        </Alert>
-      : ''}
+
       <div className=" ">
 
 
@@ -30,14 +26,16 @@ export default class UserCode extends Component  {
                 let userCode=$('#userCode').val();
                 var client=_.findWhere(this.props.users,{code:userCode});
                 console.log(client);
-                client?this.props.verify.setState({verify:true}):this.setState({showMessage:true})
-
-
+                client?this.props.verify.setState({verify:true}):Alert.warning("Not allowed to login",{
+                         position: 'top-right',
+                         effect: 'bouncyflip',
+                         timeout: 1000
+                     })
               }}><span>submit</span></button>
             </div>
 
           </div>
-        </div>
+        </div><Alert stack={{limit: 3}}/>
        </div>)
   }
 }

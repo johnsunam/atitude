@@ -4,9 +4,9 @@ import ClientAccountsLayout from '../layouts/clientAccountLayout.jsx';
 const composer = ( props, onData ) => {
 
   if(Meteor.userId()){
-    console.log('helo');
-    FlowRouter.go('/client/dashboard');
-      }
+
+    Roles.userIsInRole(Meteor.userId(), 'client')?FlowRouter.go('/client/dashboard'):FlowRouter.go('/client/login')
+    }
     else{
       onData( null, {null} )
     }

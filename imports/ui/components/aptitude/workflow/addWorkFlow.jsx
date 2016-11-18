@@ -97,7 +97,7 @@ export default class AddWorkFlow extends Component {
       <div className="col-md-6 col-md-offset-3">
         <div className="card"></div>
         <div className="card">
-          <h1 className="title">Add Workflow</h1>
+          <h1 className="title">{this.props.edit?'Edit Workflow':'Add Workflow'}</h1>
           <div className="form_pad">
           <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addWorkflow" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 

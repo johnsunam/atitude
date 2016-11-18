@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {FlowRouter} from 'meteor/kadira:flow-router';
+import Alert from 'react-s-alert';
 export default class ClientUserLogin extends Component {
   constructor(props) {
     super(props)
@@ -26,18 +27,26 @@ export default class ClientUserLogin extends Component {
                 let password=this.refs.password.value
                 Meteor.loginWithPassword(user,password,function(err){
                   if(err){
-                    console.log(err);
+                    Alert.warning("Not allowed to login",{
+                           position: 'top-right',
+                           effect: 'bouncyflip',
+                           timeout: 1000
+                       })
                   }
                   else{
 
-                    Roles.userIsInRole(Meteor.userId(),'App User')?FlowRouter.go('/app/dashboard/'):FlowRouter.go('/app/login')
+                    Roles.userIsInRole(Meteor.userId(),'App User')?FlowRouter.go('/app/dashboard/'):  Alert.warning("Not allowed to login",{
+                             position: 'top-right',
+                             effect: 'bouncyflip',
+                             timeout: 1000
+                         })
 }
                 })
               }}><span>LOGIN</span></button>
             </div>
 
           </div>
-        </div>
+        </div><Alert stack={{limit: 3}}/>
        </div>
 )
   }

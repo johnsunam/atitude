@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Alert from 'react-s-alert';
 export default class ClientCode extends Component  {
   constructor(props) {
     super(props)
@@ -11,7 +12,7 @@ export default class ClientCode extends Component  {
 
       <div className="login_col">
 
-        
+
        <div className="client_card">
           <h1 className="title">Enter Code</h1>
 
@@ -24,13 +25,18 @@ export default class ClientCode extends Component  {
                 let clientCode=$('#clientCode').val();
                 console.log(clientCode);
                 var client=_.findWhere(this.props.clients,{code:clientCode});
-                console.log(client);
-                client?this.props.verify.setState({verify:true}):this.setState({showMessage:true})
+
+                client?this.props.verify.setState({verify:true}):Alert.warning("Not allowed to login",{
+                         position: 'top-right',
+                         effect: 'bouncyflip',
+                         timeout: 1000
+                     })
+
               }}><span>submit</span></button>
             </div>
 
           </div>
-        </div>
+        </div><Alert stack={{limit: 3}}/>
        </div>)
   }
 }
