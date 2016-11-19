@@ -10,6 +10,7 @@ const composer = ( props, onData ) => {
     if(subcription.ready()){
       var roles=RoleDb.find().fetch();
       var clients=ClientDb.find().fetch();
+      clients=clients?clients:[]
         var workflows=WorkflowDb.find().fetch();
         let data={roles:roles,clients:clients,workflows:workflows}
         onData( null, {data } )

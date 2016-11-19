@@ -1,48 +1,115 @@
-//lists,delete and edit the client details
+//edit,delete and lists client
 import React ,{Component} from 'react'
-import AddClient from '../client/addClient.jsx'
+import AddClient from '../../../container/editAddedClient.js'
 import crudClass from '../../common/crudClass.js'
-
+import orderBy from 'lodash/orderBy';
+import { Table,SearchColumns, search,sort} from 'reactabular';
 export default class ManageClient extends Component {
   constructor(props) {
    super(props)
-   this.state={
-     selectedClient:null
-   }
-  }
- render(){
-    return( <div className="col-md-10 registration_form pad_t50">
-      <div className="col-md-10 col-md-offset-1">
-        <h1 className="title">Manage Clients</h1>
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" className="table_cont">
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-			<th>Phone</th>
-			<th>Website</th>
-      <th>Client Code</th>
-            <th>Action</th>
-          </tr>
-          {this.props.clients.map((client)=>{
-          return(<tr>
-              <td>{client.companyName}</td>
-              <td>{client.email}</td>
-              <td>{client.phone}</td>
-			  <td>{client.website}</td>
-        <td>{client.code}</td>
-              <td><div className="button-container">
-              <a href="#"  data-toggle="modal" data-target={`#${client._id}`}>Edit</a>
-              <div className="modal fade" id={`${client._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <AddClient edit="true" client={client}/>
-            </div>
-              <a href="#" id={client._id} onClick={(e)=>{
-                let obj=new crudClass()
-                obj.delete('deleteClient',e.target.id)
-              }}>Delete</a></div></td>
+   const getSortingColumns = () => this.state.sortingColumns || {};
+   const sortable = sort.sort({
+      // Point the transform to your rows. React state can work for this purpose
+      // but you can use a state manager as well.
+      getSortingColumns,
 
-            </tr>)
-          })}
-        </table>
+      // The client requested sorting, adjust the sorting state accordingly.
+      // This is a good chance to pass the request through a sorter.
+      onSort: selectedColumn => {
+        this.setState({
+          sortingColumns: sort.byColumns({ // sort.byColumn would work too
+            sortingColumns: this.state.sortingColumns,
+            selectedColumn
+          })
+        });
+      }
+    });
+    const resetable = sort.reset({
+      event: 'onDoubleClick',
+      getSortingColumns,
+      onReset: ({ sortingColumns }) => this.setState({ sortingColumns })
+    });
+
+   this.state={
+
+     query:{},
+     sortingColumns: {
+        0: {
+          direction: 'desc',
+          position: 0
+        }
+      },
+      columns:[{property:'companyName',header:{label:'Name',transforms:[sortable],
+    format:sort.header({sortable,getSortingColumns})}},
+      {property:'email',header:{label:'Email',transforms:[sortable],
+    format:sort.header({sortable,getSortingColumns})}},
+	  {property:'phone',header:{label:'Mobile',transforms:[sortable],
+    format:sort.header({sortable,getSortingColumns})}},
+	{property:'website',header:{label:'Website',transforms:[sortable],
+    format:sort.header({sortable,getSortingColumns})}},
+	{property:'code',header:{label:'Client Code',transforms:[sortable],
+    format:sort.header({sortable,getSortingColumns})}},
+      {property:'edit',header:{label:'Edit'},cell:{
+        props:{
+          style:{
+
+            height:50
+          }
+        },
+        format:(value,{rowData})=>(<div>
+          <a href="#" className="btn btn-primary"  data-toggle="modal" data-target={`#${rowData.id}`}>Edit</a>
+          <div className="modal fade" id={`${rowData.id}`} tabindex="-1" client="dialog" aria-labelledby="myModalLabel">
+          <AddClient edit="true" client={rowData}/>
+        </div>
+      </div> )
+      }},
+      {property:'delete',header:{label:'Delete'},cell:{
+        format:(value,{rowData})=>(
+          <a href="#" className="btn btn-danger" onClick={()=>{
+            let obj=new crudClass()
+            obj.delete('deleteClient',rowData.id)
+          }}>Delete</a>
+        )
+      }}
+
+      ]
+   }
+    }
+
+  render(){
+
+    let data=this.props.clients.map((client)=>{
+      console.log(client);
+      return {id:client._id,companyName:client.companyName,mobile:client.contact,website:client.website,phone:client.phone,code:client.code,email:client.email, status:client.status,delete:'delete',edit:'edit'}
+    })
+
+  let {query,sortingColumns,columns}=this.state;
+
+  const searchedRows = search.multipleColumns({ columns, query })(data);
+  const sortedRows=sort.sorter({
+    columns,sortingColumns,sort:orderBy
+  })(searchedRows);
+      return(<div className="col-md-10 registration_form pad_t50">
+      <div className="col-md-10 col-md-offset-1">
+        <h1 className="title">Manage Client</h1>
+        <Table.Provider
+  className="pure-table pure-table-striped"
+  columns={columns}
+>
+  <Table.Header>
+  <SearchColumns
+            query={query}
+            columns={columns}
+            onChange={query => this.setState({ query })}
+          />
+  </Table.Header>
+
+  <Table.Body rows={sortedRows} rowKey="id" />
+
+
+
+</Table.Provider>
+
       </div>
     </div>)
   }

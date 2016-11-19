@@ -10,7 +10,7 @@ export default Header=()=>{
       <label>Logged in as Srinivas</label>
       <a href="#" onClick={()=>{
         Meteor.logout()
-      }}><img src="images/logout.png"/>Log Out</a></div>
+      }}><img src="../images/logout.png"/>Log Out</a></div>
   </div>
 </div>)
 }

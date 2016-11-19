@@ -71,8 +71,7 @@ export default class AddRole extends Component {
     let res=this.state.edit?obj.create('editDepartment',record):obj.create('addDepartment',record);
 
     this.setState({saveResult:res, isShowMessage: true})
-   this.refs.name.value="";
-   this.refs.description.value="";
+   this.refs.form.reset();
   }
 
  render(){
@@ -84,7 +83,7 @@ export default class AddRole extends Component {
       </section>
       <section className="content">
         <div className="box-body">
-      <Formsy.Form onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+      <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 
         <div className="form-group">
                 <label for="name"> Name</label>

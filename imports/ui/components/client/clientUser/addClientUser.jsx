@@ -74,7 +74,7 @@ export default class AddClientUser extends Component {
          })
     }
 
-    console.log('geda');
+    
   //  this.setState({saveResult:res, isShowMessage: true ,userCode:userCode})
     this.setState({roles:[]})
     this.refs.form.reset();

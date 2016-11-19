@@ -65,7 +65,8 @@ export default class AddForm extends Component {
                 {
                 type:'button',
                 label:'Camera',
-                className:'take-picture'
+                className:'take-picture',
+                id:'take-picture'
                 }
                ]
       },
@@ -73,7 +74,6 @@ export default class AddForm extends Component {
     typeUserEvents:{
        button:{
          onadd:function(fld){
-           console.log(fld);
            $('.take-picture',fld).click(function(){
              navigator.getUserMedia = navigator.getUserMedia ||
                         navigator.webkitGetUserMedia ||
@@ -150,7 +150,7 @@ export default class AddForm extends Component {
     console.log(this.props.form);
     return(<div className="col-md-10 no_pad">
       <ul className="steps_menu nav nav-tabs">
-        <li className="in active" id="create-form"><a href="#create-form" id="#create-form" data-toggle="tab" onClick={this.openTab.bind(this)} >{this.props.edit?"Edit Form":"Create Form"}</a></li>
+        <li className="in active" id="create-form"><a href="#create-form" id="#create-form" data-toggle="tab" onClick={this.openTab.bind(this)} >{this.props.edit?"Create Form":"Edit "}</a></li>
         <li className="" id="previews"><a className="form-builder-save" href="#" id="#previews" >Preview</a></li>
       </ul>
       <div className="tab-content">

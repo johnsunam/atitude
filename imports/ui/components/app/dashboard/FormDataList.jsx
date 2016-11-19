@@ -24,9 +24,18 @@ export default class FormDataList extends Component {
   render(){
     console.log(this.props.formdatas);
     let list=this.props.formdatas.map((data)=>{
-      console.log(data.formdata);
+
              let val=_.map(data.formdata,(vl)=>{
-               return(<td>{vl}</td>)
+               console.log(vl.length);
+               if (vl.length>1000){
+                 console.log('dam');
+                 return(<td><img src={vl}/></td>)
+               }
+               else {
+                 return(<td>{vl}</td>)
+               }
+        //       vl.length>1000?return(<td><img src={vl}/></td>):return(<td>{vl}</td>)
+
              })
              return(<tr>{val}</tr>)
     })

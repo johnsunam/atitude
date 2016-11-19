@@ -40,7 +40,6 @@ export default class AddClient extends Component {
   }
 
   componentDidMount(){
-
     let client=this.props.client;
     console.log(client);
     this.state.edit?this.setState({companyName:client.companyName,
@@ -65,8 +64,34 @@ export default class AddClient extends Component {
       })
     Session.set('showCode',false)
   }
+  componentDidUpdate(prevProps, prevState){
+
+    }
 
   shouldComponentUpdate(nextProps, nextState){
+  console.log('game');
+    let client=this.props.client;
+    this.state.edit?this.setState({companyName:client.companyName,
+      email:client.email,
+      address:client.address,
+      phone:client.phone,
+      website:client.website,
+      city:client.city,
+      state:client.state,
+      pincode:client.pincode,
+      contactName:client.contactName,
+      contactNo:client.contactNo,country:client.country,roles:client.roles}):this.setState({companyName:'',
+      address:'',
+      phone:'',
+      website:'',
+      city:'',
+      state:'',
+      pincode:'',
+      contactName:'',
+      contactNo:'',
+      country:''
+      })
+
     Tracker.autorun(function(){
       if(Session.equals('confirm',true)){
         Session.get('res')==true?Alert.success(message.saveClientSuccess, {
@@ -107,14 +132,15 @@ export default class AddClient extends Component {
     console.log(this.state.roles);
     let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo,country:country,roles:this.state.roles}}:
       {code:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo,country:country,roles:this.state.roles}
+
     let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
     this.setState({saveResult:res,  isShowMessage: true,code:ran})
   this.refs.form.reset();
+  this.setState({roles:[]})
 
   }
 
   render(){
-
     let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
          return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-8 col-md-offset-2">

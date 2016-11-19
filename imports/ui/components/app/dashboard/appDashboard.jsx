@@ -14,7 +14,8 @@ export default class AppDashboard extends Component {
     choosedPage:nextProps.pages[0]?nextProps  .pages[0]._id:''})
   }
   render(){
-    
+    console.log(this.state.choosedform);
+    console.log(this.state.choosedPage);
     return(<div>
       <aside className="main-sidebar">
         <section className="sidebar">
@@ -24,8 +25,11 @@ export default class AppDashboard extends Component {
             <ul>
             {this.props.pages.map((page) => {
               return(<li><a href=""  onClick={()=>{
-                console.log(page._id);
-
+                var video = document.querySelector('video');
+                video.className="hidden"
+                $('#b').removeClass("show")
+                $('#b').addClass("hidden")
+                
                 this.setState({choosedform:page.formName,choosedPage:page._id})
               }}>{page.name}</a></li>)
             })}

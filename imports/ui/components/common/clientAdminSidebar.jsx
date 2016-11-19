@@ -19,11 +19,7 @@ export default ClientAdminSidebar=()=>{
           <li><a href="/client/manage-department"><i className="fa fa-circle-o"></i>Manage Department</a></li>
         </ul>
          </li>
-        <li className="treeview active"> <a href="#"> <i className="fa fa-edit"></i> <span>Role</span> <span className="pull-right-container"> <i className="fa fa-angle-left pull-right"></i> </span> </a>
-        <ul className="treeview-menu">
-          <li className="active"><a href="/client/add-role"><i className="fa fa-circle-o"></i> Add Role</a></li>
-          <li><a href="/client/manage-role"><i className="fa fa-circle-o"></i>Manage Role</a></li>
-        </ul></li>
+
       </ul>
     </section>
 

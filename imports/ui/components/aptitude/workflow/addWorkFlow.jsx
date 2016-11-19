@@ -84,14 +84,15 @@ export default class AddWorkFlow extends Component {
          })
     }
 
-    this.setState({saveResult:res})
+    //this.setState({saveResult:res})
+    this.setState({roles:[]})
     this.refs.form.reset()
   }
 
 
   render(){
-    console.log(this.state.roles);
-	   let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Edit</span></button>
+
+	   let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
     return(<div className="col-md-10 registration_form pad_t50">
 
       <div className="col-md-6 col-md-offset-3">
@@ -126,12 +127,12 @@ export default class AddWorkFlow extends Component {
                 </div>
                 <div className=''>
                 <label>Client Roles</label>
-                <CheckboxGroup name="roles" onChange={(newroles)=>{
+                <CheckboxGroup name="roles"  onChange={(newroles)=>{
                   this.setState({selectedRoles:newroles})
                 }}>
                 <ul>
                 {this.state.roles.map((role)=>{
-
+                  console.log(role);
                 return(<li><Checkbox id="checkbox" value={role}/>{role}</li>)
                 })}
                 </ul>

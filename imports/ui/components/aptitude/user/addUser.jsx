@@ -94,7 +94,7 @@ export default class addUser extends Component {
 
   render(){
     let user=this.props.user;
-    let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Edit</span></button>
+    let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
     return(<div className="col-md-10 registration_form pad_t50">
 
       <div className="col-md-8 col-md-offset-2">

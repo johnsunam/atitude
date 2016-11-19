@@ -30,7 +30,7 @@ export default class ClientAdminPages extends Component {
     </tr>)
     })
     return (<div><section className="content-header">
-    <h1>{this.props.edit?"Edit Role":"Add Role"} </h1>
+    <h1>Client Pages </h1>
   </section>
   <section className="content">
   <table width="100%" border="0" cellspacing="0" cellpadding="0" className="table_cont">

@@ -5,7 +5,7 @@ export default SiderBar=()=>{
   return(<div className="col-md-2 no_pad">
       <div className="collapse navbar-collapse navbar-ex1-collapse">
         <ul className="nav navbar-nav side-nav">
-          <li className=" "><a href="javascript:void(0)" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i>Form Builder<b className=""><img src="images/btm_arrow.png"/></b></a>
+          <li className=" "><a href="javascript:void(0)" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i>Form Builder<b className=""><img src="../images/btm_arrow.png"/></b></a>
             <ul className="">
               <li><a href="javascript:void(0)">Form</a>
                 <ul>
@@ -28,7 +28,7 @@ export default SiderBar=()=>{
               </li>
             </ul>
           </li>
-          <li className=" "><a href="javascript:void(0)" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i>Work Flow Builder<b className=""><img src="images/btm_arrow.png"/></b></a>
+          <li className=" "><a href="javascript:void(0)" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i>Work Flow Builder<b className=""><img src="../images/btm_arrow.png"/></b></a>
             <ul className="">
               <li><a href="javascript:void(0)">Task</a>
                <ul>
@@ -44,7 +44,7 @@ export default SiderBar=()=>{
               </li>
             </ul>
           </li>
-          <li className=" "><a href="javascript:void(0)" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i>User and Roles<b className=""><img src="images/btm_arrow.png"/></b></a>
+          <li className=" "><a href="javascript:void(0)" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i>User and Roles<b className=""><img src="../images/btm_arrow.png"/></b></a>
             <ul className="">
               <li><a href="javascript:void(0)">User</a>
                 <ul>

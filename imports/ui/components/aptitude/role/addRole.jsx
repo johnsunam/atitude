@@ -23,11 +23,10 @@ export default class AddRole extends Component {
   }
 
    componentDidMount(){
-
-
      this.props.edit?this.setState({name:this.props.role.name,
        description:this.props.role.description,status:this.props.role.status}):''
    }
+
   shouldComponentUpdate(nextProps, nextState){
     Tracker.autorun(function(){
       if(Session.equals('confirm',true)){

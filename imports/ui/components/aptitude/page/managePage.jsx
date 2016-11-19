@@ -2,8 +2,8 @@
 
 import React ,{Component} from 'react'
 import ClientPages from '../page/clientPages.jsx'
-import crudClass from '../../common/crudClass.js'
-
+import orderBy from 'lodash/orderBy';
+import { Table,SearchColumns, search,sort} from 'reactabular';
 
 
 export default class ManagePage extends Component {
