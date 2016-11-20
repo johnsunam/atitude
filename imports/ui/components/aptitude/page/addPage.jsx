@@ -96,7 +96,7 @@ export default class AddPage extends Component {
 
   }
   render(){
-     let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
+     let submitButton=<button type="submit" disabled={!this.state.canSubmit}><span>Save</span></button>
      let page=this.props.page;
       return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-6 col-md-offset-3">

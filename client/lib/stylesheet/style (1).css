@@ -732,7 +732,11 @@ border-bottom:1px solid #ddd; display:block; font-weight:700;
     font-weight: 300 !important;
 }
 .table_cont{ margin:30px 0;}
+th{
+	padding-left: 20px;
+	padding-right: 20px;
 
+}
 .table_cont td{ border:1px solid #ddd; padding:10px; text-align:center;}
 .table_cont th{ border:1px solid #ddd; padding:10px; text-align:center; background:#fff;}
 
