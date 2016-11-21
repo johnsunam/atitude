@@ -84,11 +84,11 @@ export default class AddRole extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" name="name" value={this.props.edit?roles.name:""} title="Role Name" ref="name" />
+                  <MyInput type="text" name="name" value={this.props.edit?roles.name:""} title="Role Name" ref="name" required/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="textarea" title="Description" value={this.props.edit?roles.description:''} placeholder="Role Description" name="description" ref="description" />
+                  <MyInput type="textarea" title="Description" value={this.props.edit?roles.description:''} placeholder="Role Description" required name="description" ref="description" />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container gender">

@@ -75,7 +75,7 @@ export default class addUser extends Component {
   // saving user to userDb
   submit(e){
     let obj= new crudClass();
-	let name=e.name,
+	  let name=e.name,
 		dob=e.dob,
 		address=this.refs.address.value,
 		mobile=e.mobile,
@@ -86,7 +86,7 @@ export default class addUser extends Component {
     let status=$('#checkbox:checked').val() ? "active":"inactive";
     let record=this.props.edit?{id:this.props.user._id,data:{name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName}}:
     {name:name,dob:dob,status:status,address:address,mobile:mobile,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roleName:roleName}
-    let res=this.state.edit?obj.create('editUser',record):obj.create('addUser',record);
+    let res=this.state.edit ? obj.create('editUser',record) : obj.create('addUser',record);
 
     this.setState({saveResult:res})
     this.refs.form.reset()

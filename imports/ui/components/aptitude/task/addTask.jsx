@@ -87,11 +87,11 @@ export default class AddTask extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" name="name" value={this.props.edit?this.state.name:''} title="Task Name" ref="name"/>
+                  <MyInput type="text" name="name" value={this.props.edit?this.state.name:''} title="Task Name" ref="name" required/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput title="Description" name="description" value={this.props.edit?this.state.description:''} ref="description"/>
+                  <MyInput title="Description" name="description" value={this.props.edit?this.state.description:''} ref="description" required/>
                     <div className="bar"></div>
                 </div>
                 <div className="input-container gender">

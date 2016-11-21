@@ -15,7 +15,7 @@ class crudClass {
        }else{
          console.log(result);
          Session.set('res',true)
-          Session.set('confirm',true)
+         Session.set('confirm',true)
        }
      });
 

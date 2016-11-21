@@ -146,10 +146,10 @@ export default class AddClient extends Component {
     let record=this.props.edit?{id:this.props.client._id,data:{companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo,country:country,roles:this.state.roles}}:
       {code:ran,companyName:companyName,address:address,email:email, phone:phone, website:website, city:city, state:state,pincode:pincode,contactName:contactName,contactNo:contactNo,country:country,roles:this.state.roles}
 
-    let res=this.state.edit?obj.edit('editClient',record):obj.create('addClient',record);
+    let res=this.state.edit? obj.edit('editClient',record) : obj.create('addClient',record);
     this.setState({saveResult:res,  isShowMessage: true,code:ran})
-  this.refs.form.reset();
-  this.setState({roles:[]})
+    this.refs.form.reset();
+    this.setState({roles:[]})
 
   }
 
