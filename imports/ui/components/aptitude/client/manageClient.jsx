@@ -59,6 +59,9 @@ export default class ManageClient extends Component {
         format:(value,{rowData})=>(<div>
           <a href="#" className="btn btn-primary"  data-toggle="modal" data-target={`#${rowData.id}`}>Edit</a>
           <div className="modal fade" id={`${rowData.id}`} tabindex="-1" client="dialog" aria-labelledby="myModalLabel">
+          <div className="modal-header">
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
           <AddClient edit="true" client={rowData}/>
         </div>
       </div> )

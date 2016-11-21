@@ -193,7 +193,7 @@ export default class AddClient extends Component {
                 </div>
                 <label>Add Roles</label>
               <div className="input-group">
-
+                <span style={{color:'red'}}> *</span>
               <input type="text" className="form-control" ref="roles" placeholder="Roles...."/>
       <span className="input-group-btn">
         <button className="btn btn-default" type="button" onClick={()=>{
@@ -227,6 +227,7 @@ export default class AddClient extends Component {
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
+                <span style={{color:'red'}}> *</span>
                   <select id="countries" ref="country">
                   <option>{this.props.edit?this.state.country:"Country"}</option>
                   {this.state.countries.map((country)=>{
@@ -251,7 +252,7 @@ export default class AddClient extends Component {
               </div>
             <div className="button-container">
              {submitButton}
-             {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
+
             </div>
             </Formsy.Form>
           </div>
