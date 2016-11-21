@@ -100,18 +100,20 @@ export default class AddWorkFlow extends Component {
         <div className="card">
           <h1 className="title">{this.props.edit?'Edit Workflow':'Add Workflow'}</h1>
           <div className="form_pad">
-          <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addWorkflow" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
 
+          <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addWorkflow" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" name="name" title="Name" ref="name" value={this.props.edit?this.state.name:''}/>
+                  <MyInput type="text" help="Enter the name of the workflow" name="name" title="Name" ref="name" value={this.props.edit?this.state.name:''}/>
                   <div className="bar"></div>
                 </div>
+
                 <div className="input-container">
-                  <MyInput type="text"   title="Description" ref="description" name="description"value={this.props.edit?this.state.description:''}/>
+                  <MyInput type="text" help="Enter the description of workflow"  title="Description" ref="description" name="description"value={this.props.edit?this.state.description:''}/>
                   <div className="bar"></div>
                 </div>
+
                 <div className="input-container">
                 <select onChange={(e)=>{
                   console.log(e.target.value);
@@ -125,6 +127,7 @@ export default class AddWorkFlow extends Component {
                 })}
                 </select>
                 </div>
+
                 <div className=''>
                 <label>Client Roles</label>
                 <CheckboxGroup name="roles"  onChange={(newroles)=>{
@@ -144,13 +147,16 @@ export default class AddWorkFlow extends Component {
                      <input type="checkbox" id="checkbox" value=""/>
                   </div>
                 </div>
+
               </div>
             </div>
             <div className="button-container">
-			{submitButton}
-             {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
+			         {submitButton}
+               {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
+
             </Formsy.Form>
+            
           </div>
         </div>
       </div>

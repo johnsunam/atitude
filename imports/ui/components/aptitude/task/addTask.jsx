@@ -87,25 +87,31 @@ export default class AddTask extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" name="name" value={this.props.edit?this.state.name:''} title="Task Name" ref="name"/>
+                  <MyInput type="text" help="Enter the name of the task" name="name" value={this.props.edit?this.state.name:''} title="Task Name" ref="name"/>
                   <div className="bar"></div>
                 </div>
+
                 <div className="input-container">
-                  <MyInput title="Description" name="description" value={this.props.edit?this.state.description:''} ref="description"/>
+                  <MyInput title="Description" help="Enter the description of task" name="description" value={this.props.edit?this.state.description:''} ref="description"/>
                     <div className="bar"></div>
                 </div>
+
                 <div className="input-container gender">
                   <div>Active? &nbsp;
                     <input type="checkbox" id="checkbox" name="status" value=""/>
                   </div>
                 </div>
+
               </div>
             </div>
+
             <div className="button-container">
               {submitButton}
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
+
             </Formsy.Form>
+            
           </div>
         </div>
       </div>

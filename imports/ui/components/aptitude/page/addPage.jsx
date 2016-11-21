@@ -104,13 +104,15 @@ export default class AddPage extends Component {
         <div className="card">
           <h1 className="title">{this.state.edit?"Edit Page":"Create page for the client"}</h1>
           <div className="form_pad">
+
            <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addPage" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" title="Page Name" name="name" value={this.props.edit?page.name:''}  ref="name"/>
+                  <MyInput type="text" help="Enter your page name" title="Page Name" name="name" value={this.props.edit?page.name:''}  ref="name"/>
                   <div className="bar"></div>
                 </div>
+
                 <div className="input-container">
                  <select ref="clientName" placeholder="client">
                  <option>{this.props.edit?page.clientName:'choose client'}</option>
@@ -130,30 +132,37 @@ export default class AddPage extends Component {
                  </select>
                 </div>
 
-				 <div className="input-container">
-                  <MyInput type="text" title="Preview URL" name="previewURL" value={this.props.edit?page.previewURL:''} ref="previewURL"/>
+				        <div className="input-container">
+                  <MyInput type="text" help="Enter the preview url" title="Preview URL" name="previewURL" value={this.props.edit?page.previewURL:''} ref="previewURL"/>
                   <div className="bar"></div>
                 </div>
-				<div className="input-container">
-                  <MyInput type="text" title="Publish URL" ref="publishURL" value={this.props.edit?page.publishURL:''} name="publishURL"/>
+
+				        <div className="input-container">
+                  <MyInput type="text" help="Enter your publish url" title="Publish URL" ref="publishURL" value={this.props.edit?page.publishURL:''} name="publishURL"/>
                   <div className="bar"></div>
                 </div>
+
                  <div className="input-container">
-                  <MyInput type="text" title="Meta Keywords" ref="metakeys" name="metakeys" value={this.props.edit?page.metakeys:''}/>
+                  <MyInput type="text" help="Enter the meta keywords" title="Meta Keywords" ref="metakeys" name="metakeys" value={this.props.edit?page.metakeys:''}/>
                   <div className="bar"></div>
                 </div>
+
                 <div className="input-container">
                  <select ref="status">
                  <option>{this.props.edit?page.status:'choose Status'}</option>
                  <option> Status </option> <option> Draft </option><option> Publish </option> </select>
                 </div>
+
               </div>
             </div>
+
             <div className="button-container">
-            {submitButton}
-			{this.state.edit?<button data-dismiss="modal">cancel</button>:''}
+              {submitButton}
+			        {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
+
             </Formsy.Form>
+            
           </div>
         </div>
       </div>

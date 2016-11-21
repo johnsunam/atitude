@@ -80,29 +80,36 @@ export default class AddRole extends Component {
         <div className="card">
           <h1 className="title">{this.props.edit?'Edit Role':'Add Role'}</h1>
           <div className="form_pad">
+
           <Formsy.Form ref='form' onValidSubmit={this.submit.bind(this)} id="addRole" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" name="name" value={this.props.edit?roles.name:""} title="Role Name" ref="name" />
+                  <MyInput type="text" help="Enter the role name" name="name" value={this.props.edit?roles.name:""} title="Role Name" ref="name" />
                   <div className="bar"></div>
                 </div>
+
                 <div className="input-container">
-                  <MyInput type="textarea" title="Description" value={this.props.edit?roles.description:''} placeholder="Role Description" name="description" ref="description" />
+                  <MyInput type="textarea" help="Enter the description of the role" title="Description" value={this.props.edit?roles.description:''} placeholder="Role Description" name="description" ref="description" />
                   <div className="bar"></div>
                 </div>
+
                 <div className="input-container gender">
                   <div>Page Access &nbsp;
                     <input type="checkbox" id="checkbox" value="active" ref="status" value={this.props.edit?roles.status:""} />
                   </div>
                 </div>
+
               </div>
             </div>
+
             <div className="button-container">
              {submitButton}
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
+            
             </Formsy.Form>
+
           </div>
         </div>
 

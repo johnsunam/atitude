@@ -107,51 +107,59 @@ export default class addUser extends Component {
             <div className="row">
               <div className="col-md-6">
                 <div className="input-container">
-                  <MyInput type="text" name="name" value={this.props.edit?user.name:""} title="User Name"  ref="name"/>
+                  <MyInput type="text" help="Pick your username" name="name" value={this.props.edit?user.name:""} title="User Name"  ref="name"/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
                 <div>Birth Date</div>
-                  <MyInput type="date" name="dob" value={this.props.edit?user.dob:""}    ref="dob"/>
+                  <MyInput type="date" help="Enter your birthdate" name="dob" value={this.props.edit?user.dob:""}    ref="dob"/>
                   <div className="bar"></div>
                 </div>
+
                 <div className="input-container">
-                  <MyInput placeholder="Address" name="address" title="Address" value={this.props.edit?user.dob:""} ref="address" />
+                  <MyInput help="Enter your address" placeholder="Address" name="address" title="Address" value={this.props.edit?user.dob:""} ref="address" />
                   <div className="bar"></div>
 
                 </div>
               </div>
+
               <div className="col-md-6">
+                <div className="input-container">
+                  <MyInput type="number" help="Enter your valid mobile number" name="mobile" title="Mobile Number" ref="mobile" value={this.props.edit?user.mobile:""}/>
+                  <div className="bar"></div>
+                </div>
 
                 <div className="input-container">
-                  <MyInput type="number" name="mobile" title="Mobile Number" ref="mobile" value={this.props.edit?user.mobile:""}/>
+                  <MyInput type="email" help="Enter your valid email address" name="email" title="Email ID" value={this.props.edit?user.email:""} ref="email" />
                   <div className="bar"></div>
                 </div>
-                <div className="input-container">
-                  <MyInput type="email" name="email" title="Email ID" value={this.props.edit?user.email:""} ref="email" />
-                  <div className="bar"></div>
-                </div>
+
                 <div className="input-container">
                   <select ref="secQuestion">
                     <option>Security Question</option>
                   </select>
                 </div>
+
                 <div className="input-container">
-                  <MyInput type="text" name="secAnswer" title="Security Answer" value={this.props.edit?user.secAnswer:""} ref="secAnswer"/>
+                  <MyInput type="text" help="Enter the answer of the security question" name="secAnswer" title="Security Answer" value={this.props.edit?user.secAnswer:""} ref="secAnswer"/>
                   <div className="bar"></div>
                 </div>
+
                 <div className="input-container">
-                  <MyInput type="text" name="roleName" title="Role Name" ref="roleName" value={this.props.edit?user.roleName:""}/>
+                  <MyInput type="text" help="Enter your role name" name="roleName" title="Role Name" ref="roleName" value={this.props.edit?user.roleName:""}/>
                   <div className="bar"></div>
                 </div>
-				 <div className="input-container gender">
+
+				       <div className="input-container gender">
                   <div>Active? &nbsp;
                     <input type="checkbox" id="checkbox"  value=""/>
                   </div>
                 </div>
+
               </div>
             </div>
+
             <div className="button-container">
              {submitButton}
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
