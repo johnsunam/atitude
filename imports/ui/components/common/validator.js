@@ -10,9 +10,10 @@ export default MyInput = React.createClass({
     const errorMessage = this.getErrorMessage();
     return (
       <div className={className}>
+      <span style={{color:'red'}}> {this.isRequired() ? '*' : null}</span>
         <input type={this.props.type || 'text'}
         id={this.props.id}
-         required="required"
+         required={this.props.required}
          ref={this.props.name}
          name={this.props.name}
          onChange={this.changeValue}

@@ -6,6 +6,7 @@ var message = require('../../common/message.json');
 import Alert from 'react-s-alert';
 import {Session} from 'meteor/session';
 import MyInput from '../../common/validator.js'
+import ToolTip from 'react-portal-tooltip'
 
 export default class AddClient extends Component {
   constructor(props) {
@@ -28,7 +29,9 @@ export default class AddClient extends Component {
   pincode:'',
   contactName:'',
   contactNo:'',
-  roles:[]
+  roles:[],
+  tooltip:'',
+  tooltipMessage:''
 
     }
   }
@@ -43,6 +46,7 @@ export default class AddClient extends Component {
     let client=this.props.client;
     console.log(client);
     this.state.edit?this.setState({companyName:client.companyName,
+       isTooltipActive: false,
       email:client.email,
       address:client.address,
       phone:client.phone,
@@ -60,12 +64,21 @@ export default class AddClient extends Component {
       pincode:'',
       contactName:'',
       contactNo:'',
-      country:''
+      country:'',
+      tooltip:""
       })
     Session.set('showCode',false)
   }
-  componentDidUpdate(prevProps, prevState){
 
+    showTooltip(e) {
+      console.log(e.target.name);
+      this.setState({tooltip:e.target.name})
+        this.setState({isTooltipActive: true})
+        this.setState({tooltipMessage:message[`${e.target.name}`]})
+    }
+    hideTooltip(e) {
+      this.setState({tooltip:e.target.id})
+        this.setState({isTooltipActive: false})
     }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -141,37 +154,40 @@ export default class AddClient extends Component {
   }
 
   render(){
-    let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
+    let submitButton=<button type="submit"  disabled={!this.state.canSubmit} ><span>Save</span></button>
          return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-8 col-md-offset-2">
         <div className="card"></div>
         <div className="card">
           <h1 className="title">{this.props.edit?"Edit Client":"Add Client"}</h1>
           <div className="form_pad">
-          <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)} >
             <div className="row">
               <div className="col-md-6">
 
                 <div className="input-container">
-                  <MyInput type="text" title="Company Name" name="companyName" ref="companyName" value={this.state.companyName} />
+                  <MyInput type="text" title="Company Name"
+                   onMouseEnter={this.showTooltip.bind(this)}
+                    onMouseLeave={this.hideTooltip.bind(this)}
+                      name="companyName" ref="companyName" value={this.state.companyName} required/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text"  title="Address" name="address" ref="address" value={this.state.address}/>
+                  <MyInput type="text"  title="Address" name="address" ref="address" value={this.state.address} required/>
 
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="email" title="Email" name="email" ref="email" value={this.state.email}/>
+                  <MyInput type="email" title="Email" name="email" ref="email" value={this.state.email} required/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="number" title="Phone" name="phone" ref="phone" value={this.state.phone}/>
+                  <MyInput type="number" title="Phone" name="phone" ref="phone" value={this.state.phone} required/>
 
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" title="Website" name="website" ref="website" value={this.state.website}/>
+                  <MyInput type="text" title="Website" name="website" ref="website" value={this.state.website} required/>
 
                   <div className="bar"></div>
                 </div>
@@ -203,11 +219,11 @@ export default class AddClient extends Component {
               </div>
               <div className="col-md-6">
                 <div className="input-container">
-                  <MyInput type="text" title="City" name="city" ref="city" value={this.state.city}/>
+                  <MyInput type="text" title="City" name="city" ref="city" value={this.state.city} required/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" title="State" name="state" ref="state" value={this.state.state}/>
+                  <MyInput type="text" title="State" name="state" ref="state" value={this.state.state} required/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -219,15 +235,15 @@ export default class AddClient extends Component {
                   </select>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" title="Pincode" name="pincode" ref="pincode" value={this.state.pincode}/>
+                  <MyInput type="text" title="Pincode" name="pincode" ref="pincode" value={this.state.pincode} required/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" title="Contact Name" name="contactName" ref="contactName" value={this.state.contactName}/>
+                  <MyInput type="text" title="Contact Name" name="contactName" ref="contactName" value={this.state.contactName} required/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="number" name="contactNo" title="Contact No" ref="contactNo" value={this.state.contactNo}/>
+                  <MyInput type="number" name="contactNo" title="Contact No" ref="contactNo" value={this.state.contactNo} required/>
                   <div className="bar"></div>
                 </div>
               </div>
@@ -242,6 +258,13 @@ export default class AddClient extends Component {
 
         </div>
 		  </div>
+      <ToolTip active={this.state.isTooltipActive} position="top" arrow="center" parent={`#${this.state.tooltip}`}>
+                    <div>
+                        <p>{this.state.tooltipMessage}</p>
+
+                    </div>
+                </ToolTip>
+
     </div>)
   }
 }

@@ -4,10 +4,14 @@ import {Email } from "meteor/email"
 import {Random} from "meteor/random"
 Meteor.methods({
   'addClient':function(record){
-    ClientDb.insert(record);
-    var userId=Accounts.createUser({email:record.email,password:"aptitude123"});
 
-    Roles.addUsersToRoles( userId,'client' );
+    var userId=Accounts.createUser({email:record.email,password:"aptitude123"});
+      console.log(userId);
+      if(userId){
+        ClientDb.insert(record);
+          Roles.addUsersToRoles( userId,'client' );
+      }
+
     return userId;
   //  Email.send({to:record.email,from:"johnsunam@hotmail.com",subject:"password",text:"aptitude123"});
 

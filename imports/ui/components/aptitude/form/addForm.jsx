@@ -13,7 +13,8 @@ export default class AddForm extends Component {
      formTitle:"",
      result:"",
      messages:null,
-     formData:props.form?props.form.form:null
+     formData:props.form?props.form.form:null,
+     formBuilder:null
    }
   }
 
@@ -22,6 +23,7 @@ export default class AddForm extends Component {
   $('#save-alert').hide();
   let self=this;
     var buildWrap = $(document.getElementById('fb-editors')),
+
     renderWrap = $(document.getElementById('fb-rendered-form')),
     fbOptions = {
      dataType: 'json',
@@ -70,6 +72,7 @@ export default class AddForm extends Component {
                 }
                ]
       },
+
     ],
     typeUserEvents:{
        button:{
@@ -104,6 +107,7 @@ export default class AddForm extends Component {
    formData:JSON.parse(this.state.formData)
    },
      formBuilder = $(buildWrap).formBuilder(fbOptions).data('formBuilder');
+     this.setState({formBuilder:formBuilder})
      this.refs.formName.value=this.props.edit?this.props.form.name:""
     $('.form-builder-save').click(function(e) {
       let obj=new crudClass();
@@ -166,9 +170,20 @@ export default class AddForm extends Component {
       </div>
 
       </div>
+      <div><button className="btn btn-default" onClick={()=>{
+        let formBuilder=this.state.formBuilder,
+        formData=JSON.parse(formBuilder.formData);
+        _.map(formData,function(single){
+
+        })
+        let elements=[]
+        _.map(formData,function(single){
+          elements.push(single.name)
+        })
+        console.log(elements);
+      }}>Add Logic</button></div><br/>
       <div  id="fb-editors">
       </div>
-      <video></video>
       </div>
       <div className="tab-pane fade" id="previews-tab">
       <h2 className="col-md-offset-5">{this.state.formTitle}</h2>
