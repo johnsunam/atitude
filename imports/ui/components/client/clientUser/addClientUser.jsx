@@ -64,7 +64,7 @@ export default class AddClientUser extends Component {
     let record=this.props.edit?{id:this.props.clientUser._id,data:{name:name,dob:dob,status:status,address:address,contact:contact,email:email,secQuestion:secQuestion, secAnswer:secAnswer,roles:roles, userType:userType}}:
     {code:userCode,name:name,dob:dob,status:status,address:address,contact:contact,email:email,secQuestion:secQuestion, secAnswer:secAnswer,userType:userType,roles:roles}
     if(roles.length!=0){
-        let res=this.state.edit?obj.create('editClientUser',record):obj.create('addClientUser',record);
+        let res=this.state.edit ? obj.create('editClientUser',record) : obj.create('addClientUser',record);
     }
     else {
       Alert.warning('Add atleast one role', {
@@ -74,7 +74,7 @@ export default class AddClientUser extends Component {
          })
     }
 
-    
+
   //  this.setState({saveResult:res, isShowMessage: true ,userCode:userCode})
     this.setState({roles:[]})
     this.refs.form.reset();
