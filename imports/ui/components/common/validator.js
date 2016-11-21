@@ -23,6 +23,7 @@ export default MyInput = React.createClass({
          checked={this.props.type === 'checkbox' && this.getValue() ? 'checked' : null}
          />
         <label>{this.props.title}</label>
+        <span className="validation-error">{errorMessage}</span>
       </div>
     );
   }

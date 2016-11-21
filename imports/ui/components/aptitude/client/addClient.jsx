@@ -148,21 +148,22 @@ export default class AddClient extends Component {
         <div className="card">
           <h1 className="title">{this.props.edit?"Edit Client":"Add Client"}</h1>
           <div className="form_pad">
+
           <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="row">
               <div className="col-md-6">
 
                 <div className="input-container">
-                  <MyInput type="text" title="Company Name" name="companyName" ref="companyName" value={this.state.companyName} />
+                  <MyInput type="text" help="This is ok" title="Company Name" name="companyName" ref="companyName" value={this.state.companyName} required />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text"  title="Address" name="address" ref="address" value={this.state.address}/>
+                  <MyInput type="text"  title="Address" name="address" ref="address" value={this.state.address} required />
 
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="email" title="Email" name="email" ref="email" value={this.state.email}/>
+                  <MyInput type="email" title="Email" name="email" validations="isEmail" validationError="This is not a valid email address" ref="email" value={this.state.email} required />
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
@@ -172,7 +173,6 @@ export default class AddClient extends Component {
                 </div>
                 <div className="input-container">
                   <MyInput type="text" title="Website" name="website" ref="website" value={this.state.website}/>
-
                   <div className="bar"></div>
                 </div>
                 <label>Add Roles</label>
@@ -238,6 +238,7 @@ export default class AddClient extends Component {
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
             </Formsy.Form>
+
           </div>
 
         </div>
