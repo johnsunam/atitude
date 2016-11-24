@@ -142,6 +142,31 @@ export default class AddForm extends Component {
          dataType: 'json',
          formData: formBuilder.formData
        });
+
+       // getting form data for implementing Logic
+       let checkboxes=[],
+       textboxes=[],
+       selects=[];
+       let checkbox=$("#mainForm input:checkbox");
+       let textbox=$("#mainForm input:text");
+       let select=$("#mainForm select");
+       let count=0,b=0,a=0
+       _.map(checkbox,function(single){
+
+         checkboxes.push(checkbox[count].name)
+         count++;
+       })
+       _.map(textbox,function(single){
+         textboxes.push(textbox[b].name)
+         b++;
+     })
+       _.map(select,function(single){
+         selects.push(select[a].name)
+         a++
+       })
+
+      self.setState({checkboxes:checkboxes,textboxes:textboxes,selects:selects})
+
          $('#save-alert').show()
         window.sessionStorage.setItem('formData', JSON.stringify(formBuilder.formData));
          let data=JSON.stringify(formBuilder.formData);
@@ -159,6 +184,7 @@ export default class AddForm extends Component {
 
   });
 }
+
   openTab(e){
     let self=this;
       $(e.target.id).addClass('in active');
@@ -198,29 +224,7 @@ export default class AddForm extends Component {
       <div className="tab-pane fade" id="previews-tab">
       <h2 className="col-md-offset-5">{this.state.formTitle}</h2>
       <div>
-      <a href="#" onClick={()=>{
-        let checkboxes=[],
-        textboxes=[],
-        selects=[];
-        let checkbox=$("#mainForm input:checkbox");
-        let textbox=$("#mainForm input:text");
-        let select=$("#mainForm select");
-        let count=0,b=0,a=0
-        _.map(checkbox,function(single){
-          checkboxes.push(checkbox[count].name)
-          count++;
-        })
-        _.map(textbox,function(single){
-          textboxes.push(textbox[b].name)
-          b++;
-      })
-        _.map(select,function(single){
-          selects.push(select[a].name)
-          a++
-        })
-
-        this.setState({checkboxes:checkboxes,textboxes:textboxes,selects:selects})
-      }} data-toggle="modal" data-target="#myModal">Add Logic</a>
+      <a href="#" onClick={()=>{}} data-toggle="modal" data-target="#myModal">Add Logic</a>
       <div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div className="modal-dialog" role="document">
       <div className="modal-content">
@@ -229,21 +233,24 @@ export default class AddForm extends Component {
           <h4 className="modal-title" id="myModalLabel">Modal title</h4>
         </div>
         <div className="modal-body">
-          <select id="first" onChange={(e)=>{
+        <div>
+          <select id="checkbox" onChange={(e)=>{
           }}><option>choose checkbox</option>
           {this.state.checkboxes.map((single)=>{
-          return(<option>{single}</option>)
+          let label=  $("label[for='"+single+"']").text();
+          return(<option value={single}>{label}</option>)
           })}
           </select>
 
-          <select id="textboxes" onChange={(e)=>{
+          <select id="first-textboxes" onChange={(e)=>{
           }}><option>choose textbox</option>
           {this.state.textboxes.map((single)=>{
-          return(<option>{single}</option>)
+          let label=  $("label[for='"+single+"']").text();
+          return(<option value={single}>{label}</option>)
           })}
           </select>
           <a href="#" className="btn btn-primary" onClick={()=>{
-            let checkbox=$("#first").val();
+            let checkbox=$("#checkbox").val();
             let textbox=$("#textboxes").val();
           let  lefttext=_.without(this.state.textboxes,textbox);
             this.setState({textboxes:lefttext})
@@ -252,7 +259,10 @@ export default class AddForm extends Component {
             let box= document.getElementsByName(textbox);
             $(box).parent().hide();
             this.setState({rules:rules})
-          }}>Add condition</a>
+          }}>Add rule</a>
+          </div>
+
+          <select></select>
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>

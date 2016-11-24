@@ -6,7 +6,6 @@ const composer = ( props, onData ) => {
     console.log(props.form);
     if(subcription.ready()){
         var form=FormDb.findOne({name:props.form});
-        console.log(form);
         onData( null,{form} )
       }
 
