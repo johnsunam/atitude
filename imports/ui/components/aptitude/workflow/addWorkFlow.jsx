@@ -100,20 +100,18 @@ export default class AddWorkFlow extends Component {
         <div className="card">
           <h1 className="title">{this.props.edit?'Edit Workflow':'Add Workflow'}</h1>
           <div className="form_pad">
-
           <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addWorkflow" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" help="Enter the name of the workflow" name="name" title="Name" ref="name" value={this.props.edit?this.state.name:''}/>
+                  <MyInput type="text" name="name" title="Name" help="Enter the name of the workflow" ref="name" value={this.props.edit?this.props.workflow.name:''} required/>
                   <div className="bar"></div>
                 </div>
-
                 <div className="input-container">
-                  <MyInput type="text" help="Enter the description of workflow"  title="Description" ref="description" name="description"value={this.props.edit?this.state.description:''}/>
+                  <MyInput type="text"   title="Description" help="Enter the name fo description" ref="description" name="description"value={this.props.edit?this.props.workflow.description:''} required/>
                   <div className="bar"></div>
                 </div>
-
                 <div className="input-container">
                 <select onChange={(e)=>{
                   console.log(e.target.value);
@@ -127,15 +125,14 @@ export default class AddWorkFlow extends Component {
                 })}
                 </select>
                 </div>
-
                 <div className=''>
                 <label>Client Roles</label>
-                <CheckboxGroup name="roles"  onChange={(newroles)=>{
+                <CheckboxGroup name="roles" value={this.WorkFlow} onChange={(newroles)=>{
                   this.setState({selectedRoles:newroles})
                 }}>
                 <ul>
                 {this.state.roles.map((role)=>{
-                  console.log(role);
+
                 return(<li><Checkbox id="checkbox" value={role}/>{role}</li>)
                 })}
                 </ul>
@@ -147,16 +144,13 @@ export default class AddWorkFlow extends Component {
                      <input type="checkbox" id="checkbox" value=""/>
                   </div>
                 </div>
-
               </div>
             </div>
             <div className="button-container">
-			         {submitButton}
-               {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
+			{submitButton}
+             {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
-
             </Formsy.Form>
-            
           </div>
         </div>
       </div>

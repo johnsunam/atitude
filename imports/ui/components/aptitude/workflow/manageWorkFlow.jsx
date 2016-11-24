@@ -3,6 +3,7 @@ import React ,{Component} from 'react'
 import AddWorkFlow from '../../../container/addWorkFlow.js'
 import crudClass from '../../common/crudClass.js'
 import orderBy from 'lodash/orderBy';
+import Paginate from '../../common/paginator.jsx'
 import { Table,SearchColumns, search,sort} from 'reactabular';
 export default class ManageWorkFlow extends Component {
   constructor(props) {
@@ -39,22 +40,16 @@ export default class ManageWorkFlow extends Component {
           position: 0
         }
       },
+      rowData:{},
+      currentPage:1,
+      currentRows:[],
+      pages:[],
+      rowData:{},
       columns:[{property:'name',header:{label:'Name',transforms:[sortable],
     format:sort.header({sortable,getSortingColumns})}},
       {property:'description',header:{label:'Description',transforms:[sortable],
     format:sort.header({sortable,getSortingColumns})}},
       {property:'status',header:{label:'Access'}},
-      {property:'define',header:{label:'Define'},cell:{
-        props:{
-          style:{
-            width:100,
-            height:50
-          }
-        },
-        format:()=>{
-          FlowRouter.go('app/define')
-        }
-    }},
       {property:'edit',header:{label:'Edit'},cell:{
         props:{
           style:{
@@ -63,17 +58,17 @@ export default class ManageWorkFlow extends Component {
           }
         },
         format:(value,{rowData})=>(<div>
-          <a href="#" className="btn btn-primary"  data-toggle="modal" data-target={`#${rowData.id}`}>Edit</a>
-          <div className="modal fade" id={`${rowData.id}`} tabindex="-1" workflow="dialog" aria-labelledby="myModalLabel">
-          <AddWorkFlow edit="true" workflow={rowData}/>
-        </div>
-      </div> )
+          <a href="#" className="btn btn-primary" onClick={()=>{
+            this.setState({rowData:rowData})
+          }}  data-toggle="modal" data-target="#myModal">Edit</a>
+
+      </div>)
       }},
       {property:'delete',header:{label:'Delete'},cell:{
         format:(value,{rowData})=>(
           <a href="#" className="btn btn-danger" onClick={()=>{
             let obj=new crudClass()
-            obj.delete('deleteWorkFlow',rowData.id)
+            obj.delete('deleteWorkFlow',rowData._id)
           }}>Delete</a>
         )
       }}
@@ -82,17 +77,49 @@ export default class ManageWorkFlow extends Component {
    }
     }
 
-  render(){
+    onChangePage(page) {
+      this.setState({currentPage:page})
+      let pages=this.state.pages[page-1];
+      this.setState({currentRows:pages})
 
-    let data=this.props.data.workflows.map((workflow)=>{
-      workflow.delete='delete'
-      workflow.edit='edit'
-      return workflow
-    })
+    }
+    componentDidMount(){
+      let pages=[]
+      let len=this.props.data.workflows.length/5;
+      let range=Math.ceil(len)
+      let a =this.props.data.workflows;
+      for(i=1;i<=range;i++){
+        let b=a.splice(0,5);
+        pages.push(b)
+
+    }
+
+      let page=pages[0];
+      console.log(pages);
+      this.setState({pages:pages,currentRows:page})
+
+    }
+
+
+    componentWillReceiveProps(nextProps){
+      let pages=[]
+      let len=nextProps.data.workflows.length/5;
+      let range=Math.ceil(len)
+      let a =nextProps.data.workflows;
+      for(i=1;i<=range;i++){
+        let b=a.splice(0,5);
+        pages.push(b)
+
+    }
+      this.setState({currentRows:pages[this.state.currentPage-1]})
+    }
+    render(){
+
+
 
   let {query,sortingColumns,columns}=this.state;
 
-  const searchedRows = search.multipleColumns({ columns, query })(data);
+  const searchedRows = search.multipleColumns({ columns, query })(this.state.currentRows);
   const sortedRows=sort.sorter({
     columns,sortingColumns,sort:orderBy
   })(searchedRows);
@@ -116,7 +143,10 @@ export default class ManageWorkFlow extends Component {
 
 
 </Table.Provider>
-
+<Paginate max={5} onChange={this.onChangePage.bind(this)}/>
+<div className="modal fade" id='myModal' tabindex="-1" task="dialog" aria-labelledby="myModalLabel">
+<AddWorkFlow edit="true" workflow={this.state.rowData}/>
+</div>
       </div>
     </div>)
   }

@@ -117,23 +117,23 @@ export default class AddClientUser extends Component {
    <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addClient" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
            <div className="form-group">
              <label for="name"> Name</label>
-             <MyInput type="text" className="form-control" value={this.state.name} id="name" name="name" placeholder="Name" ref="name"/>
+             <MyInput type="text" className="form-control" help="Enter User Name" value={this.state.name} id="name" name="name" placeholder="Name" ref="name" required/>
            </div>
            <div className="form-group">
              <label for="dob">Date of Birth</label>
-             <MyInput type="date" name="dob" className="form-control" value={this.state.dob} id="dob" placeholder="DOB" ref="dob"/>
+             <MyInput type="date" name="dob" className="form-control" help="Enter Birthday" value={this.state.dob} id="dob" placeholder="DOB" ref="dob" required/>
            </div>
            <div className="form-group">
              <label for="address">Address</label>
-             <MyInput type="text" name="address" className="form-control" value={this.state.address} id="address" placeholder="Mobile Number" ref="address"/>
+             <MyInput type="text" name="address" help="Enter Address" className="form-control" value={this.state.address} id="address" placeholder="Mobile Number" required ref="address"/>
            </div>
            <div className="form-group">
              <label for="mobile">Contact #</label>
-             <MyInput name="contact" type="number" className="form-control" id="contactNo" value={this.state.contactNo} placeholder="Contact Number" ref="mobile"/>
+             <MyInput required name="contact" type="number" help="Enter Contact" className="form-control" id="contactNo" value={this.state.contactNo} placeholder="Contact Number" ref="mobile"/>
            </div>
      <div className="form-group">
              <label for="email">E-Mail</label>
-             <MyInput name="email" type="email" className="form-control" id="email" value={this.state.email} placeholder="E-Mail" ref="email"/>
+             <MyInput required name="email" type="email" className="form-control" help="Enter Email" id="email" value={this.state.email} placeholder="E-Mail" ref="email"/>
            </div>
            <div className="form-group">
              <label for="secQuestion">Security Question</label>
@@ -143,7 +143,7 @@ export default class AddClientUser extends Component {
            </div>
            <div className="form-group">
              <label for="secAnswer">Security Answer</label>
-             <MyInput name="secAnswer" type="text" className="form-control" id="secAnswer" placeholder="Security Answer" ref="secAnswer"/>
+             <MyInput required name="secAnswer" type="text" help="Enter Security answer" className="form-control" id="secAnswer" placeholder="Security Answer" ref="secAnswer"/>
            </div>
 
           <div className="form-group">

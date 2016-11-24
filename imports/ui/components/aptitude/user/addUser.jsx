@@ -1,4 +1,3 @@
-//add user to the UserDb
 import React ,{Component} from 'react'
 import {Random } from 'meteor/random'
 import crudClass from '../../common/crudClass.js'
@@ -107,18 +106,18 @@ export default class addUser extends Component {
             <div className="row">
               <div className="col-md-6">
                 <div className="input-container">
-                  <MyInput type="text" help="Pick your username" name="name" value={this.props.edit?user.name:""} title="User Name"  ref="name"/>
+                  <MyInput type="text" help="Pick your username" name="name" value={this.props.edit?user.name:""} title="User Name"  ref="name" required/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
                 <div>Birth Date</div>
-                  <MyInput type="date" help="Enter your birthdate" name="dob" value={this.props.edit?user.dob:""}    ref="dob"/>
+                  <MyInput type="date" help="Enter your birthdate" name="dob" value={this.props.edit?user.dob:""}    ref="dob" required/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput help="Enter your address" placeholder="Address" name="address" title="Address" value={this.props.edit?user.dob:""} ref="address" />
+                  <MyInput help="Enter your address" required placeholder="Address" name="address" title="Address" value={this.props.edit?user.dob:""} required ref="address" />
                   <div className="bar"></div>
 
                 </div>
@@ -126,12 +125,12 @@ export default class addUser extends Component {
 
               <div className="col-md-6">
                 <div className="input-container">
-                  <MyInput type="number" help="Enter your valid mobile number" name="mobile" title="Mobile Number" ref="mobile" value={this.props.edit?user.mobile:""}/>
+                  <MyInput type="number" help="Enter your valid mobile number" required name="mobile" title="Mobile Number" ref="mobile" required value={this.props.edit?user.mobile:""}/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="email" help="Enter your valid email address" name="email" title="Email ID" value={this.props.edit?user.email:""} ref="email" />
+                  <MyInput type="email" help="Enter your valid email address" name="email" required title="Email ID" required value={this.props.edit?user.email:""} ref="email" />
                   <div className="bar"></div>
                 </div>
 
@@ -142,12 +141,12 @@ export default class addUser extends Component {
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="text" help="Enter the answer of the security question" name="secAnswer" title="Security Answer" value={this.props.edit?user.secAnswer:""} ref="secAnswer"/>
+                  <MyInput type="text" help="Enter the answer of the security question" required name="secAnswer" required title="Security Answer" value={this.props.edit?user.secAnswer:""} ref="secAnswer"/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="text" help="Enter your role name" name="roleName" title="Role Name" ref="roleName" value={this.props.edit?user.roleName:""}/>
+                  <MyInput type="text" help="Enter your role name" name="roleName" required title="Role Name" ref="roleName" value={this.props.edit?user.roleName:""}/>
                   <div className="bar"></div>
                 </div>
 

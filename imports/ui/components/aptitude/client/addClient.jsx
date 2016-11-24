@@ -45,7 +45,7 @@ export default class AddClient extends Component {
 
   componentDidMount(){
     let client=this.props.client;
-    console.log(client);
+    client=client?client:[]
     this.state.edit?this.setState({companyName:client.companyName,
        isTooltipActive: false,
       email:client.email,
@@ -84,29 +84,6 @@ export default class AddClient extends Component {
     }
 
   shouldComponentUpdate(nextProps, nextState){
-  console.log('game');
-    let client=this.props.client;
-    this.state.edit?this.setState({companyName:client.companyName,
-      email:client.email,
-      address:client.address,
-      phone:client.phone,
-      website:client.website,
-      city:client.city,
-      state:client.state,
-      pincode:client.pincode,
-      contactName:client.contactName,
-      contactNo:client.contactNo,country:client.country,roles:client.roles}):this.setState({companyName:'',
-      address:'',
-      phone:'',
-      website:'',
-      city:'',
-      state:'',
-      pincode:'',
-      contactName:'',
-      contactNo:'',
-      country:''
-      })
-
     Tracker.autorun(function(){
       if(Session.equals('confirm',true)){
         Session.get('res')==true?Alert.success(message.saveClientSuccess, {
@@ -169,27 +146,27 @@ export default class AddClient extends Component {
               <div className="col-md-6">
 
                 <div className="input-container">
-                  <MyInput type="text" help="Enter you company name" title="Company Name" name="companyName" ref="companyName" value={this.state.companyName} required />
+                  <MyInput type="text" help="Enter you company name" title="Company Name" name="companyName" ref="companyName" value={this.props.edit?this.props.client.companyName:''} required />
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="text" help="Enter your valid address" title="Address" name="address" ref="address" value={this.state.address} required />
+                  <MyInput type="text" help="Enter your valid address" title="Address" name="address" ref="address" value={this.props.edit?this.props.client.address:''} required />
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="email" help="Please enter valid email address." title="Email" name="email" validations="isEmail" validationError="This is not a valid email address" ref="email" value={this.state.email} required />
+                  <MyInput type="email" help="Please enter valid email address." title="Email" name="email" validations="isEmail" validationError="This is not a valid email address" ref="email" value={this.props.edit?this.props.client.email:''} required />
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="number" help="Enter your contact number" title="Phone" name="phone" ref="phone" value={this.state.phone}/>
+                  <MyInput type="number" help="Enter your contact number" title="Phone" name="phone" ref="phone" value={this.props.edit?this.props.client.phone:''}/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="text" help="Enter your website" title="Website" name="website" ref="website" value={this.state.website}/>
+                  <MyInput type="text" help="Enter your website" title="Website" name="website" ref="website" value={this.props.edit?this.props.client.website:''}/>
                   <div className="bar"></div>
                 </div>
                 <label>Add Roles</label>
@@ -225,11 +202,11 @@ export default class AddClient extends Component {
               <div className="col-md-6">
 
                 <div className="input-container">
-                  <MyInput type="text" help="Enter your city name" title="City" name="city" ref="city" value={this.state.city}/>
+                  <MyInput type="text" help="Enter your city name" title="City" name="city" ref="city" value={this.props.edit?this.props.client.city:''}/>
                   <div className="bar"></div>
                 </div>
                 <div className="input-container">
-                  <MyInput type="text" help="Enter your state" title="State" name="state" ref="state" value={this.state.state}/>
+                  <MyInput type="text" help="Enter your state" title="State" name="state" ref="state" value={this.props.edit?this.props.client.state:''}/>
                   <div className="bar"></div>
                 </div>
 
@@ -244,17 +221,17 @@ export default class AddClient extends Component {
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="text" help="Enter the pincode" title="Pincode" name="pincode" ref="pincode" value={this.state.pincode}/>
+                  <MyInput type="text" help="Enter the pincode" title="Pincode" name="pincode" ref="pincode" value={this.props.edit?this.props.client.pincode:''}/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="text" help="Pick up your contact name" title="Contact Name" name="contactName" ref="contactName" value={this.state.contactName}/>
+                  <MyInput type="text" help="Pick up your contact name" title="Contact Name" name="contactName" ref="contactName" value={this.props.edit?this.props.client.contactName:''}/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="number" help="Enter your contact number" name="contactNo" title="Contact No" ref="contactNo" value={this.state.contactNo}/>
+                  <MyInput type="number" help="Enter your contact number" name="contactNo" title="Contact No" ref="contactNo" value={this.props.edit?this.props.client.contactNo:''}/>
                   <div className="bar"></div>
                 </div>
 

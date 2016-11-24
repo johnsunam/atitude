@@ -1,5 +1,3 @@
-  //add tasks to TaskDb
-
 import React ,{Component} from 'react'
 import {Random } from 'meteor/random'
 import crudClass from '../../common/crudClass.js'
@@ -25,7 +23,7 @@ export default class AddTask extends Component {
 
 
   componentDidMount(){
-
+  console.log(this.props);
     this.state.edit?this.setState({name:this.props.task.name,
     description:this.props.task.description}):this.setState({name:"",description:''})
 //    this.refs.description.value=this.state.edit?this.props.task.description:'';
@@ -33,6 +31,7 @@ export default class AddTask extends Component {
    }
 
   shouldComponentUpdate(nextProps, nextState){
+
     Tracker.autorun(function(){
       if(Session.equals('confirm',true)){
         Session.get('res')==true?Alert.success(message.saveClientSuccess, {
@@ -64,7 +63,7 @@ export default class AddTask extends Component {
     let name=e.name,
         description=e.description;
     let status=$('#checkbox:checked').val() ? "active":"inactive";
-    let record=this.props.edit?{id:this.props.task.id,data:{name:name,description:description,status:status}}:
+    let record=this.props.edit?{id:this.props.task._id,data:{name:name,description:description,status:status}}:
     {name:name,description:description,status:status}
     console.log(record);
     let res=this.state.edit?obj.create('editTask',record):obj.create('addTask',record);
@@ -73,8 +72,9 @@ export default class AddTask extends Component {
       }
 
   render(){
-    console.log(this.props);
-    let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
+
+
+        let submitButton=<button type="submit" disabled={!this.state.canSubmit} ><span>Save</span></button>
     return(  <div className="col-md-10 registration_form pad_t50">
 
       <div className="col-md-6 col-md-offset-3">
@@ -87,25 +87,30 @@ export default class AddTask extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" name="name" value={this.props.edit?this.state.name:''} title="Task Name" ref="name" required/>
+                  <MyInput type="text" help="Enter the name of the task" name="name" value={this.props.edit?this.props.task.name:''} title="Task Name" ref="name" required/>
                   <div className="bar"></div>
                 </div>
+
                 <div className="input-container">
-                  <MyInput title="Description" name="description" value={this.props.edit?this.state.description:''} ref="description" required/>
+                  <MyInput title="Description" help="Enter the description of task" name="description" value={this.props.edit?this.props.task.description:''} ref="description" required/>
                     <div className="bar"></div>
                 </div>
+
                 <div className="input-container gender">
                   <div>Active? &nbsp;
                     <input type="checkbox" id="checkbox" name="status" value=""/>
                   </div>
                 </div>
+
               </div>
             </div>
+
             <div className="button-container">
               {submitButton}
-             {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
+
             </Formsy.Form>
+
           </div>
         </div>
       </div>

@@ -3,8 +3,6 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 import ClientAdminLayout from '../layouts/clientAdminLayout.jsx';
 
 const composer = ( props, onData ) => {
-
-
       if(Meteor.userId()){
 
         if(Roles.userIsInRole(Meteor.userId(),'client' )){

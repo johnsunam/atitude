@@ -52,11 +52,11 @@ export default class AdminLogin extends Component {
           <h1 className="title">Login</h1>
           <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addPage" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="input-container">
-            <MyInput type="text" title="Email and username" name="username"   ref="username"/>
+            <MyInput type="text" title="Email and username" help="User Name" name="username"   ref="username"/>
               <div className="bar"></div>
             </div>
             <div className="input-container">
-              <MyInput type="password" id="password" title="Password" name="password"   ref="password"/>
+              <MyInput type="password" id="password" title="Password" help="Password" name="password"   ref="password"/>
               <div className="bar"></div>
             </div>
             <div className="button-container">

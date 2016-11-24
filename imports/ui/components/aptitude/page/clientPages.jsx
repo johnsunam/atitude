@@ -42,6 +42,10 @@ export default class ClientPages extends Component {
            position: 0
          }
        },
+       currentPage:1,
+       currentRows:[],
+       pages:[],
+       rowData:{},
        searchcolumns:[{property:'formName',header:{label:'Form Name',transforms:[sortable],
      format:sort.header({sortable,getSortingColumns})}},
      {property:'previewURL',header:{label:'Preview URL',transforms:[sortable],
@@ -69,10 +73,9 @@ export default class ClientPages extends Component {
       }
     },
     format:(value,{rowData})=>(<div>
-    <a href="#" className="btn btn-primary" data-toggle="modal" data-target={`#${rowData._id}`}>Edit</a>&nbsp;&nbsp;
-    <div className="modal fade" id={`${rowData._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <AddPage edit="true" page={rowData}/>
-  </div>
+      <a href="#" className="btn btn-primary" onClick={()=>{
+        this.setState({rowData:rowData})
+      }}  data-toggle="modal" data-target="#myModal">Edit</a>
       <a className="btn btn-danger" href="#" id={rowData._id} onClick={(e)=>{
     let obj=new crudClass()
     obj.delete('deletePage',e.target.id)
@@ -115,37 +118,79 @@ enableButton() {
 disableButton() {
   this.setState({ canSubmit: false });
 }
-  render(){
+onChangePage(page) {
+  this.setState({currentPage:page})
+  let pages=this.state.pages[page-1];
+  this.setState({currentRows:pages})
 
-    let pages=_.where(this.props.pages,{clientName:this.props.client})
-    let data=pages.map((page)=>{
-      return page
-    })
+}
+componentDidMount(){
+  let data=_.where(this.props.pages,{clientName:this.props.client})
+  let pages=[]
+  let len=data.length/5;
+  let range=Math.ceil(len)
+  let a =data;
+  for(i=1;i<=range;i++){
+    let b=a.splice(0,5);
+    pages.push(b)
+
+}
+
+  let page=pages[0];
+  console.log(page);
+  this.setState({pages:pages,currentRows:page})
+
+}
+
+
+componentWillReceiveProps(nextProps){
+  let data=_.where(nextProps.pages,{clientName:nextProps.client});
+  console.log(data);
+  let pages=[]
+  let len=data.length/5;
+  let range=Math.ceil(len)
+  let a =data;
+  for(i=1;i<=range;i++){
+    let b=a.splice(0,5);
+    pages.push(b)
+
+}
+  this.setState({currentRows:pages[this.state.currentPage-1]})
+}
+
+  render(){
+    console.log(this.state.currentRows);
+
+
     let {query,sortingColumns,columns,searchcolumns}=this.state;
 
-    const searchedRows = search.multipleColumns({ columns, query })(data);
+    const searchedRows = search.multipleColumns({ columns, query })(this.state.currentRows);
     const sortedRows=sort.sorter({
       columns,sortingColumns,sort:orderBy
     })(searchedRows);
 
-    return (<Table.Provider
-className="pure-table pure-table-striped"
-columns={columns}
->
-<Table.Header>
-<SearchColumns
-        query={query}
-        columns={searchcolumns}
-        onChange={query => this.setState({ query })}
-      />
-</Table.Header>
+    return (<div>
+    <Table.Provider
+    className="pure-table pure-table-striped"
+    columns={columns}
+    >
+    <Table.Header>
+    <SearchColumns
+            query={query}
+            columns={searchcolumns}
+            onChange={query => this.setState({ query })}
+          />
+    </Table.Header>
 
-<Table.Body rows={sortedRows} rowKey="id" />
+    <Table.Body rows={sortedRows} rowKey="id" />
 
 
 
-</Table.Provider>
-)
+    </Table.Provider>
+
+      <div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <AddPage edit="true" page={this.state.rowData}/>
+  </div></div>)
 
   }
 }

@@ -14,14 +14,35 @@ export default class AddForm extends Component {
      result:"",
      messages:null,
      formData:props.form?props.form.form:null,
-     formBuilder:null
+     formBuilder:null,
+     selects:[],
+     checkboxes:[],
+     textboxes:[],
+     rules:[]
    }
   }
 
   componentDidMount(){
+    let self=this;
+    $('#mainForm').click(function(e){
+    let element=_.where(self.state.rules,{checkbox:e.target.name});
+
+
+    _.map(element,function(obj){
+      let checkbox=document.getElementsByName(obj.checkbox);
+      let box=document.getElementsByName(obj.textbox);
+      if($(checkbox).prop('checked') == true){
+
+        $(box).parent().show()
+      }
+      else{
+          $(box).parent().hide()
+      }
+
+    })
+    })
   $('h4').hide();
   $('#save-alert').hide();
-  let self=this;
     var buildWrap = $(document.getElementById('fb-editors')),
 
     renderWrap = $(document.getElementById('fb-rendered-form')),
@@ -121,12 +142,11 @@ export default class AddForm extends Component {
          dataType: 'json',
          formData: formBuilder.formData
        });
-
          $('#save-alert').show()
         window.sessionStorage.setItem('formData', JSON.stringify(formBuilder.formData));
          let data=JSON.stringify(formBuilder.formData);
          console.log(self.props);
-        self.props.edit?self.setState({result:{id:self.props.form._id,data:{name:formName,description:description,form:data}}}):self.setState({result:{name:formName,description:description,form:data}})
+        self.props.edit?self.setState({result:{id:self.props.form._id,data:{name:formName,description:description,form:data,rules:self.state.rules}}}):self.setState({result:{name:formName,description:description,form:data,rules:self.state.rules}})
        $('#create-form').removeClass('in active');
        $('#create-form-tab').removeClass('in active');
        $('#previews').addClass('in active');
@@ -151,7 +171,8 @@ export default class AddForm extends Component {
   }
 
   render(){
-    console.log(this.props.form);
+
+    console.log(this.state.rules);
     return(<div className="col-md-10 no_pad">
       <ul className="steps_menu nav nav-tabs">
         <li className="in active" id="create-form"><a href="#create-form" id="#create-form" data-toggle="tab" onClick={this.openTab.bind(this)} >{this.props.edit?"Create Form":"Edit "}</a></li>
@@ -170,23 +191,77 @@ export default class AddForm extends Component {
       </div>
 
       </div>
-      <div><button className="btn btn-default" onClick={()=>{
-        let formBuilder=this.state.formBuilder,
-        formData=JSON.parse(formBuilder.formData);
-        _.map(formData,function(single){
 
-        })
-        let elements=[]
-        _.map(formData,function(single){
-          elements.push(single.name)
-        })
-        console.log(elements);
-      }}>Add Logic</button></div><br/>
       <div  id="fb-editors">
       </div>
       </div>
       <div className="tab-pane fade" id="previews-tab">
       <h2 className="col-md-offset-5">{this.state.formTitle}</h2>
+      <div>
+      <a href="#" onClick={()=>{
+        let checkboxes=[],
+        textboxes=[],
+        selects=[];
+        let checkbox=$("#mainForm input:checkbox");
+        let textbox=$("#mainForm input:text");
+        let select=$("#mainForm select");
+        let count=0,b=0,a=0
+        _.map(checkbox,function(single){
+          checkboxes.push(checkbox[count].name)
+          count++;
+        })
+        _.map(textbox,function(single){
+          textboxes.push(textbox[b].name)
+          b++;
+      })
+        _.map(select,function(single){
+          selects.push(select[a].name)
+          a++
+        })
+
+        this.setState({checkboxes:checkboxes,textboxes:textboxes,selects:selects})
+      }} data-toggle="modal" data-target="#myModal">Add Logic</a>
+      <div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div className="modal-dialog" role="document">
+      <div className="modal-content">
+        <div className="modal-header">
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 className="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div className="modal-body">
+          <select id="first" onChange={(e)=>{
+          }}><option>choose checkbox</option>
+          {this.state.checkboxes.map((single)=>{
+          return(<option>{single}</option>)
+          })}
+          </select>
+
+          <select id="textboxes" onChange={(e)=>{
+          }}><option>choose textbox</option>
+          {this.state.textboxes.map((single)=>{
+          return(<option>{single}</option>)
+          })}
+          </select>
+          <a href="#" className="btn btn-primary" onClick={()=>{
+            let checkbox=$("#first").val();
+            let textbox=$("#textboxes").val();
+          let  lefttext=_.without(this.state.textboxes,textbox);
+            this.setState({textboxes:lefttext})
+            let rules=this.state.rules;
+            rules.push({checkbox:checkbox,textbox:textbox})
+            let box= document.getElementsByName(textbox);
+            $(box).parent().hide();
+            this.setState({rules:rules})
+          }}>Add condition</a>
+        </div>
+        <div className="modal-footer">
+          <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" className="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      </div>
       <div className="col-md-12">
       <a href="#" className="btn btn-primary formsubmit" onClick={()=>{
         let obj= new crudClass()
@@ -196,6 +271,7 @@ export default class AddForm extends Component {
       }}>{this.props.edit?"Save Changes":"Save Form"}</a>
       <div  id="mainForm">
       </div>
+      <video className="hidden"></video>
       <div className="" id="save-alert">
       <span style={{"fontSize":20,"color":"green"}}>{this.state.message?"form sucessfully saved":""}</span>
       </div>

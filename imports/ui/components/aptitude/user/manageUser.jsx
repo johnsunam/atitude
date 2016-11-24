@@ -1,5 +1,6 @@
 //edit,delete and lists user
 import React ,{Component} from 'react'
+import Paginate from '../../common/paginator.jsx'
 import AddUser from './addUser.jsx'
 import crudClass from '../../common/crudClass.js'
 import orderBy from 'lodash/orderBy';
@@ -39,6 +40,10 @@ export default class ManageUser extends Component {
           position: 0
         }
       },
+      rowData:{},
+      currentPage:1,
+      currentRows:[],
+      pages:[],
       columns:[{property:'name',header:{label:'Name',transforms:[sortable],
     format:sort.header({sortable,getSortingColumns})}},
       {property:'mobile',header:{label:'Mobile',transforms:[sortable],
@@ -54,10 +59,10 @@ export default class ManageUser extends Component {
           }
         },
         format:(value,{rowData})=>(<div>
-          <a href="#" className="btn btn-primary"  data-toggle="modal" data-target={`#${rowData.id}`}>Edit</a>
-          <div className="modal fade" id={`${rowData.id}`} tabindex="-1" user="dialog" aria-labelledby="myModalLabel">
-          <AddUser edit="true" user={rowData}/>
-        </div>
+          <a href="#" className="btn btn-primary" onClick={()=>{
+            this.setState({rowData:rowData})
+          }}  data-toggle="modal" data-target="#myModal">Edit</a>
+
       </div> )
       }},
       {property:'delete',header:{label:'Delete'},cell:{
@@ -72,16 +77,50 @@ export default class ManageUser extends Component {
       ]
    }
     }
+    onChangePage(page) {
+      this.setState({currentPage:page})
+      let pages=this.state.pages[page-1];
+      this.setState({currentRows:pages})
+
+    }
+    componentDidMount(){
+      let pages=[]
+      let len=this.props.users.length/5;
+      let range=Math.ceil(len)
+      let a =this.props.users;
+      for(i=1;i<=range;i++){
+        let b=a.splice(0,5);
+        pages.push(b)
+
+    }
+
+      let page=pages[0];
+      console.log(pages);
+      this.setState({pages:pages,currentRows:page})
+
+    }
+
+
+    componentWillReceiveProps(nextProps){
+      let pages=[]
+      let len=nextProps.users.length/5;
+      let range=Math.ceil(len)
+      let a =nextProps.users;
+      for(i=1;i<=range;i++){
+        let b=a.splice(0,5);
+        pages.push(b)
+
+    }
+      this.setState({currentRows:pages[this.state.currentPage-1]})
+    }
 
   render(){
 
-    let data=this.props.users.map((user)=>{
-      return user
-    })
+
 
   let {query,sortingColumns,columns}=this.state;
 
-  const searchedRows = search.multipleColumns({ columns, query })(data);
+  const searchedRows = search.multipleColumns({ columns, query })(this.state.currentRows);
   const sortedRows=sort.sorter({
     columns,sortingColumns,sort:orderBy
   })(searchedRows);
@@ -105,7 +144,10 @@ export default class ManageUser extends Component {
 
 
 </Table.Provider>
-
+<Paginate max={5} onChange={this.onChangePage.bind(this)}/>
+<div className="modal fade" id='myModal' tabindex="-1" user="dialog" aria-labelledby="myModalLabel">
+<AddUser edit="true" user={this.state.rowData}/>
+</div>
       </div>
     </div>)
   }

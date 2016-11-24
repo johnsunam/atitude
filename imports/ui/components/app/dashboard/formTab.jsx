@@ -124,6 +124,7 @@ export default class ClientUserDashboard extends Component {
 
     this.setState({message:""})
   let self=this;
+  console.log(nextProps);
     let data=nextProps.form?nextProps.form.form:''
     let form=JSON.parse(nextProps.form.form)
     let id="#"+nextProps.page
