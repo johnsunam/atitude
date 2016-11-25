@@ -25,6 +25,7 @@ export default class ManageWorkFlow extends Component {
         });
       }
     });
+
     const resetable = sort.reset({
       event: 'onDoubleClick',
       getSortingColumns,
@@ -46,23 +47,24 @@ export default class ManageWorkFlow extends Component {
       pages:[],
       rowData:{},
       columns:[{property:'name',header:{label:'Name',transforms:[sortable],
-    format:sort.header({sortable,getSortingColumns})}},
-      {property:'description',header:{label:'Description',transforms:[sortable],
-    format:sort.header({sortable,getSortingColumns})}},
-      {property:'status',header:{label:'Access'}},
-      {property:'edit',header:{label:'Edit'},cell:{
-        props:{
-          style:{
-            width:100,
-            height:50
-          }
-        },
-        format:(value,{rowData})=>(<div>
-          <a href="#" className="btn btn-primary" onClick={()=>{
-            this.setState({rowData:rowData})
-          }}  data-toggle="modal" data-target="#myModal">Edit</a>
-
-      </div>)
+                  format:sort.header({sortable,getSortingColumns})}},
+               {property:'description',header:{label:'Description',transforms:[sortable],
+                 format:sort.header({sortable,getSortingColumns})}},
+               {property:'status',header:{label:'Access'}},
+               {property:'edit',header:{label:'Edit'},cell:{
+                                                       props:{
+                                                        style:{
+                                                          width:100,
+                                                          height:50
+                                                        }
+                                                      },
+        format:(value,{rowData})=>(
+          <div>
+           <a href="#" className="btn btn-primary" onClick={()=>{
+             this.setState({rowData:rowData})
+           }}  data-toggle="modal" data-target="#myModal">Edit</a>
+         </div>
+         )
       }},
       {property:'delete',header:{label:'Delete'},cell:{
         format:(value,{rowData})=>(
@@ -71,7 +73,12 @@ export default class ManageWorkFlow extends Component {
             obj.delete('deleteWorkFlow',rowData._id)
           }}>Delete</a>
         )
-      }}
+      }},
+      {property:'define',header:{label:'Define'},cell:{
+        format:(value,{rowData})=>(
+          <a href="/aptitude/define-workflow" className="btn btn-primary">Define</a>
+        )
+      }},
 
       ]
    }
@@ -126,28 +133,28 @@ export default class ManageWorkFlow extends Component {
       return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-10 col-md-offset-1">
         <h1 className="title">Manage WorkFlow</h1>
-        <Table.Provider
-  className="pure-table pure-table-striped"
-  columns={columns}
->
-  <Table.Header>
-  <SearchColumns
-            query={query}
-            columns={columns}
-            onChange={query => this.setState({ query })}
-          />
-  </Table.Header>
+        <Table.Provider className="pure-table pure-table-striped" columns={columns}>
 
-  <Table.Body rows={sortedRows} rowKey="id" />
+          <Table.Header>
+           <SearchColumns
+             query={query}
+             columns={columns}
+             onChange={query => this.setState({ query })}
+            />
+          </Table.Header>
 
+          <Table.Body rows={sortedRows} rowKey="id" />
 
+        </Table.Provider>
 
-</Table.Provider>
-<Paginate max={5} onChange={this.onChangePage.bind(this)}/>
-<div className="modal fade" id='myModal' tabindex="-1" task="dialog" aria-labelledby="myModalLabel">
-<AddWorkFlow edit="true" workflow={this.state.rowData}/>
-</div>
-      </div>
-    </div>)
+      <Paginate max={5} onChange={this.onChangePage.bind(this)}/>
+
+     <div className="modal fade" id='myModal' tabindex="-1" task="dialog" aria-labelledby="myModalLabel">
+      <AddWorkFlow edit="true" workflow={this.state.rowData}/>
+     </div>
+
+    </div>
+    </div>
+  )
   }
 }

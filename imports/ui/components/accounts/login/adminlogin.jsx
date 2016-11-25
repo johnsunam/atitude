@@ -36,12 +36,12 @@ export default class AdminLogin extends Component {
            });
       }
       else{
-        FlowRouter.go('/page/permission');
-        // Roles.userIsInRole(Meteor.userId(), 'aptitude-admin') ? FlowRouter.go('/aptitude/add-form'):  Alert.warning("Not allowed to login",{
-        //          position: 'top-right',
-        //          effect: 'bouncyflip',
-        //          timeout: 1000
-        //      });
+      //  FlowRouter.go('/page/permission');
+         Roles.userIsInRole(Meteor.userId(), 'aptitude-admin') ? FlowRouter.go('/aptitude/add-form'):  Alert.warning("Not allowed to login",{
+                  position: 'top-right',
+                  effect: 'bouncyflip',
+                  timeout: 1000
+              });
 
       }
 
