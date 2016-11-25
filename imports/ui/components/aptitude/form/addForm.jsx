@@ -13,15 +13,56 @@ export default class AddForm extends Component {
      formTitle:"",
      result:"",
      messages:null,
-     formData:props.form?props.form.form:null
+     formData:props.form?props.form.form:null,
+     formBuilder:null,
+     selects:[],
+     checkboxes:[],
+     textboxes:[],
+     rules:[],
+     currentSelects:[],
+     currentoptions:[]
    }
   }
 
   componentDidMount(){
+    let self=this;
+    $('#mainForm').click(function(e){
+    let element=_.where(self.state.rules,{checkbox:e.target.name});
+    let select=_.where(self.state.rules,{select:e.target.name});
+      if(select.length>0){
+          let opt=$(`#${e.target.name}`).val()
+          let rules=_.where(select,{select:e.target.name,option:opt})
+          _.map(rules,function(obj){
+            let box=document.getElementsByName(obj.textbox);
+              $(box).parent().removeClass('hidden');
+          })
+          _.map(select,function(obj){
+            console.log(obj.option,opt);
+            if(obj.option!=opt){
+              let box=document.getElementsByName(obj.textbox);
+                $(box).parent().addClass('hidden');
+            }
+          })
+
+
+      }
+    _.map(element,function(obj){
+      let checkbox=document.getElementsByName(obj.checkbox);
+      let box=document.getElementsByName(obj.textbox);
+      if($(checkbox).prop('checked') == true){
+
+        $(box).parent().removeClass('hidden')
+      }
+      else{
+          $(box).parent().addClass('hidden')
+      }
+
+    })
+    })
   $('h4').hide();
   $('#save-alert').hide();
-  let self=this;
     var buildWrap = $(document.getElementById('fb-editors')),
+
     renderWrap = $(document.getElementById('fb-rendered-form')),
     fbOptions = {
      dataType: 'json',
@@ -70,6 +111,7 @@ export default class AddForm extends Component {
                 }
                ]
       },
+
     ],
     typeUserEvents:{
        text:{
@@ -203,6 +245,7 @@ export default class AddForm extends Component {
    formData:JSON.parse(this.state.formData)
    },
      formBuilder = $(buildWrap).formBuilder(fbOptions).data('formBuilder');
+     this.setState({formBuilder:formBuilder})
      this.refs.formName.value=this.props.edit?this.props.form.name:""
     $('.form-builder-save').click(function(e) {
       let obj=new crudClass();
@@ -217,11 +260,35 @@ export default class AddForm extends Component {
          formData: formBuilder.formData
        });
 
+       // getting form data for implementing Logic
+       let checkboxes=[],
+       textboxes=[],
+       selects=[];
+       let checkbox=$("#mainForm input:checkbox");
+       let textbox=$("#mainForm input:text");
+       let select=$("#mainForm select");
+       let count=0,b=0,a=0
+       _.map(checkbox,function(single){
+
+         checkboxes.push(checkbox[count].name)
+         count++;
+       })
+       _.map(textbox,function(single){
+         textboxes.push(textbox[b].name)
+         b++;
+     })
+       _.map(select,function(single){
+         selects.push(select[a].name)
+         a++
+       })
+
+      self.setState({checkboxes:checkboxes,textboxes:textboxes,selects:selects})
+
          $('#save-alert').show()
         window.sessionStorage.setItem('formData', JSON.stringify(formBuilder.formData));
          let data=JSON.stringify(formBuilder.formData);
          console.log(self.props);
-        self.props.edit?self.setState({result:{id:self.props.form._id,data:{name:formName,description:description,form:data}}}):self.setState({result:{name:formName,description:description,form:data}})
+        self.props.edit?self.setState({result:{id:self.props.form._id,data:{name:formName,description:description,form:data,rules:self.state.rules}}}):self.setState({result:{name:formName,description:description,form:data,rules:self.state.rules}})
        $('#create-form').removeClass('in active');
        $('#create-form-tab').removeClass('in active');
        $('#previews').addClass('in active');
@@ -234,6 +301,7 @@ export default class AddForm extends Component {
 
   });
 }
+
   openTab(e){
     let self=this;
       $(e.target.id).addClass('in active');
@@ -246,7 +314,8 @@ export default class AddForm extends Component {
   }
 
   render(){
-    console.log(this.props.form);
+
+    console.log(this.state.rules);
     return(<div className="col-md-10 no_pad">
       <ul className="steps_menu nav nav-tabs">
         <li className="in active" id="create-form"><a href="#create-form" id="#create-form" data-toggle="tab" onClick={this.openTab.bind(this)} >{this.props.edit?"Create Form":"Edit "}</a></li>
@@ -265,12 +334,103 @@ export default class AddForm extends Component {
       </div>
 
       </div>
+
       <div  id="fb-editors">
       </div>
-      <video></video>
       </div>
       <div className="tab-pane fade" id="previews-tab">
       <h2 className="col-md-offset-5">{this.state.formTitle}</h2>
+      <div>
+      <a href="#" onClick={()=>{}} data-toggle="modal" data-target="#myModal">Add Logic</a>
+      <div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div className="modal-dialog" role="document">
+      <div className="modal-content">
+        <div className="modal-header">
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 className="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div className="modal-body">
+        <div>
+          <select id="checkbox" onChange={(e)=>{
+          }}><option>choose checkbox</option>
+          {this.state.checkboxes.map((single)=>{
+          let label=  $("label[for='"+single+"']").text();
+          return(<option value={single}>{label}</option>)
+          })}
+          </select>
+
+          <select id="first-textboxes" onChange={(e)=>{
+          }}><option>choose textbox</option>
+          {this.state.textboxes.map((single)=>{
+          let label=  $("label[for='"+single+"']").text();
+          return(<option value={single}>{label}</option>)
+          })}
+          </select>
+          <a href="#" className="btn btn-primary" onClick={()=>{
+            let checkbox=$("#checkbox").val();
+            let textbox=$("#first-textboxes").val();
+          let  lefttext=_.without(this.state.textboxes,textbox);
+            this.setState({textboxes:lefttext})
+            let rules=this.state.rules;
+            rules.push({checkbox:checkbox,textbox:textbox})
+            let box= document.getElementsByName(textbox);
+            $(box).parent().addClass('hidden');
+            this.setState({rules:rules})
+          }}>Add rule</a>
+          </div>
+          <div>
+               <select id="selectbox" onChange={(e)=>{
+                 let options=$(document.getElementsByName(e.target.value)).children();
+
+              let currentoptions= _.map(options,function(single){
+                return single.value
+                 })
+                 this.setState({currentoptions:currentoptions,currentSelects:e.target.value})
+               }}>
+                <option>Choose select box</option>
+               {this.state.selects.map((single)=>{
+                 let label=  $("label[for='"+single+"']").text();
+                 return(<option value={single}>{label}</option>)
+               })}
+               </select>
+               <select id="option">
+               <option>choose options</option>
+               {this.state.currentoptions.map((single)=>{
+                 let select=document.getElementsByName(this.state.currentSelects);
+                let option=$(`#${this.state.currentSelects} option[value=${single}]`)
+                      console.log(option);
+                return (<option value={option.val()}>{option.text()}</option>)
+               })}
+               </select>
+               <select id="second-textboxes" onChange={(e)=>{
+               }}><option>choose textbox</option>
+               {this.state.textboxes.map((single)=>{
+               let label=  $("label[for='"+single+"']").text();
+               return(<option value={single}>{label}</option>)
+               })}
+               </select>
+               <a href="#" onClick={()=>{
+                 let option= $('#option').val();
+                 console.log(option);
+                 let textbox=$('#second-textboxes').val();
+                 let  lefttext=_.without(this.state.textboxes,textbox);
+                   this.setState({textboxes:lefttext})
+                   let rules=this.state.rules;
+                   rules.push({select:this.state.currentSelects,option:option,textbox:textbox})
+                   let box= document.getElementsByName(textbox);
+                   $(box).parent().addClass('hidden');
+                   this.setState({rules:rules})
+               }}>add logic</a>
+          </div>
+        </div>
+        <div className="modal-footer">
+          <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" className="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      </div>
       <div className="col-md-12">
       <a href="#" className="btn btn-primary formsubmit" onClick={()=>{
         let obj= new crudClass()
@@ -280,6 +440,7 @@ export default class AddForm extends Component {
       }}>{this.props.edit?"Save Changes":"Save Form"}</a>
       <div  id="mainForm">
       </div>
+      <video className="hidden"></video>
       <div className="" id="save-alert">
       <span style={{"fontSize":20,"color":"green"}}>{this.state.message?"form sucessfully saved":""}</span>
       </div>

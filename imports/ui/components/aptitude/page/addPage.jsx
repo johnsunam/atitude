@@ -109,7 +109,7 @@ export default class AddPage extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" help="Enter your page name" title="Page Name" name="name" value={this.props.edit?page.name:''}  ref="name"/>
+                  <MyInput type="text" help="Enter your page name" title="Page Name" name="name" value={this.props.edit?page.name:''}  ref="name" required/>
                   <div className="bar"></div>
                 </div>
 
@@ -133,17 +133,17 @@ export default class AddPage extends Component {
                 </div>
 
 				        <div className="input-container">
-                  <MyInput type="text" help="Enter the preview url" title="Preview URL" name="previewURL" value={this.props.edit?page.previewURL:''} ref="previewURL"/>
+                  <MyInput type="text" help="Enter the preview url" title="Preview URL" name="previewURL" value={this.props.edit?page.previewURL:''} ref="previewURL" required/>
                   <div className="bar"></div>
                 </div>
 
 				        <div className="input-container">
-                  <MyInput type="text" help="Enter your publish url" title="Publish URL" ref="publishURL" value={this.props.edit?page.publishURL:''} name="publishURL"/>
+                  <MyInput type="text" help="Enter your publish url" title="Publish URL" ref="publishURL" value={this.props.edit?page.publishURL:''} name="publishURL" required/>
                   <div className="bar"></div>
                 </div>
 
                  <div className="input-container">
-                  <MyInput type="text" help="Enter the meta keywords" title="Meta Keywords" ref="metakeys" name="metakeys" value={this.props.edit?page.metakeys:''}/>
+                  <MyInput type="text" help="Enter the meta keywords" title="Meta Keywords" ref="metakeys" name="metakeys" value={this.props.edit?page.metakeys:''} required/>
                   <div className="bar"></div>
                 </div>
 
@@ -162,7 +162,7 @@ export default class AddPage extends Component {
             </div>
 
             </Formsy.Form>
-            
+
           </div>
         </div>
       </div>

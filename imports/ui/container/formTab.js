@@ -3,11 +3,10 @@ import {FormDb} from '../../api/form/collection/form.collection.js'
 import FormTab from '../components/app/dashboard/formTab.jsx'
 const composer = ( props, onData ) => {
     var subcription=Meteor.subscribe('getForm');
-    console.log(props);
+    console.log(props.form);
     if(subcription.ready()){
         var form=FormDb.findOne({name:props.form});
-        console.log(form);
-        onData( null, {form} )
+        onData( null,{form} )
       }
 
   };

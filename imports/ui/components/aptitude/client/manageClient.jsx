@@ -1,5 +1,6 @@
 //edit,delete and lists client
 import React ,{Component} from 'react'
+import Paginate from '../../common/paginator.jsx'
 import AddClient from '../../../container/editAddedClient.js'
 import crudClass from '../../common/crudClass.js'
 import orderBy from 'lodash/orderBy';
@@ -39,6 +40,10 @@ export default class ManageClient extends Component {
           position: 0
         }
       },
+      currentPage:1,
+      currentRows:[],
+      pages:[],
+      rowData:{},
       columns:[{property:'companyName',header:{label:'Name',transforms:[sortable],
     format:sort.header({sortable,getSortingColumns})}},
       {property:'email',header:{label:'Email',transforms:[sortable],
@@ -57,16 +62,17 @@ export default class ManageClient extends Component {
           }
         },
         format:(value,{rowData})=>(<div>
-          <a href="#" className="btn btn-primary"  data-toggle="modal" data-target={`#${rowData.id}`}>Edit</a>
-          <div className="modal fade" id={`${rowData.id}`} tabindex="-1" client="dialog" aria-labelledby="myModalLabel">
-          <AddClient edit="true" client={rowData}/>
-        </div>
+          <a href="#" className="btn btn-primary" onClick={()=>{
+            console.log(rowData);
+            this.setState({rowData:rowData})
+          }}  data-toggle="modal" data-target="#myModal">Edit</a>
       </div> )
       }},
       {property:'delete',header:{label:'Delete'},cell:{
         format:(value,{rowData})=>(
           <a href="#" className="btn btn-danger" onClick={()=>{
             let obj=new crudClass()
+            console.log(rowData);
             obj.delete('deleteClient',rowData.id)
           }}>Delete</a>
         )
@@ -75,20 +81,52 @@ export default class ManageClient extends Component {
       ]
    }
     }
+    onChangePage(page) {
+      this.setState({currentPage:page})
+      let pages=this.state.pages[page-1];
+      this.setState({currentRows:pages})
+
+    }
+    componentDidMount(){
+      let pages=[]
+      let len=this.props.clients.length/5;
+      let range=Math.ceil(len)
+      let a =this.props.clients;
+      for(i=1;i<=range;i++){
+        let b=a.splice(0,5);
+        pages.push(b)
+
+    }
+
+      let page=pages[0];
+      console.log(pages);
+      this.setState({pages:pages,currentRows:page})
+
+    }
+
+
+    componentWillReceiveProps(nextProps){
+      let pages=[]
+      let len=nextProps.clients.length/5;
+      let range=Math.ceil(len)
+      let a =nextProps.clients;
+      for(i=1;i<=range;i++){
+        let b=a.splice(0,5);
+        pages.push(b)
+
+    }
+      this.setState({currentRows:pages[this.state.currentPage-1]})
+    }
 
   render(){
+console.log(this.props);
+  let {query,sortingColumns,columns,currentPage}=this.state;
 
-    let data=this.props.clients.map((client)=>{
-      console.log(client);
-      return {id:client._id,companyName:client.companyName,mobile:client.contact,website:client.website,phone:client.phone,code:client.code,email:client.email, status:client.status,delete:'delete',edit:'edit'}
-    })
-
-  let {query,sortingColumns,columns}=this.state;
-
-  const searchedRows = search.multipleColumns({ columns, query })(data);
+  const searchedRows = search.multipleColumns({ columns, query })(this.state.currentRows);
   const sortedRows=sort.sorter({
     columns,sortingColumns,sort:orderBy
   })(searchedRows);
+
       return(<div className="col-md-10 registration_form pad_t50">
       <div className="col-md-10 col-md-offset-1">
         <h1 className="title">Manage Client</h1>
@@ -109,6 +147,13 @@ export default class ManageClient extends Component {
 
 
 </Table.Provider>
+<Paginate max={5} onChange={this.onChangePage.bind(this)}/>
+<div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div className="modal-header">
+<button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<AddClient edit="true" client={this.state.rowData}/>
+</div>
 
       </div>
     </div>)

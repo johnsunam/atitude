@@ -35,5 +35,6 @@
 	"deleteDepartmentFailure": "Department delete failure. Please try after sometime.",
 	"invalidCredentials": "Invalid Credentials.",
 	"serverError": "Server error. Please contact admin.",
-	"codeError":"You don't have permission to access"
+	"codeError":"You don't have permission to access",
+	"companyName":"Enter the client name"
 	}

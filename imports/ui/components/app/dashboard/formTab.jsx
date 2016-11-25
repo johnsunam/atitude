@@ -11,11 +11,12 @@ export default class ClientUserDashboard extends Component {
       keys:[],
       id:props.page,
       message:"",
-      image:null
+      image:null,
+     rules:this.props.form?this.props.form.rules:[]
     }
   }
   componentDidMount(){
-
+    console.log(this.props);
     let self=this;
     let data=this.props.form?this.props.form.form:null
     let form=JSON.parse(data)
@@ -25,6 +26,48 @@ export default class ClientUserDashboard extends Component {
       dataType: 'json',
       formData: form
     })
+    this.props.form.rules.map((rule)=>{
+
+      $(`#${rule.textbox}`).parent().addClass('hidden');
+    })
+    $('#showform').click(function(e){
+      console.log(self.state.rules);
+
+    let element=_.where(self.state.rules,{checkbox:e.target.name});
+
+    let select=_.where(self.state.rules,{select:e.target.name});
+
+      if(select.length>0){
+          let opt=$(`#${e.target.name}`).val()
+          let rules=_.where(select,{select:e.target.name,option:opt})
+          _.map(rules,function(obj){
+            let box=document.getElementsByName(obj.textbox);
+              $(box).parent().removeClass('hidden');
+          })
+          _.map(select,function(obj){
+            console.log(obj.option,opt);
+            if(obj.option!=opt){
+              let box=document.getElementsByName(obj.textbox);
+                $(box).parent().addClass('hidden');
+            }
+          })
+
+
+      }
+    _.map(element,function(obj){
+      let checkbox=document.getElementsByName(obj.checkbox);
+      let box=document.getElementsByName(obj.textbox);
+      if($(checkbox).prop('checked') == true){
+
+        $(box).parent().removeClass('hidden')
+      }
+      else{
+          $(box).parent().addClass('hidden')
+      }
+
+    })
+    })
+
     $('.take-picture').click(function(){
       console.log('first');
       navigator.getUserMedia = navigator.getUserMedia ||
@@ -78,7 +121,7 @@ export default class ClientUserDashboard extends Component {
 
     $("#showform").submit(function(e){
       e.preventDefault()
-      console.log('gogl');
+    //  console.log('gogl');
       let arr=$("#showform").serializeArray()
     jQuery.each(arr, function(){
     	jQuery.each(this, function(i, val){
@@ -93,7 +136,8 @@ export default class ClientUserDashboard extends Component {
     console.log(json);
    let data=JSON.parse(json);
    console.log(data);
-   data.image=self.state.image
+   
+  self.state.image?data.image=self.state.image:''
    Meteor.call('addFormData',{page:self.props.page,data:data,user:Meteor.userId()},function(err){
      if(!err){
        json=''
@@ -124,6 +168,7 @@ export default class ClientUserDashboard extends Component {
 
     this.setState({message:""})
   let self=this;
+  console.log(nextProps);
     let data=nextProps.form?nextProps.form.form:''
     let form=JSON.parse(nextProps.form.form)
     let id="#"+nextProps.page

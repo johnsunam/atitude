@@ -1,4 +1,6 @@
 //edit,delete and lists task
+import Paginate from '../../common/paginator.jsx'
+import request from 'request-promise'
 import React ,{Component} from 'react'
 import AddTask from './addTask.jsx'
 import crudClass from '../../common/crudClass.js'
@@ -31,7 +33,7 @@ export default class ManageTask extends Component {
     });
 
    this.state={
-
+     tasks:this.props.tasks,
      query:{},
      sortingColumns: {
         0: {
@@ -39,6 +41,10 @@ export default class ManageTask extends Component {
           position: 0
         }
       },
+      currentPage:1,
+      currentRows:[],
+      pages:[],
+      rowData:{},
       columns:[{property:'name',header:{label:'Name',transforms:[sortable],
     format:sort.header({sortable,getSortingColumns})}},
       {property:'description',header:{label:'Description',transforms:[sortable],
@@ -52,17 +58,18 @@ export default class ManageTask extends Component {
           }
         },
         format:(value,{rowData})=>(<div>
-          <a href="#" className="btn btn-primary"  data-toggle="modal" data-target={`#${rowData.id}`}>Edit</a>
-          <div className="modal fade" id={`${rowData.id}`} tabindex="-1" task="dialog" aria-labelledby="myModalLabel">
-          <AddTask edit="true" task={rowData}/>
-        </div>
+          <a href="#" className="btn btn-primary" onClick={()=>{
+            this.setState({rowData:rowData})
+          }}  data-toggle="modal" data-target="#myModal">Edit</a>
+
       </div> )
       }},
       {property:'delete',header:{label:'Delete'},cell:{
         format:(value,{rowData})=>(
           <a href="#" className="btn btn-danger" onClick={()=>{
+
             let obj=new crudClass()
-            obj.delete('deleteTask',rowData.id)
+            obj.delete('deleteTask',rowData._id)
           }}>Delete</a>
         )
       }}
@@ -71,15 +78,48 @@ export default class ManageTask extends Component {
    }
     }
 
-  render(){
+    onChangePage(page) {
+      this.setState({currentPage:page})
+      let pages=this.state.pages[page-1];
+      this.setState({currentRows:pages})
 
-    let data=this.props.tasks.map((task)=>{
-      return {id:task._id,name:task.name,description:task.description,status:task.status,delete:'delete',edit:'edit'}
-    })
+    }
+    componentDidMount(){
+      let pages=[]
+      let len=this.props.tasks.length/5;
+      let range=Math.ceil(len)
+      let a =this.props.tasks;
+      for(i=1;i<=range;i++){
+        let b=a.splice(0,5);
+        pages.push(b)
 
-  let {query,sortingColumns,columns}=this.state;
+    }
 
-  const searchedRows = search.multipleColumns({ columns, query })(data);
+      let page=pages[0];
+      console.log(pages);
+      this.setState({pages:pages,currentRows:page})
+
+    }
+
+
+    componentWillReceiveProps(nextProps){
+      let pages=[]
+      let len=nextProps.tasks.length/5;
+      let range=Math.ceil(len)
+      let a =nextProps.tasks;
+      for(i=1;i<=range;i++){
+        let b=a.splice(0,5);
+        pages.push(b)
+
+    }
+      this.setState({currentRows:pages[this.state.currentPage-1]})
+    }
+    render(){
+
+    console.log(this.props.tasks);
+  let {query,sortingColumns,columns,currentRows}=this.state;
+  console.log(currentRows);
+  const searchedRows = search.multipleColumns({ columns, query })(currentRows);
   const sortedRows=sort.sorter({
     columns,sortingColumns,sort:orderBy
   })(searchedRows);
@@ -103,7 +143,10 @@ export default class ManageTask extends Component {
 
 
 </Table.Provider>
-
+<Paginate max={5} onChange={this.onChangePage.bind(this)}/>
+<div className="modal fade" id='myModal' tabindex="-1" task="dialog" aria-labelledby="myModalLabel">
+<AddTask edit="true" task={this.state.rowData}/>
+</div>
       </div>
     </div>)
   }

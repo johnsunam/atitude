@@ -85,18 +85,18 @@ export default class AddRole extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="input-container">
-                  <MyInput type="text" help="Enter the role name" name="name" value={this.props.edit?roles.name:""} title="Role Name" ref="name" />
+                  <MyInput type="text" help="Enter the role name" name="name" value={this.props.edit?roles.name:""} title="Role Name" ref="name" required/>
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container">
-                  <MyInput type="textarea" help="Enter the description of the role" title="Description" value={this.props.edit?roles.description:''} placeholder="Role Description" name="description" ref="description" />
+                  <MyInput type="textarea" required help="Enter the description of the role" title="Description" value={this.props.edit?roles.description:''} placeholder="Role Description" name="description" ref="description" />
                   <div className="bar"></div>
                 </div>
 
                 <div className="input-container gender">
                   <div>Page Access &nbsp;
-                    <input type="checkbox" id="checkbox" value="active" ref="status" value={this.props.edit?roles.status:""} />
+                    <input type="checkbox"  id="checkbox" value="active" ref="status" value={this.props.edit?roles.status:""} />
                   </div>
                 </div>
 
@@ -107,7 +107,7 @@ export default class AddRole extends Component {
              {submitButton}
              {this.state.edit?<button data-dismiss="modal">cancel</button>:''}
             </div>
-            
+
             </Formsy.Form>
 
           </div>
@@ -118,4 +118,4 @@ export default class AddRole extends Component {
 
     </div>)
   }
-}
+  }

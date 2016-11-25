@@ -12,6 +12,7 @@ const composer = ( props, onData ) => {
       var clients=ClientDb.find().fetch();
       clients=clients?clients:[]
         var workflows=WorkflowDb.find().fetch();
+
         let data={roles:roles,clients:clients,workflows:workflows}
         onData( null, {data } )
       }

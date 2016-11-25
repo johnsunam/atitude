@@ -78,11 +78,11 @@ export default class AddRole extends Component {
 			<Formsy.Form onValidSubmit={this.submit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
               <div className="form-group">
               <label>Name</label>
-                <MyInput type="text" className="form-control"  name="name" id="name" placeholder="Name" ref="name"/>
+                <MyInput type="text" className="form-control" help="Enter Role Name"  name="name" id="name" placeholder="Name" ref="name"/>
               </div>
               <div className="form-group">
 
-                <MyInput type="text" className="form-control" id="description" title="Description" ref="description"/>
+                <MyInput type="text" className="form-control" help="Enter description" id="description" title="Description" ref="description"/>
               </div>
 
            <div className="box-footer">

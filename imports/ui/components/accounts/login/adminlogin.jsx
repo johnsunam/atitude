@@ -5,10 +5,16 @@ import commonImports from '../../common/commonImports.jsx'
 
 export default class AdminLogin extends Component {
   constructor(props) {
+<<<<<<< HEAD
     super(props)
     this.state={
       showMessage:false,
       canSubmit:false
+=======
+    super(props)
+    this.state={
+      showMessage:false
+>>>>>>> 729c222c8edb8a01ebfc632d3dc77345643ddca1
     }
 
   }
@@ -61,12 +67,20 @@ export default class AdminLogin extends Component {
           {/*Use of the formsy package for user input creation by calling the MyInput component passing the props */}
           <Formsy.Form ref="form" onValidSubmit={this.submit.bind(this)} id="addPage" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <div className="input-container">
+<<<<<<< HEAD
               <MyInput type="text" help="Please enter the valid email or username" title="Email or username" name="username"   ref="username"/>
+=======
+            <MyInput type="text" title="Email and username" help="User Name" name="username"   ref="username"/>
+>>>>>>> 729c222c8edb8a01ebfc632d3dc77345643ddca1
               <div className="bar"></div>
             </div>
 
             <div className="input-container">
+<<<<<<< HEAD
               <MyInput type="password" help="Enter the password" id="password" title="Password" name="password"   ref="password"/>
+=======
+              <MyInput type="password" id="password" title="Password" help="Password" name="password"   ref="password"/>
+>>>>>>> 729c222c8edb8a01ebfc632d3dc77345643ddca1
               <div className="bar"></div>
             </div>
 

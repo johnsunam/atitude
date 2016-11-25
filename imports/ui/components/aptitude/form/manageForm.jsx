@@ -14,6 +14,12 @@ export default class ManageForm extends Component {
     let renderWrap = $(document.getElementById('fb-rendered-form'))
 
   }
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
   render(){
     return(<div className="col-md-10 no_pad">
     <div className="creat_form min_h500">
@@ -26,7 +32,7 @@ export default class ManageForm extends Component {
         <a href="#" data-toggle="modal"
         onClick={()=>{
           let data=JSON.parse(form.form)
-
+          console.log(data);
           $(showform).formRender({
             dataType: 'json',
             formData:data
@@ -49,7 +55,29 @@ export default class ManageForm extends Component {
             </div>
           </div>
         </div>
-        <a href={path}><img src="../images/edit.png"/></a><a id={form._id} href="#" onClick={(e)=>{
+        <a href="#" className="fa fa-clone" data-toggle="modal" data-target={`#clone${form._id}`}  onClick={(e)=>{
+
+
+        }}></a>
+        <div className="modal fade" id={`clone${form._id}`} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div className="col-md-10 registration_form pad_t50">
+        <div className="col-md-6 col-md-offset-3">
+          <div className="card"></div>
+          <div className="card">
+            <h1 className="title">Form Title</h1>
+            <div className="form_pad">
+            <Formsy.Form ref="form" onValidSubmit={(e)=>{
+            var obj=new crudClass();
+            obj.create('addForm',{name:e.formtitle,description:form.description,form:form.form})
+
+            }} id="addPage" onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>0
+          <MyInput className="form-control" type="text" name="formtitle" ref="formtitle"/>
+            <button className="btn btn-success" type="submit">save</button>
+            </Formsy.Form>
+            </div></div></div></div>
+      </div>
+        <a href={path}><img src="../images/edit.png"/></a>
+        <a id={form._id} href="#" onClick={(e)=>{
           let forms=this.state.forms;
           let newForms=_.reject(forms,function(form){
             console.log(form._id,e.target.id);

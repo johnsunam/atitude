@@ -8,6 +8,7 @@ Meteor.methods({
     TaskDb.remove({_id:id});
   },
   'editTask':function(record){
+    console.log(record);
     return TaskDb.update({_id:record.id},{$set:record.data})
   }
 

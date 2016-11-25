@@ -7,20 +7,26 @@ import { GetContactEmail } from '../email-template';
 
 Meteor.methods({
   'addClient':function(record){
-    ClientDb.insert(record);
-    var userId=Accounts.createUser({email:record.email,password:"aptitude123"});
 
-    if(record.code){
-    console.log(record.code);
-    Email.send({to:"sunamjohn@gmail.com",
-                from:"giribsaal@gmail.com",
-                subject:"Regarding Password Code",
-                html:GetContactEmail(record.code)
-               });
-    console.log("Sent");
-     }
-     
-    Roles.addUsersToRoles( userId,'client' );
+    var userId=Accounts.createUser({email:record.email,password:"aptitude123"});
+      if(userId){
+        ClientDb.insert(record);
+          Roles.addUsersToRoles( userId,'client' );
+          if(record.code){
+
+  /*        Email.send({to:record.email,
+                      from:"giribsaal@gmail.com",
+                      subject:"Regarding Password Code",
+                      html:GetContactEmail(record.code)
+                     });
+          console.log("Sent");*/
+           }
+      }
+
+
+
+
+
     return userId;
 
   },
