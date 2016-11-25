@@ -18,7 +18,9 @@ export default class AddForm extends Component {
      selects:[],
      checkboxes:[],
      textboxes:[],
-     rules:[]
+     rules:[],
+     currentSelects:[],
+     currentoptions:[]
    }
   }
 
@@ -26,17 +28,33 @@ export default class AddForm extends Component {
     let self=this;
     $('#mainForm').click(function(e){
     let element=_.where(self.state.rules,{checkbox:e.target.name});
+    let select=_.where(self.state.rules,{select:e.target.name});
+      if(select.length>0){
+          let opt=$(`#${e.target.name}`).val()
+          let rules=_.where(select,{select:e.target.name,option:opt})
+          _.map(rules,function(obj){
+            let box=document.getElementsByName(obj.textbox);
+              $(box).parent().removeClass('hidden');
+          })
+          _.map(select,function(obj){
+            console.log(obj.option,opt);
+            if(obj.option!=opt){
+              let box=document.getElementsByName(obj.textbox);
+                $(box).parent().addClass('hidden');
+            }
+          })
 
 
+      }
     _.map(element,function(obj){
       let checkbox=document.getElementsByName(obj.checkbox);
       let box=document.getElementsByName(obj.textbox);
       if($(checkbox).prop('checked') == true){
 
-        $(box).parent().show()
+        $(box).parent().removeClass('hidden')
       }
       else{
-          $(box).parent().hide()
+          $(box).parent().addClass('hidden')
       }
 
     })
@@ -251,18 +269,60 @@ export default class AddForm extends Component {
           </select>
           <a href="#" className="btn btn-primary" onClick={()=>{
             let checkbox=$("#checkbox").val();
-            let textbox=$("#textboxes").val();
+            let textbox=$("#first-textboxes").val();
           let  lefttext=_.without(this.state.textboxes,textbox);
             this.setState({textboxes:lefttext})
             let rules=this.state.rules;
             rules.push({checkbox:checkbox,textbox:textbox})
             let box= document.getElementsByName(textbox);
-            $(box).parent().hide();
+            $(box).parent().addClass('hidden');
             this.setState({rules:rules})
           }}>Add rule</a>
           </div>
+          <div>
+               <select id="selectbox" onChange={(e)=>{
+                 let options=$(document.getElementsByName(e.target.value)).children();
 
-          <select></select>
+              let currentoptions= _.map(options,function(single){
+                return single.value
+                 })
+                 this.setState({currentoptions:currentoptions,currentSelects:e.target.value})
+               }}>
+                <option>Choose select box</option>
+               {this.state.selects.map((single)=>{
+                 let label=  $("label[for='"+single+"']").text();
+                 return(<option value={single}>{label}</option>)
+               })}
+               </select>
+               <select id="option">
+               <option>choose options</option>
+               {this.state.currentoptions.map((single)=>{
+                 let select=document.getElementsByName(this.state.currentSelects);
+                let option=$(`#${this.state.currentSelects} option[value=${single}]`)
+                      console.log(option);
+                return (<option value={option.val()}>{option.text()}</option>)
+               })}
+               </select>
+               <select id="second-textboxes" onChange={(e)=>{
+               }}><option>choose textbox</option>
+               {this.state.textboxes.map((single)=>{
+               let label=  $("label[for='"+single+"']").text();
+               return(<option value={single}>{label}</option>)
+               })}
+               </select>
+               <a href="#" onClick={()=>{
+                 let option= $('#option').val();
+                 console.log(option);
+                 let textbox=$('#second-textboxes').val();
+                 let  lefttext=_.without(this.state.textboxes,textbox);
+                   this.setState({textboxes:lefttext})
+                   let rules=this.state.rules;
+                   rules.push({select:this.state.currentSelects,option:option,textbox:textbox})
+                   let box= document.getElementsByName(textbox);
+                   $(box).parent().addClass('hidden');
+                   this.setState({rules:rules})
+               }}>add logic</a>
+          </div>
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>

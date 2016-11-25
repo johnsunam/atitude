@@ -14,12 +14,12 @@ Meteor.methods({
           Roles.addUsersToRoles( userId,'client' );
           if(record.code){
 
-          Email.send({to:record.email,
+  /*        Email.send({to:record.email,
                       from:"giribsaal@gmail.com",
                       subject:"Regarding Password Code",
                       html:GetContactEmail(record.code)
                      });
-          console.log("Sent");
+          console.log("Sent");*/
            }
       }
 
