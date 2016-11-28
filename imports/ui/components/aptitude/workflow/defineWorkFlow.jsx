@@ -5,6 +5,7 @@ export default class DefineWorkFlow extends Component {
   constructor(props) {
    super(props)
   }
+
   render(){
     return(<div className="col-md-10 registration_form pad_t50">
       <div className="row">
@@ -35,7 +36,7 @@ export default class DefineWorkFlow extends Component {
 <br />
 
 
-        <img src="images/flowchat.png" /><br />
+        <img src="/images/flowchat.png" /><br />
 <br /><br />
 <br />
 
