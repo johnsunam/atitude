@@ -6,6 +6,7 @@ import MainLayout from '../../ui/container/mainLayout.js';
 import AddForm from '../../ui/components/aptitude/form/addForm.jsx'
 import ManageForm from '../../ui/container/manageForm.js'
 import AddClient from '../../ui/components/aptitude/client/addClient.jsx'
+import Permission from '../../ui/container/permission.js'
 import ManageClient from '../../ui/container/manageClient.js'
 import AddPage from '../../ui/container/addPage.js'
 import ManagePage from '../../ui/container/managePage.js'
@@ -15,7 +16,7 @@ import AddTask from '../../ui/components/aptitude/task/addTask.jsx'
 import ManageTask from '../../ui/container/manageTask.js'
 import AddWorkFlow from '../../ui/container/addWorkFlow.js'
 import ManageWorkFlow from '../../ui/container/manageWorkFlow.js'
-import defineWorkFlow from '../../ui/components/aptitude/workflow/defineWorkFlow.jsx'
+import DefineWorkFlow from '../../ui/components/aptitude/workflow/defineWorkFlow.jsx'
 import AddUser from '../../ui/components/aptitude/user/addUser.jsx'
 import ManageUser from '../../ui/container/manageUser.js'
 import ClientAdminLayout from '../../ui/container/clientAdminLayout.js'
@@ -32,6 +33,7 @@ import AppDashboard from '../../ui/container/appDashboard.js'
 import AptitudeAccountsLayout from '../../ui/container/aptitudeAccountsLayout.js'
 import ClientAccountsLayout from '../../ui/container/clientAccountLayout.js'
 import AppAccountsLayout  from '../../ui/container/appAccountLayout.js'
+import PermissionLayout  from '../../ui/layouts/permissionLayout.jsx'
 import AppLayout from '../../ui/container/appLayout.js'
 import EditForm from '../../ui/container/editForm.js'
 FlowRouter.route('/client/add-department',{
@@ -269,6 +271,14 @@ FlowRouter.route('/aptitude/login',{
   action:function(){
     ReactLayout.render(AptitudeAccountsLayout,{
       content:<AdminLogin/>
+    })
+  }
+});
+FlowRouter.route('/page/permission',{
+  name:'pagePermission',
+  action:function(){
+    ReactLayout.render(PermissionLayout,{
+      content:<Permission/>
     })
   }
 });

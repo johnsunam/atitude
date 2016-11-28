@@ -114,34 +114,133 @@ export default class AddForm extends Component {
 
     ],
     typeUserEvents:{
-       button:{
+       text:{
          onadd:function(fld){
-           $('.take-picture',fld).click(function(){
-             navigator.getUserMedia = navigator.getUserMedia ||
-                        navigator.webkitGetUserMedia ||
-                        navigator.mozGetUserMedia;
-             console.log(navigator.getUserMedia);
-
-             if (navigator.getUserMedia) {
-                navigator.getUserMedia({ video: { width: 1280, height: 720 } },
-                   function(stream) {
-                      var video = document.querySelector('video');
-                      video.src = window.URL.createObjectURL(stream);
-                      video.onloadedmetadata = function(e) {
-                        video.play();
-                      };
-                   },
-                   function(err) {
-                      console.log("The following error occurred: " + err.name);
-                   }
-                );
-             } else {
-                console.log("getUserMedia not supported");
-             }
-
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
            });
          }
-       }
+       },
+
+       autocomplete:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             console.log("Done");
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       button:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       checkbox:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       'checkbox-group':{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       date:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       file:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       header:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       hidden:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       paragraph:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       number:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       'radio-group':{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       select:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
+       textarea:{
+         onadd:function(fld){
+           $('.btn',fld).click(function(){
+             $(".className-wrap").hide();
+             $(".name-wrap").hide();
+           });
+         }
+       },
+
      },
    formData:JSON.parse(this.state.formData)
    },

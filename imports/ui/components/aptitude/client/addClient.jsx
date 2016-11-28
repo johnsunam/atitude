@@ -1,4 +1,4 @@
-//new client is added and existing client record is edited
+
 import React ,{Component} from 'react'
 import {Random } from 'meteor/random'
 import crudClass from '../../common/crudClass.js'
